@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     User findUser(int id) throws ServiceException;
 
-    void deleteUser(String id) throws ServiceException;
+    void deleteUser(int id) throws ServiceException;
 
     void updateUser(User user, String newPassword) throws ServiceException;
 
@@ -16,5 +16,5 @@ public interface UserService {
 
     User authorization(String login, String password) throws ServiceException;
 
-    boolean registration(User user)  throws ServiceException;
+    boolean registration(String login, String password, String email, String name, int roleId)  throws ServiceException;
 }

@@ -14,7 +14,7 @@ public class TestServiceImpl implements by.epam.trjava.tutorsystem.service.TestS
     public TestServiceImpl() {}
 
     @Override
-    public Test findTest(String id) throws ServiceException {
+    public Test findTest(int id) throws ServiceException {
         try {
             return testDAO.findById(id);
         } catch (DAOException e) {
@@ -23,7 +23,7 @@ public class TestServiceImpl implements by.epam.trjava.tutorsystem.service.TestS
     }
 
     @Override
-    public void deleteTest(String id) throws ServiceException {
+    public void deleteTest(int id) throws ServiceException {
         try {
             testDAO.delete(id);
         } catch (DAOException e) {

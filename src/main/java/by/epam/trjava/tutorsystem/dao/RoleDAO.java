@@ -9,9 +9,11 @@ public interface RoleDAO {
 
     List<Role> findAll() throws DAOException;
 
-    boolean add(Role newRole) throws DAOException;
-
     Role findById(int roleId) throws DAOException;
+
+    Role findRoleIdByName(String roleName) throws DAOException;
+
+    boolean add(Role newRole) throws DAOException;
 
     boolean delete(int roleId) throws DAOException;
 }

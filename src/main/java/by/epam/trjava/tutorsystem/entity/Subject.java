@@ -1,14 +1,14 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Objects;
 
-public class Subject  {
-//    private static final long serialVersionUID = 1L;
+public class Subject implements Serializable  {
     private int id;
     private String name;
-    private Collection<Test> tests;
+
+    public Subject() {
+    }
 
     public int getId() {
         return id;
@@ -26,11 +26,18 @@ public class Subject  {
         this.name = name;
     }
 
-    public Collection<Test> getTests() {
-        return tests;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return id == subject.id &&
+                Objects.equals(name, subject.name);
     }
 
-    public void setTests(Collection<Test> tests) {
-        this.tests = tests;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

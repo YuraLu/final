@@ -35,6 +35,10 @@
 <!--    <res-auth>Container</res-auth>-->
 <!--  </resource-ref>-->
 
+  <listener>
+    <listener-class>by.epam.trjava.tutorsystem.dao.listener.ConnectionPoolListener</listener-class>
+  </listener>
+
   <error-page>
     <error-code>403</error-code>
     <location>/WEB-INF/jsp/error403.jsp</location>

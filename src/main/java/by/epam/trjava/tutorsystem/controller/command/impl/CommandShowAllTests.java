@@ -23,7 +23,7 @@ public class CommandShowAllTests implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         String url = CreatorFullURL.create(request);
 
         List<Test> list;
@@ -37,6 +37,7 @@ public class CommandShowAllTests implements Command {
         }
         session.setAttribute(TEST_LIST, list);
         session.setAttribute(PARAMETER_PREVIOUS_REQUEST, url);
+//        request.setAttribute(TEST_LIST, list);
         response.sendRedirect(REDIRECT_PAGE_URL);
     }
 }

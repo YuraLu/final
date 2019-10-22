@@ -11,22 +11,13 @@ import java.io.IOException;
 
 public class CommandLogOut implements Command {
 
-    private static final String TARGET_PAGE = "pages?command=showAllTests";
+    private static final String TARGET_PAGE = "index.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//        HttpSession session = request.getSession(true);
-//        session.removeAttribute(USER_OBJECT);
-//
-//        String url = CreatorFullURL.create(request);
-//        session.setAttribute(PARAMETER_PREVIOUS_REQUEST, url);
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher(TARGET_PAGE);
-//        dispatcher.forward(request, response);
-
-        //invalidate the session if exists
-        HttpSession session = request.getSession(false);
+//        invalidate the session if exists
+        HttpSession session = request.getSession();
         if (session != null) {
             session.invalidate();
         }

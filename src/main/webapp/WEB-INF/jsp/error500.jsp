@@ -8,7 +8,6 @@
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="text" var="rb"/>
 
-<%--<fmt:setLocale value="${sessionScope.local}" />--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +24,7 @@
 		<tr>
 			<td align="center" width="70">
 				<form action="pages" method="post">
-					<input type="hidden" name="command" value="showAllTests"/>
+					<input type="hidden" name="command" value="goToShowAllTestsPageCommand"/>
 					<input type="submit" size="50" value="${button_home}" />
 				</form>
 			</td>
@@ -36,6 +35,7 @@
 
 	<H1>${error} 500</H1>
 	<h2>${info500}</h2>
+<h2>${sessionScope.info}</h2>
 
 </body>
 </html>

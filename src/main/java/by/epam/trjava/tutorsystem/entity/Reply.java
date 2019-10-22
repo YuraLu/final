@@ -3,12 +3,14 @@ package by.epam.trjava.tutorsystem.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Reply {
-//    private static final long serialVersionUID = 1L;
+public class Reply implements Serializable {
     private int id;
-    private Assignment assignment;
-    private Answer answer;
-    private Question question;
+    private int assignmentId;
+    private int answerId;
+    private int questionId;
+
+    public Reply() {
+    }
 
     public int getId() {
         return id;
@@ -18,27 +20,43 @@ public class Reply {
         this.id = id;
     }
 
-    public Assignment getAssignment() {
-        return assignment;
+    public int getAssignmentId() {
+        return assignmentId;
     }
 
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
+    public void setAssignmentId(int assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public int getAnswerId() {
+        return answerId;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswerId(int answerId) {
+        this.answerId = answerId;
     }
 
-    public Question getQuestion() {
-        return question;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reply reply = (Reply) o;
+        return id == reply.id &&
+                assignmentId == reply.assignmentId &&
+                answerId == reply.answerId &&
+                questionId == reply.questionId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, assignmentId, answerId, questionId);
     }
 }

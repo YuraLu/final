@@ -20,8 +20,8 @@ public class GoToLoginPageCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String url = CreatorFullURL.create(request);
-        HttpSession session = request.getSession(true);
+        final String url = CreatorFullURL.create(request);
+        final HttpSession session = request.getSession();
         session.setAttribute(PARAMETER_PREVIOUS_REQUEST, url);
         RequestDispatcher dispatcher = request.getRequestDispatcher(TARGET_PAGE);
         dispatcher.forward(request, response);

@@ -7,18 +7,15 @@ import java.util.List;
 
 public interface UserDAO {
 
-    User authorization(String login, String password) throws DAOException;
-
-    boolean registration(String userLogin, String userPassword, String userEmail, String userName) throws DAOException;
+    List<User> findAll() throws DAOException;
 
     User findById(int userId) throws DAOException;
 
-    User findUserByEmail(String email) throws DAOException;
+    User authorization(String login, String password) throws DAOException;
 
-    boolean delete(String userId) throws DAOException;
+    boolean registration(String userLogin, String userPassword, String userEmail, String userName, int userRoleId) throws DAOException;
 
     boolean updateUserPassword(String login, String newPassword) throws DAOException;
 
-    List<User> findAll() throws DAOException;
-
+    boolean delete(int userId) throws DAOException;
 }

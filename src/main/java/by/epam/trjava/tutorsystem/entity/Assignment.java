@@ -1,15 +1,16 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
-public class Assignment {
-//    private static final long serialVersionUID = 1L;
+public class Assignment implements Serializable {
     private int id;
-    private Test test;
-    private User user;
-    private Collection<Reply> replies;
+    private int testId;
+    private int studentId;
+
+    public Assignment() {
+    }
 
     public int getId() {
         return id;
@@ -19,27 +20,34 @@ public class Assignment {
         this.id = id;
     }
 
-    public Test getTest() {
-        return test;
+    public int getTestId() {
+        return testId;
     }
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setTestId(int testId) {
+        this.testId = testId;
     }
 
-    public User getUser() {
-        return user;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-    public Collection<Reply> getReplies() {
-        return replies;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Assignment that = (Assignment) o;
+        return id == that.id &&
+                testId == that.testId &&
+                studentId == that.studentId;
     }
 
-    public void setReplies(Collection<Reply> replies) {
-        this.replies = replies;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, testId, studentId);
     }
 }

@@ -1,12 +1,16 @@
 package by.epam.trjava.tutorsystem.entity;
 
-import java.io.Serializable;
 
-public class AnswerGroup {
-//    private static final long serialVersionUID = 1L;
+import java.io.Serializable;
+import java.util.Objects;
+
+public class AnswerGroup implements Serializable {
     private int id;
-    private Answer answer;
-    private Question question;
+    private int answerId;
+    private int questionId;
+
+    public AnswerGroup() {
+    }
 
     public int getId() {
         return id;
@@ -16,19 +20,34 @@ public class AnswerGroup {
         this.id = id;
     }
 
-    public Answer getAnswer() {
-        return answer;
+    public int getAnswerId() {
+        return answerId;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    public void setAnswerId(int answerId) {
+        this.answerId = answerId;
     }
 
-    public Question getQuestion() {
-        return question;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AnswerGroup that = (AnswerGroup) o;
+        return id == that.id &&
+                answerId == that.answerId &&
+                questionId == that.questionId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, answerId, questionId);
     }
 }

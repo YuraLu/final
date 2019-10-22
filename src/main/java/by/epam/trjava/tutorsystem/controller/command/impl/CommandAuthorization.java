@@ -3,6 +3,7 @@ package by.epam.trjava.tutorsystem.controller.command.impl;
 import by.epam.trjava.tutorsystem.controller.command.Command;
 import by.epam.trjava.tutorsystem.controller.command.util.CreatorFullURL;
 import by.epam.trjava.tutorsystem.entity.User;
+import by.epam.trjava.tutorsystem.service.RoleService;
 import by.epam.trjava.tutorsystem.service.ServiceProvider;
 import by.epam.trjava.tutorsystem.service.UserService;
 import by.epam.trjava.tutorsystem.service.exception.ServiceException;
@@ -20,51 +21,35 @@ import static by.epam.trjava.tutorsystem.controller.command.BeanFieldJsp.*;
 
 public class CommandAuthorization implements Command {
 
-    private static final String HOME_PAGE = "pages?command=showAllTests";
+    private static final String HOME_PAGE = "/pages?command=showAllTests";
     private static final String LOGIN_PAGE = "/WEB-INF/jsp/login.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession oldSession;
-        HttpSession newSession = null;
+
+        final HttpSession session = request.getSession();
 
         String url = CreatorFullURL.create(request);
 
-        String login = request.getParameter(USER_LOGIN);
-        String password = request.getParameter(USER_PASSWORD);
+        final String login = request.getParameter(USER_LOGIN);
+        final String password = request.getParameter(USER_PASSWORD);
 
-        UserService userService = ServiceProvider.getInstance().getUserService();
+        final UserService userService = ServiceProvider.getInstance().getUserService();
 
-        User user = null;
         String page = null;
-
         try {
-            user = userService.authorization(login, password);
+            final User user = userService.authorization(login, password);
             if (user == null) {
                 request.setAttribute(PARAMETER_WRONG_PARAMS, "true");
                 page = LOGIN_PAGE;
 
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(page);
-                PrintWriter out = response.getWriter();
-                out.println("<font color=red>Either username or password is wrong.</font>");
-                dispatcher.include(request, response);
-
             } else {
 
-                //get the old session and invalidate
-                oldSession = request.getSession(false);
-                if (oldSession != null) {
-                    oldSession.invalidate();
-                }
-                //generate a new session
-                newSession = request.getSession(true);
+//                //setting session to expiry in 5 mins
+//                session.setMaxInactiveInterval(5 * 60);
 
-                //setting session to expiry in 5 mins
-                newSession.setMaxInactiveInterval(5*60);
-
-//                newSession.setAttribute(USER_OBJECT, user);
-                newSession.setAttribute(USER_ID, user.getId());
+                session.setAttribute(USER_OBJECT, user);
                 page = HOME_PAGE;
             }
         } catch (ServiceException e) {
@@ -72,9 +57,11 @@ public class CommandAuthorization implements Command {
             throw new ServletException("Can't authorize in execute() CommandAuthorization", e);
         }
 
-        newSession.setAttribute(PARAMETER_PREVIOUS_REQUEST, url);
+        session.setAttribute(PARAMETER_PREVIOUS_REQUEST, url);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }
 }
+
+// fix registration and logIn

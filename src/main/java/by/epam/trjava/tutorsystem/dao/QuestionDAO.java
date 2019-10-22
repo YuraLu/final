@@ -9,11 +9,11 @@ public interface QuestionDAO {
 
     List<Question> findAll() throws DAOException;
 
-    void add(Question newQuestion) throws DAOException;
-
-    void update(int questionId) throws DAOException;
-
     Question findById(int questionId) throws DAOException;
 
-    void delete(int questionId) throws DAOException;
+    boolean add(Question newQuestion) throws DAOException;
+
+    boolean update(Question question) throws DAOException;
+
+    boolean delete(int questionId) throws DAOException;
 }

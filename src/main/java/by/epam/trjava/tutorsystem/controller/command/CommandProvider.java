@@ -23,10 +23,23 @@ public class CommandProvider {
         commands.put(CommandName.GOTOSHOWALLTESTSPAGECOMMAND, new GoToShowAllTestsPageCommand());
         commands.put(CommandName.TESTINFO, new CommandTestInfo());
         commands.put(CommandName.GOTOSHOWTESTINFOPAGECOMMAND, new GoToShowTestInfoPageCommand());
-        commands.put(CommandName.LOGOUTCOMMAND, new CommandLogOut());
+        commands.put(CommandName.LOGOUT, new CommandLogOut());
         commands.put(CommandName.COMMANDMISSING, new CommandMissing());
         commands.put(CommandName.DELETETEST, new CommandDeleteTest());
         commands.put(CommandName.EDITTEST,new CommandEditTest());
+
+        commands.put(CommandName.EDITUSER, new CommandEditUser());
+        commands.put(CommandName.VIEWPERSONALCABINET, new CommandViewPersonalCabinet());
+        commands.put(CommandName.GOTOPERSONALCABINET, new GoToPersonalCabinetPageCommand());
+
+
+        commands.put(CommandName.GOTOADDNEWSUBJECT, new GoToAddNewSubjectPageCommand());
+        commands.put(CommandName.ADDNEWSUBJECT, new CommandAddTest());
+        commands.put(CommandName.GOTOADDNEWQUESTION, new GoToAddNewQuestionPageCommand());
+        commands.put(CommandName.ADDNEWQUESTION, new CommandAddTest());
+        commands.put(CommandName.GOTOADDNEWANSWER, new GoToAddNewAnswerPageCommand());
+        commands.put(CommandName.ADDNEWANSWER, new CommandAddTest());
+
     }
 
     public static CommandProvider getInstance() {

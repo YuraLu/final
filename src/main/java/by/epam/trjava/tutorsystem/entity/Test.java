@@ -1,21 +1,17 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
-public class Test  {
-//    private static final long serialVersionUID = 1L;
+public class Test implements Serializable {
     private int id;
     private String title;
     private String description;
-    private Collection<Assignment> assignments;
-    private Collection<TestQuestion> testQuestions;
-//    private Subject subject;
     private int subjectId;
-//    private User author;
     private int authorId;
+
+    public Test() {
+    }
 
     public int getId() {
         return id;
@@ -41,31 +37,6 @@ public class Test  {
         this.description = description;
     }
 
-    public Collection<Assignment> getAssignments() {
-        return assignments;
-    }
-
-    public void setAssignments(Collection<Assignment> assignments) {
-        this.assignments = assignments;
-    }
-
-    public Collection<TestQuestion> getTestQuestions() {
-        return testQuestions;
-    }
-
-    public void setTestQuestions(Collection<TestQuestion> testQuestions) {
-        this.testQuestions = testQuestions;
-    }
-
-//    public Subject getSubject() {
-//        return subject;
-//    }
-//
-//    public void setSubject(Subject subject) {
-//        this.subject = subject;
-//        setSubjectId(subject.getId());
-//    }
-
     public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
     }
@@ -73,15 +44,6 @@ public class Test  {
     public int getSubjectId() {
         return subjectId;
     }
-
-//    public User getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(User author) {
-//        this.author = author;
-//        setAuthorId(author.getId());
-//    }
 
     public int getAuthorId() {
         return authorId;
@@ -92,15 +54,19 @@ public class Test  {
     }
 
     @Override
-    public String toString() {
-        return "Test{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", assigmentsById=" + assignments +
-                ", testquestionsById=" + testQuestions +
-                ", subjectId=" + subjectId +
-                ", authorId=" + authorId +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Test test = (Test) o;
+        return id == test.id &&
+                subjectId == test.subjectId &&
+                authorId == test.authorId &&
+                Objects.equals(title, test.title) &&
+                Objects.equals(description, test.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, subjectId, authorId);
     }
 }

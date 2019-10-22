@@ -6,9 +6,9 @@ import by.epam.trjava.tutorsystem.service.exception.ServiceException;
 import java.util.List;
 
 public interface TestService {
-    Test findTest(String id) throws ServiceException;
+    Test findTest(int id) throws ServiceException;
 
-    void deleteTest(String id) throws ServiceException;
+    void deleteTest(int id) throws ServiceException;
 
     void addTest(Test test) throws ServiceException;
 

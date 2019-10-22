@@ -1,18 +1,18 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Objects;
 
-public class User {
-//    private static final long serialVersionUID = 1L;
+public class User implements Serializable {
     private int id;
     private String name;
     private String email;
     private String login;
     private String password;
-    private Collection<Assignment> assignments;
-    private Collection<Test> tests;
     private int roleId;
+
+    public User() {
+    }
 
     public int getId() {
         return id;
@@ -54,27 +54,29 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Assignment> getAssignments() {
-        return assignments;
-    }
-
-    public void setAssignments(Collection<Assignment> assignments) {
-        this.assignments = assignments;
-    }
-
-    public Collection<Test> getTests() {
-        return tests;
-    }
-
-    public void setTests(Collection<Test> tests) {
-        this.tests = tests;
-    }
-
     public int getRoleId() {
         return roleId;
     }
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                roleId == user.roleId &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, login, password, roleId);
     }
 }

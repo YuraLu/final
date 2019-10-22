@@ -5,7 +5,7 @@
 //import javax.servlet.annotation.WebInitParam;
 //import java.io.IOException;
 //
-//@WebFilter(urlPatterns = {"/*"},
+//@WebFilter(urlPatterns = {"*"},
 //        initParams = {@WebInitParam(name = "encoding", value = "UTF-8")})
 //public class EncodingFilter implements Filter {
 //
@@ -17,13 +17,11 @@
 //    }
 //
 //    @Override
-//    public void doFilter(ServletRequest servletRequest,
-//                         ServletResponse servletResponse,
-//                         FilterChain filterChain)
-//            throws IOException, ServletException {
+//    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+//                                                                    throws IOException, ServletException {
 //        servletRequest.setCharacterEncoding(encoding);
 //        servletResponse.setContentType(encoding);
-//        filterChain.doFilter(servletRequest, servletResponse);
+//        chain.doFilter(servletRequest, servletResponse);
 //    }
 //
 //    @Override

@@ -9,9 +9,9 @@ public interface AnswerDAO {
 
     List<Answer> findAll() throws DAOException;
 
-    void add(Answer newAnswer) throws DAOException;
-
     Answer findById(int answerId) throws DAOException;
 
-    void delete(int answerId) throws DAOException;
+    boolean add(Answer newAnswer) throws DAOException;
+
+    boolean delete(int answerId) throws DAOException;
 }

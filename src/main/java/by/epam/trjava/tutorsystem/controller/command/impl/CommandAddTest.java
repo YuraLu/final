@@ -29,7 +29,7 @@ public class CommandAddTest implements Command {
         int subjectId = Integer.parseInt(request.getParameter(TEST_SUBJECT));
         int authorId = Integer.parseInt(request.getParameter(TEST_AUTHOR));
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         String url = CreatorFullURL.create(request);
 
         Test test = null;

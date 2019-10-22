@@ -1,13 +1,14 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Objects;
 
-public class Role  {
-//    private static final long serialVersionUID = 1L;
+public class Role implements Serializable  {
     private int id;
     private String name;
-    private Collection<User> users;
+
+    public Role() {
+    }
 
     public int getId() {
         return id;
@@ -25,11 +26,17 @@ public class Role  {
         this.name = name;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return id == role.id &&
+                Objects.equals(name, role.name);
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.epam.trjava.tutorsystem.controller.command.BeanFieldJsp.ERROR_NUMBER_500;
+import static by.epam.trjava.tutorsystem.controller.command.BeanFieldJsp.PARAMETER_COMMAND;
+
 @WebServlet("/pages")
 public class Controller extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(Controller.class);
-    private static final Integer ERROR_NUMBER_500 = 500;
     private static final long serialVersionUID = 1L;
-    private static final String PARAMETER_COMMAND = "command";
 
     public Controller() {
     }

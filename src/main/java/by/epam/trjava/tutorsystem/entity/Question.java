@@ -1,16 +1,14 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Objects;
 
-public class Question {
-//    private static final long serialVersionUID = 1L;
+public class Question  implements Serializable {
     private int id;
     private String text;
-    private Collection<AnswerGroup> answerGroups;
-    private Collection<Reply> replies;
-    private Collection<TestQuestion> testQuestions;
+
+    public Question() {
+    }
 
     public int getId() {
         return id;
@@ -28,27 +26,17 @@ public class Question {
         this.text = text;
     }
 
-    public Collection<AnswerGroup> getAnswerGroups() {
-        return answerGroups;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return id == question.id &&
+                Objects.equals(text, question.text);
     }
 
-    public void setAnswerGroups(Collection<AnswerGroup> answerGroups) {
-        this.answerGroups = answerGroups;
-    }
-
-    public Collection<Reply> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(Collection<Reply> replies) {
-        this.replies = replies;
-    }
-
-    public Collection<TestQuestion> getTestQuestions() {
-        return testQuestions;
-    }
-
-    public void setTestQuestions(Collection<TestQuestion> testQuestions) {
-        this.testQuestions = testQuestions;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text);
     }
 }

@@ -9,7 +9,7 @@ public interface ReplyDAO {
 
     List<Reply> findAll() throws DAOException;
 
-    void add(Reply newReply) throws DAOException;
-
     Reply findById(int replyId) throws DAOException;
+
+    boolean add(Reply newReply) throws DAOException;
 }

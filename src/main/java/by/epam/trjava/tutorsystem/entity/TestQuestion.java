@@ -1,12 +1,15 @@
 package by.epam.trjava.tutorsystem.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class TestQuestion {
-//    private static final long serialVersionUID = 1L;
+public class TestQuestion implements Serializable {
     private int id;
-    private Test tests;
-    private Question questions;
+    private int testID;
+    private int questionId;
+
+    public TestQuestion() {
+    }
 
     public int getId() {
         return id;
@@ -16,19 +19,34 @@ public class TestQuestion {
         this.id = id;
     }
 
-    public Test getTests() {
-        return tests;
+    public int getTestID() {
+        return testID;
     }
 
-    public void setTests(Test tests) {
-        this.tests = tests;
+    public void setTestID(int testID) {
+        this.testID = testID;
     }
 
-    public Question getQuestions() {
-        return questions;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setQuestions(Question questions) {
-        this.questions = questions;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TestQuestion that = (TestQuestion) o;
+        return id == that.id &&
+                testID == that.testID &&
+                questionId == that.questionId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, testID, questionId);
     }
 }

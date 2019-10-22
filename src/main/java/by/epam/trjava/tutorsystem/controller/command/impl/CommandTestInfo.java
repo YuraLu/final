@@ -25,7 +25,7 @@ public class CommandTestInfo implements Command {
         HttpSession session = request.getSession();
         String url = CreatorFullURL.create(request);
 
-        String id = request.getParameter(TEST_ID);
+        int id = Integer.parseInt(request.getParameter(TEST_ID));
         TestService testService = ServiceProvider.getInstance().getTestService();
         Test test = null;
 

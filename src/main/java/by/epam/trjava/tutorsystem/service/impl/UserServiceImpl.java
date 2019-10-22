@@ -27,8 +27,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registration(User user) throws ServiceException {
-        return false;
+    public boolean registration(String login, String password, String email, String name, int roleId) throws ServiceException {
+        boolean result;
+        try {
+            result = userDao.registration(login, password, email, name, roleId);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't register user", e);
+        }
+        return result;
     }
 
     @Override
@@ -41,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String id) throws ServiceException {
+    public void deleteUser(int id) throws ServiceException {
         try {
             userDao.delete(id);
         } catch (DAOException e) {
