@@ -1,0 +1,71 @@
+<web-app>
+  <display-name>TutorSystem</display-name>
+
+
+  <context-param>
+    <param-name>db.driver</param-name>
+    <param-value>com.mysql.cj.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.url</param-name>
+    <param-value>
+      jdbc:mysql://localhost:3306/tutorsystem?serverTimezone=Europe/Moscow&amp;useSSL=false
+    </param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.user</param-name>
+    <param-value>root</param-value>
+  </context-param>
+  <context-param>
+    <param-name>db.password</param-name>
+    <param-value>password</param-value>
+  </context-param>
+
+
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/error403.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/error404.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/error500.jsp</location>
+  </error-page>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>userCabinet</servlet-name>
+    <jsp-file>/WEB-INF/userCabinet.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>userCabinet</servlet-name>
+    <url-pattern>/userCabinet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>usersTable</servlet-name>
+    <jsp-file>/WEB-INF/usersTable.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>usersTable</servlet-name>
+    <url-pattern>/usersTable</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>signUp</servlet-name>
+    <jsp-file>/WEB-INF/signUp.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>signUp</servlet-name>
+    <url-pattern>/signUp</url-pattern>
+  </servlet-mapping>
+
+</web-app>
