@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String email;
     private String login;
     private String password;
-    private UserRole role;
+    private Role role;
     private boolean banned;
 
     public User() {
@@ -56,11 +56,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

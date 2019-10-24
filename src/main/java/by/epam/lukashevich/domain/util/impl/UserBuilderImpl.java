@@ -1,7 +1,7 @@
 package by.epam.lukashevich.domain.util.impl;
 
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.entity.user.UserRole;
+import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.util.UserBuilder;
 
 public class UserBuilderImpl implements UserBuilder {
@@ -11,7 +11,7 @@ public class UserBuilderImpl implements UserBuilder {
     private String email;
     private String login;
     private String password;
-    private UserRole role;
+    private Role role;
     private boolean banned;
 
     public UserBuilderImpl() {
@@ -58,7 +58,7 @@ public class UserBuilderImpl implements UserBuilder {
     }
 
     @Override
-    public UserBuilder withRole(UserRole role) {
+    public UserBuilder withRole(Role role) {
         this.role = role;
         return this;
     }
@@ -90,11 +90,11 @@ public class UserBuilderImpl implements UserBuilder {
         return password;
     }
 
-    public UserRole getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public boolean isBanned() {
+    public boolean getIsBanned() {
         return banned;
     }
 }

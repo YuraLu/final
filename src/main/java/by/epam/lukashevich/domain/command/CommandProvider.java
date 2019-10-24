@@ -21,7 +21,13 @@ public class CommandProvider {
         commands.put(CommandName.VIEW_USER_TABLE, new CommandViewUserTable());
         commands.put(CommandName.CHANGE_USER_STATUS, new CommandChangeUserStatus());
         commands.put(CommandName.CHANGE_USER_BAN_STATUS, new CommandChangeUserBanStatus());
-
+        commands.put(CommandName.VIEW_INDEX, new CommandViewIndex());
+        commands.put(CommandName.VIEW_TEST_TABLE, new CommandViewTestTable());
+        commands.put(CommandName.VIEW_TEST_EDIT_PAGE, new CommandViewTestEdit());
+        commands.put(CommandName.VIEW_TEST_ADD_PAGE, new CommandViewTestAdd());
+        commands.put(CommandName.ADD_TEST, new CommandAddTest());
+        commands.put(CommandName.EDIT_TEST, new CommandEditTest());
+        commands.put(CommandName.DELETE_TEST, new CommandDeleteTest());
 
     }
 

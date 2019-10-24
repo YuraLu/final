@@ -40,6 +40,9 @@
                     <a href="controller?command=viewUserTable">User Table</a>
                 </li>
             </c:if>
+            <li>
+                <a href="controller?command=viewTestTable">Test Table</a>
+            </li>
         </ul>
     </nav>
 </div>

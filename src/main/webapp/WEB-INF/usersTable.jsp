@@ -62,13 +62,13 @@
             <c:forEach items="${userList}" var="user">
                 <tr>
                     <td align="center" width="100">
-                        <c:if test="${user.role.roleId == 1}">
+                        <c:if test="${user.role.id == 1}">
                             ADMIN
                         </c:if>
-                        <c:if test="${user.role.roleId == 2}">
+                        <c:if test="${user.role.id == 2}">
                             STUDENT
                         </c:if>
-                        <c:if test="${user.role.roleId == 3}">
+                        <c:if test="${user.role.id == 3}">
                             TUTOR
                         </c:if>
                     </td>
@@ -78,10 +78,13 @@
                     <td align="center" width="100"> ${user.password} </td>
                     <td align="center" width="100"> ${user.banned} </td>
                     <td>
-                        <label>
-                            <input type="radio" name="userForAction" value="${user.id}">
-                        </label>
-                        <input type="hidden" name="userId" value="${user.id}"/>
+
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="userForAction" id="userForAction" value="${user.id}"/>
+                            </label>
+                            <input type="hidden" name="userId" value="${user.id}"/>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>

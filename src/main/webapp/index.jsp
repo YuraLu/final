@@ -12,7 +12,10 @@
 <head>
     <meta charset="utf-8">
     <title><fmt:message key="title.main"/></title>
-</head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+
+
+    </head>
 <body>
 
 <div id="header">
@@ -70,5 +73,7 @@
 <div class="footer">
     <p>@2019 Copyright Yuri L. </p>
 </div>
+
+
 </body>
 </html>

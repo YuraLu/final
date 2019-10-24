@@ -1,7 +1,7 @@
 package by.epam.lukashevich.domain.util;
 
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.entity.user.UserRole;
+import by.epam.lukashevich.domain.entity.user.Role;
 
 public interface UserBuilder {
 
@@ -15,7 +15,7 @@ public interface UserBuilder {
 
     UserBuilder withEmail(String email);
 
-    UserBuilder withRole(UserRole role);
+    UserBuilder withRole(Role role);
 
     UserBuilder withIsBanned(boolean banned);
 }

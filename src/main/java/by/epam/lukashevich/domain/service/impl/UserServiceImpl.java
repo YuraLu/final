@@ -4,7 +4,7 @@ import by.epam.lukashevich.dao.DAOFactory;
 import by.epam.lukashevich.dao.UserDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.entity.user.UserRole;
+import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registration(String login, String password, String email, String name, UserRole role) throws ServiceException {
+    public void registration(String login, String password, String email, String name, Role role) throws ServiceException {
         try {
-            return userDAO.registration(login, password, email, name, role);
+            userDAO.registration(login, password, email, name, role);
         } catch (DAOException e) {
             throw new ServiceException("Can't register user", e);
         }
@@ -74,9 +74,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean update(User user) throws ServiceException {
+    public void update(User user) throws ServiceException {
         try {
-           return userDAO.update(user);
+           userDAO.update(user);
         } catch (DAOException e) {
             throw new ServiceException("Can't update user", e);
         }
@@ -87,7 +87,16 @@ public class UserServiceImpl implements UserService {
         try {
             userDAO.updateBanStatus(id);
         } catch (DAOException e) {
-            throw new ServiceException("Can't update ban status", e);
+            throw new ServiceException("Can't update user ban status", e);
+        }
+    }
+
+    @Override
+    public void updateStatus(int id) throws ServiceException {
+        try {
+            userDAO.updateBanStatus(id);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't update user status", e);
         }
     }
 }

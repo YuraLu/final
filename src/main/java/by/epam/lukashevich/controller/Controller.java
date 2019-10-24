@@ -2,6 +2,7 @@ package by.epam.lukashevich.controller;
 
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.CommandProvider;
+import by.epam.lukashevich.domain.command.exception.CommandException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
@@ -40,9 +41,10 @@ public class Controller extends HttpServlet {
         System.out.println(commandName);
         try {
             command.execute(request, response);
-        } catch (Exception e) {
-            LOGGER.error("Exception in Controller", e);
+        } catch (CommandException e) {
+            LOGGER.error("CommandException in Controller", e);
             response.sendError(ERROR_NUMBER_500);
+            e.printStackTrace();
         }
     }
 }

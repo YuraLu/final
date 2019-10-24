@@ -68,4 +68,31 @@
     <url-pattern>/signUp</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>testsTable</servlet-name>
+    <jsp-file>/WEB-INF/testsTable.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>testsTable</servlet-name>
+    <url-pattern>/testsTable</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>testEditPage</servlet-name>
+    <jsp-file>/WEB-INF/testEditPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>testEditPage</servlet-name>
+    <url-pattern>/testEditPage</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>testAddPage</servlet-name>
+    <jsp-file>/WEB-INF/testAddPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>testAddPage</servlet-name>
+    <url-pattern>/testAddPage</url-pattern>
+  </servlet-mapping>
+
 </web-app>

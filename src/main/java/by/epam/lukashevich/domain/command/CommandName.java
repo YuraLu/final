@@ -10,7 +10,14 @@ public enum CommandName {
     VIEW_USER_CABINET("viewUserCabinet"),
     VIEW_USER_TABLE("viewUserTable"),
     CHANGE_USER_STATUS("changeUserStatus"),
-    CHANGE_USER_BAN_STATUS("changeUserBanStatus");
+    CHANGE_USER_BAN_STATUS("changeUserBanStatus"),
+    VIEW_INDEX("viewIndex"),
+    VIEW_TEST_TABLE("viewTestTable"),
+    VIEW_TEST_EDIT_PAGE("viewTestEditPage"),
+    ADD_TEST("addTest"),
+    EDIT_TEST("editTest"),
+    DELETE_TEST("deleteTest"),
+    VIEW_TEST_ADD_PAGE("viewTestAddPage");
 
    private String name;
 
