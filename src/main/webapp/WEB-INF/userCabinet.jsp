@@ -8,53 +8,99 @@
 
 <fmt:setBundle basename="text"/>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title><fmt:message key="button.personal_cabinet"/></title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        <fmt:message key="button.personal_cabinet"/>
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
 </head>
 <body>
 
-<div id="header">
-    <div>
-        <h1><fmt:message key="button.personal_cabinet"/></h1>
-    </div>
-    <nav>
-        <ul class="header">
-            <li>
-                <a href="index.jsp"><fmt:message key="button.go_home"/></a>
-            </li>
-            <c:if test="${userId != null}">
-                <li>
-                    <a href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
-                </li>
-            </c:if>
-            <c:if test="${userId == null}">
-                <p>You are not registered user?</p>
-                <li>
-                    <a href="controller?command=viewSignUp"><fmt:message key="button.signUp"/></a>
-                </li>
-            </c:if>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
-                <li>
-                    <a href="controller?command=viewUserTable">User Table</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
                 </li>
             </c:if>
-            <li>
-                <a href="controller?command=viewTestTable">Test Table</a>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
             </li>
         </ul>
-    </nav>
+
+        <div class="nav-tabs " id="localeDivNav">
+            <form>
+                <input type="hidden" name="command" value="viewUserCabinet"/>
+                <label for="locale"></label>
+                <select id="locale" name="locale" onchange="submit()">
+                    <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
+                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
+                </select>
+            </form>
+        </div>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewUserCabinet">
+                    <fmt:message key="title.personal_cabinet"/>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Begin page content -->
+<div class="container">
+    <div class="m-t-1">
+        <div class="col">
+            <h2><fmt:message key="title.personal_cabinet"/></h2>
+        </div>
+
+    </div>
 </div>
 
-<hr>
-<div class="main-content">
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"><fmt:message key="footer.copyRight"/></span>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-
-</div>
-<hr>
-<div class="footer">
-    <p>@2019 Copyright Yuri L. </p>
-</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.slim.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

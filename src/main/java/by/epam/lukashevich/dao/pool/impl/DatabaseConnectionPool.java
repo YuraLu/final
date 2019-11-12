@@ -30,16 +30,18 @@ public class DatabaseConnectionPool implements ConnectionPool {
 
     private BlockingQueue<ProxyConnection> availableConnections;
     private BlockingQueue<ProxyConnection> usedConnections;
-    private static final int INITIAL_POOL_SIZE = 15;
+    private static final int DEFAULT_POOL_SIZE = 16;
 
-    public void init(final String driver, final String url, final String user, final String password) {
+    public void init(final String driver, final String url, final String user, final String password, String poolSize) {
         try {
             Class.forName(driver);
 
-            availableConnections = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
-            usedConnections = new ArrayBlockingQueue<>(INITIAL_POOL_SIZE);
+            int initPoolSize = getInitPoolSize(poolSize);
 
-            for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+            availableConnections = new ArrayBlockingQueue<>(initPoolSize);
+            usedConnections = new ArrayBlockingQueue<>(initPoolSize);
+
+            for (int i = 0; i < initPoolSize; i++) {
                 Connection connection = createConnection(url, user, password);
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 availableConnections.add(proxyConnection);
@@ -51,6 +53,14 @@ public class DatabaseConnectionPool implements ConnectionPool {
         }
     }
 
+    private int getInitPoolSize(String poolSize){
+        try {
+            return Integer.parseInt(poolSize);
+        } catch (NumberFormatException e) {
+            logger.error("Can't convert pool size to int, will use default value", e);
+            return DEFAULT_POOL_SIZE;
+        }
+    }
 
     private static Connection createConnection(final String url,
                                                final String user,
@@ -66,7 +76,7 @@ public class DatabaseConnectionPool implements ConnectionPool {
 
     private ProxyConnection doGetConnection() {
         logger.info("\nPOOL FREE SIZE = " + availableConnections.size());
-        ProxyConnection proxyConnection = null;
+        ProxyConnection proxyConnection;
         try {
             proxyConnection = availableConnections.take();
             usedConnections.add(proxyConnection);

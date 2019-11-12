@@ -1,25 +1,19 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.io.Serializable;
+import by.epam.lukashevich.domain.entity.user.User;
+
+import java.util.List;
 import java.util.Objects;
 
-public class Test implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
+public class Test extends AbstractEntity {
+
     private String title;
     private String description;
-    private int subjectId;
-    private int authorId;
+    private Subject subject;
+    private User author;
+    private List<Question> questions;
 
     public Test() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -38,47 +32,56 @@ public class Test implements Serializable {
         this.description = description;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Test test = (Test) o;
-        return id == test.id &&
-                subjectId == test.subjectId &&
-                authorId == test.authorId &&
-                Objects.equals(title, test.title) &&
-                Objects.equals(description, test.description);
+        return Objects.equals(title, test.title) &&
+                Objects.equals(description, test.description) &&
+                Objects.equals(subject, test.subject) &&
+                Objects.equals(author, test.author) &&
+                Objects.equals(questions, test.questions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, subjectId, authorId);
+        return Objects.hash(super.hashCode(), title, description, subject, author, questions);
     }
 
     @Override
     public String toString() {
         return "Test{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", subjectId=" + subjectId +
-                ", authorId=" + authorId +
+                ", subject=" + subject +
+                ", author=" + author +
+                ", questions=" + questions +
                 '}';
     }
 }

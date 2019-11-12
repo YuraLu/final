@@ -1,5 +1,6 @@
 package by.epam.lukashevich.domain.service;
 
+import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
@@ -9,11 +10,11 @@ public interface QuestionService {
 
     List<Question> findAll() throws ServiceException;
 
-    Question findById(int questionId) throws ServiceException;
+    Question findById(int id) throws ServiceException;
 
-    void add(Question newQuestion) throws ServiceException;
+    void add(Question question) throws ServiceException;
 
-    void update(int questionId) throws ServiceException;
+    void update(Question question) throws ServiceException;
 
-    void delete(int questionId) throws ServiceException;
+    void delete(int id) throws ServiceException;
 }

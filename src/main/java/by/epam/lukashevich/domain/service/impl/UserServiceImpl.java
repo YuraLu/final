@@ -1,18 +1,22 @@
 package by.epam.lukashevich.domain.service.impl;
 
-import by.epam.lukashevich.dao.DAOFactory;
+import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.UserDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.util.builder.impl.UserBuilderImpl;
+import by.epam.lukashevich.domain.util.validation.UserValidator;
+import by.epam.lukashevich.domain.util.validation.ValidatorManager;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+    private UserValidator validator = ValidatorManager.getInstance().getUserValidator();
 
     public UserServiceImpl() {
     }
@@ -37,19 +41,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User authorization(String login, String password) throws ServiceException {
-        User user;
+//        if (!validator.validate(login, password)) {
+//            throw new ServiceException("Entered information is not valid!");
+//        }
         try {
-            user = userDAO.authorization(login, password);
+            final User user = userDAO.authorization(login, password);
+
+            if (user.getBanned()) {
+                throw new ServiceException("User is banned");
+            }
+            return user;
+
         } catch (DAOException e) {
             throw new ServiceException("Can't authorize user", e);
         }
-        return user;
     }
 
     @Override
     public void registration(String login, String password, String email, String name, Role role) throws ServiceException {
+
+//        if (!validator.validate(login, password, name, email)) {
+//            throw new ServiceException("Entered information is not valid!");
+//        }
+
         try {
-            userDAO.registration(login, password, email, name, role);
+            User user = new UserBuilderImpl()
+                    .withLogin(login)
+                    .withPassword(password)
+                    .withEmail(email)
+                    .withName(name)
+                    .withRole(role)
+                    .build();
+            userDAO.add(user);
         } catch (DAOException e) {
             throw new ServiceException("Can't register user", e);
         }
@@ -76,7 +99,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user) throws ServiceException {
         try {
-           userDAO.update(user);
+            userDAO.update(user);
         } catch (DAOException e) {
             throw new ServiceException("Can't update user", e);
         }
@@ -94,7 +117,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateStatus(int id) throws ServiceException {
         try {
-            userDAO.updateBanStatus(id);
+            userDAO.updateStatus(id);
         } catch (DAOException e) {
             throw new ServiceException("Can't update user status", e);
         }

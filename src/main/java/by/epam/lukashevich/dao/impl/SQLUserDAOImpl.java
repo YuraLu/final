@@ -2,12 +2,11 @@ package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.UserDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.pool.connection.ConnectionWrapper;
 import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.entity.user.Role;
-import by.epam.lukashevich.domain.util.UserBuilder;
-import by.epam.lukashevich.domain.util.impl.UserBuilderImpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,70 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.epam.lukashevich.dao.util.SQLQuery.*;
+
 public class SQLUserDAOImpl implements UserDAO {
-
-    private static final String GET_USER_BY_ID = "SELECT " +
-            "u.id," +
-            "u.name," +
-            "u.email," +
-            "u.login," +
-            "u.password," +
-            "u.roleId," +
-            "u.banned" +
-            " FROM users u" +
-            " WHERE id=?";
-
-    private static final String GET_ALL_USERS = "SELECT " +
-            "u.id," +
-            "u.name," +
-            "u.email," +
-            "u.login," +
-            "u.password," +
-            "u.roleId," +
-            "u.banned" +
-            " FROM users u" +
-            " INNER JOIN roles r" +
-            " ON u.roleId = r.id";
-
-    private static final String ADD_NEW_USER =
-            "INSERT INTO users " +
-                    "(name, email, login, password, roleId) " +
-                    "VALUES(?,?,?,?,?)";
-
-    private static final String GET_USER_BY_LOGIN =
-            "SELECT id FROM users where login=?";
-
-
-    private static final String GET_USER_BY_LOGIN_PASS = "SELECT " +
-            "u.id," +
-            "u.name," +
-            "u.email," +
-            "u.login," +
-            "u.password," +
-            "u.roleId," +
-            "u.banned" +
-            " FROM users u" +
-            " WHERE" +
-            " login=?" +
-            " and password=?";
-
-
-    private static final String UPDATE_USER_STATUS = "UPDATE users SET" +
-            " roleId = ?" +
-            " WHERE id = ?";
-
-    private static final String UPDATE_USER_BAN_STATUS = "UPDATE users SET" +
-            " banned = ?" +
-            " WHERE id = ?";
-
-    private static final String UPDATE_USER = "UPDATE users SET " +
-            "name=?, " +
-            "email =?, " +
-            "login=?, " +
-            "password=?, " +
-            "roleId=?, " +
-            "banned=?" +
-            " WHERE id = ?";
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
 
@@ -88,13 +26,13 @@ public class SQLUserDAOImpl implements UserDAO {
 
         List<User> users = new ArrayList<>();
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_ALL_USERS)) {
 
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                User user = getUser(rs);
+                User user = SQLUtil.getUser(rs);
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -105,15 +43,15 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findById(int id) throws DAOException {
+    public User findById(Integer id) throws DAOException {
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_USER_BY_ID)) {
 
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return getUser(rs);
+                return SQLUtil.getUser(rs);
             }
         } catch (SQLException e) {
             throw new DAOException("SQL Exception can't find user in findById()", e);
@@ -122,10 +60,32 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean add(User user) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(ADD_NEW_USER)) {
+
+            if (isLoginUsed(con, user.getLogin())) {
+                throw new DAOException("Login is already is use!");
+            }
+
+            st.setString(1, user.getName());
+            st.setString(2, user.getEmail());
+            st.setString(3, user.getLogin());
+            st.setString(4, user.getPassword());
+            st.setInt(5, user.getRole().getId());
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception during registration()", e);
+        }
+    }
+
+    @Override
     public User authorization(String login, String password) throws DAOException {
         User user = null;
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_USER_BY_LOGIN_PASS)) {
 
             st.setString(1, login);
@@ -133,7 +93,7 @@ public class SQLUserDAOImpl implements UserDAO {
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                user = getUser(rs);
+                user = SQLUtil.getUser(rs);
             }
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during registration()", e);
@@ -142,40 +102,27 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void registration(String login, String password, String email, String name, Role role) throws DAOException {
-
-        try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
-             PreparedStatement st = con.prepareStatement(ADD_NEW_USER)) {
-
-            if (isLoginUsed(con, login)) {
-                throw new DAOException("Login is already is use!");
-            }
-            st.setString(1, name);
-            st.setString(2, email);
-            st.setString(3, login);
-            st.setString(4, password);
-            st.setInt(5, role.getId());
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new DAOException("SQL Exception during registration()", e);
-        }
-    }
-
-    @Override
     public boolean updateUserPassword(String login, String newPassword) throws DAOException {
         return false;
     }
 
     @Override
-    public boolean delete(int id) throws DAOException {
-        return false;
+    public boolean delete(Integer id) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(DELETE_USER)) {
+            st.setInt(1, id);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception can't delete user with id=" + id, e);
+        }
     }
 
     @Override
     public boolean update(User user) throws DAOException {
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(UPDATE_USER)) {
 
             st.setString(1, user.getName());
@@ -193,12 +140,12 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateBanStatus(int id) throws DAOException {
+    public void updateBanStatus(Integer id) throws DAOException {
         final User user = findById(id);
         final boolean isBanned = !user.getBanned();
 
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(UPDATE_USER_BAN_STATUS)) {
 
             st.setBoolean(1, isBanned);
@@ -210,18 +157,17 @@ public class SQLUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateStatus(int id) throws DAOException {
+    public void updateStatus(Integer id) throws DAOException {
         final User user = findById(id);
         int roleId = user.getRole().getId();
-        if (roleId == 2){
+        if (roleId == 2) {
             roleId = 3;
-        }
-        else {
-            roleId =2;
+        } else {
+            roleId = 2;
         }
 
         try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(UPDATE_USER_STATUS)) {
 
             st.setInt(1, roleId);
@@ -238,26 +184,5 @@ public class SQLUserDAOImpl implements UserDAO {
             ResultSet rs = st.executeQuery();
             return rs.first();
         }
-    }
-
-    private User getUser(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String email = rs.getString("email");
-        String login = rs.getString("login");
-        String password = rs.getString("password");
-        int roleId = rs.getInt("roleId");
-        boolean isBanned = rs.getBoolean("banned");
-
-        Role role = Role.fromValue(roleId);
-
-        UserBuilder userBuilder = new UserBuilderImpl(id);
-        return userBuilder.withName(name)
-                .withEmail(email)
-                .withLogin(login)
-                .withPassword(password)
-                .withRole(role)
-                .withIsBanned(isBanned)
-                .build();
     }
 }

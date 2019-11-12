@@ -1,24 +1,17 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.io.Serializable;
+
 import java.util.Objects;
 
-public class Reply implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
+public class Reply extends AbstractEntity {
     private int assignmentId;
     private int answerId;
     private int questionId;
+    private Assignment assignment;
+    private Answer answer;
+    private Question question;
 
     public Reply() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getAssignmentId() {
@@ -45,29 +38,58 @@ public class Reply implements Serializable {
         this.questionId = questionId;
     }
 
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Reply reply = (Reply) o;
-        return id == reply.id &&
-                assignmentId == reply.assignmentId &&
+        return assignmentId == reply.assignmentId &&
                 answerId == reply.answerId &&
-                questionId == reply.questionId;
+                questionId == reply.questionId &&
+                Objects.equals(assignment, reply.assignment) &&
+                Objects.equals(answer, reply.answer) &&
+                Objects.equals(question, reply.question);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, assignmentId, answerId, questionId);
+        return Objects.hash(super.hashCode(), assignmentId, answerId, questionId, assignment, answer, question);
     }
 
     @Override
     public String toString() {
         return "Reply{" +
-                "id=" + id +
-                ", assignmentId=" + assignmentId +
+                "assignmentId=" + assignmentId +
                 ", answerId=" + answerId +
                 ", questionId=" + questionId +
+                ", assignment=" + assignment +
+                ", answer=" + answer +
+                ", question=" + question +
                 '}';
     }
 }

@@ -1,51 +1,51 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-public class Question  implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
-    private String text;
+public class Question  extends AbstractEntity {
+    private String questionText;
+    private List<Answer> answers;
 
     public Question() {
     }
 
-    public int getId() {
-        return id;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
-    public String getText() {
-        return text;
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Question question = (Question) o;
-        return id == question.id &&
-                Objects.equals(text, question.text);
+        return Objects.equals(questionText, question.questionText) &&
+                Objects.equals(answers, question.answers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text);
+        return Objects.hash(super.hashCode(), questionText, answers);
     }
 
     @Override
     public String toString() {
         return "Question{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
+                "questionText='" + questionText + '\'' +
+                ", answers=" + answers +
                 '}';
     }
 }

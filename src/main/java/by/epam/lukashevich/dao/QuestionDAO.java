@@ -1,19 +1,29 @@
 package by.epam.lukashevich.dao;
 
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
 
 import java.util.List;
 
-public interface QuestionDAO {
+public interface QuestionDAO extends CommonDAO<Question> {
 
+    @Override
     List<Question> findAll() throws DAOException;
 
-    Question findById(int id) throws DAOException;
+    @Override
+    Question findById(Integer id) throws DAOException;
 
+    @Override
     boolean add(Question question) throws DAOException;
 
+    @Override
     boolean update(Question question) throws DAOException;
 
-    boolean delete(int id) throws DAOException;
+    @Override
+    boolean delete(Integer id) throws DAOException;
+
+    int addAndReturnId(Question question) throws DAOException;
+
+    List<Integer> addAnswersList(int questionId, List<Integer> answerIdsList) throws DAOException;
 }

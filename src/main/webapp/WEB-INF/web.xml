@@ -1,7 +1,6 @@
 <web-app>
   <display-name>TutorSystem</display-name>
 
-
   <context-param>
     <param-name>db.driver</param-name>
     <param-value>com.mysql.cj.jdbc.Driver</param-value>
@@ -9,7 +8,7 @@
   <context-param>
     <param-name>db.url</param-name>
     <param-value>
-      jdbc:mysql://localhost:3306/tutorsystem?serverTimezone=Europe/Moscow&amp;useSSL=false
+      jdbc:mysql://localhost:3306/tutorsystem?allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Moscow&amp;useSSL=false
     </param-value>
   </context-param>
   <context-param>
@@ -20,7 +19,27 @@
     <param-name>db.password</param-name>
     <param-value>password</param-value>
   </context-param>
+  <context-param>
+    <param-name>pool.size</param-name>
+    <param-value>16</param-value>
+  </context-param>
 
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>by.epam.lukashevich.controller.filter.EncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <error-page>
     <error-code>403</error-code>
@@ -40,6 +59,15 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+
+  <servlet>
+    <servlet-name>index</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>index</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>userCabinet</servlet-name>
@@ -78,21 +106,48 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>testEditPage</servlet-name>
-    <jsp-file>/WEB-INF/testEditPage.jsp</jsp-file>
+    <servlet-name>testWorkPage</servlet-name>
+    <jsp-file>/WEB-INF/testWorkPage.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>testEditPage</servlet-name>
-    <url-pattern>/testEditPage</url-pattern>
+    <servlet-name>testWorkPage</servlet-name>
+    <url-pattern>/testWorkPage</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>testAddPage</servlet-name>
-    <jsp-file>/WEB-INF/testAddPage.jsp</jsp-file>
+    <servlet-name>subjectsTable</servlet-name>
+    <jsp-file>/WEB-INF/subjectsTable.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>testAddPage</servlet-name>
-    <url-pattern>/testAddPage</url-pattern>
+    <servlet-name>subjectsTable</servlet-name>
+    <url-pattern>/subjectsTable</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>subjectAddPage</servlet-name>
+    <jsp-file>/WEB-INF/subjectAddPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>subjectAddPage</servlet-name>
+    <url-pattern>/subjectAddPage</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>questionsTable</servlet-name>
+    <jsp-file>/WEB-INF/questionsTable.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>questionsTable</servlet-name>
+    <url-pattern>/questionsTable</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>questionWorkPage</servlet-name>
+    <jsp-file>/WEB-INF/questionWorkPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>questionWorkPage</servlet-name>
+    <url-pattern>/questionWorkPage</url-pattern>
+  </servlet-mapping>
 </web-app>

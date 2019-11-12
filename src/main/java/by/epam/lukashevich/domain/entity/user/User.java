@@ -1,11 +1,10 @@
 package by.epam.lukashevich.domain.entity.user;
 
-import java.io.Serializable;
+import by.epam.lukashevich.domain.entity.AbstractEntity;
+
 import java.util.Objects;
 
-public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
+public class User extends AbstractEntity {
     private String name;
     private String email;
     private String login;
@@ -14,14 +13,6 @@ public class User implements Serializable {
     private boolean banned;
 
     public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -77,8 +68,7 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                banned == user.banned &&
+        return banned == user.banned &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(login, user.login) &&
@@ -88,14 +78,13 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, login, password, role, banned);
+        return Objects.hash(name, email, login, password, role, banned);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                " name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +

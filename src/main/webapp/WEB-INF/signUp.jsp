@@ -7,114 +7,107 @@
 <fmt:setLocale value="${locale}"/>
 <fmt:setBundle basename="text"/>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Registration page</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>a
+        <fmt:message key="title.main"/>
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/signIn.css"/>
 </head>
 <body>
-
-<div id="header">
-    <div>
-        <h1><fmt:message key="registration.welcome_message"/></h1>
-    </div>
-    <nav>
-        <ul class="header">
-            <li>
-                <a href="index.jsp"><fmt:message key="button.go_home"/></a>
-            </li>
-            <c:if test="${user.id!= null}">
-                <li>
-                    <a href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
-                </li>
-                <li>
-                    <a href="controller?command=viewUserCabinet"><fmt:message key="button.personal_cabinet"/></a>
-                </li>
-            </c:if>
-            <c:if test="${user.id == null}">
-                <li>
-                    <a href="index.jsp"><fmt:message key="button.signIn"/></a>
-                </li>
-            </c:if>
-            <c:if test="${roleId == 1}">
-                <li>
-                    <a href="controller?command=viewUserTable">User Table</a>
-                </li>
-            </c:if>
-        </ul>
-    </nav>
-</div>
-<hr>
-<div class="main-content">
-    <div class="signUpForm">
-        <form action="controller" method="post">
-            <table width="100%" cellspacing="0" cellpadding="4">
-                <tr>
-                    <td align="right" width="200" title=""><fmt:message key="role_name"/></td>
-                    <td>
-                        <label>
-                            <select name="role">
-                                <option value="STUDENT" selected><fmt:message key="student_title"/></option>
-                                <option value="TUTOR"><fmt:message key="tutor_title"/></option>
-                            </select>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" width="200" title="${name_pattern}">
-                        <fmt:message key="registration.enter_name_message"/></td>
-                    <td>
-                        <label>
-                            <input type="text" size="50" name="name" placeholder="name" pattern=".{2,20}$" required/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" title="<${email_pattern}>">
-                        <fmt:message key="registration.enter_email_message"/></td>
-                    <td>
-                        <label>
-                            <input type="email" size="50" placeholder="email" name="email"
-                                   pattern="^(\w+[\.-]?\w+[@][a-z]{2,10}[.][a-zA-Z]{2,4})$"
-                                   required/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" width="100" title="${login_pattern}">
-                        <fmt:message key="registration.enter_login_message"/></td>
-                    <td>
-                        <label>
-                            <input type="text" size="50" name="login" placeholder="login"
-                                   pattern="^[a-zA-Z][a-zA-Z0-9-_.]{3,20}$" required/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" title="">
-                        <fmt:message key="registration.enter_password_message"/></td>
-                    <td>
-                        <label>
-                            <input type="password" size="50" name="password" placeholder="password"
-                                   pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,15}$" required/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button type="submit" name="command" value="signUp">
-                            <strong><fmt:message key="button.signUp"/></strong>
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </form>
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+        <div class="col-md-8 col-lg-6">
+            <div id="localeDiv">
+                <form>
+                    <input type="hidden" name="command" value="viewSignUp"/>
+                    <label for="locale"></label>
+                    <select id="locale" name="locale" onchange="submit()">
+                        <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
+                        <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
+                    </select>
+                </form>
+            </div>
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4"><fmt:message key="registration.welcome_message"/></h3>
+                            <form action="controller" method="post">
+                                <div class="form-label-group">
+                                    <select name="role" class="custom-select select-box" id="FormControlSelect">
+                                        <option selected><fmt:message key="role_name"/></option>
+                                        <option value="STUDENT"><fmt:message key="student_title"/></option>
+                                        <option value="TUTOR"><fmt:message key="tutor_title"/></option>
+                                    </select>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="text" id="inputUserName" class="form-control" name="name"
+                                           placeholder="<fmt:message key="registration.enter_name_message"/>"
+                                           pattern=".{2,20}$" required autofocus/>
+                                    <label for="inputUserName">
+                                        <fmt:message key="registration.enter_name_message"/>
+                                    </label>
+                                    <small>${name_pattern}</small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="email" id="inputEmail" class="form-control" name="email"
+                                           placeholder="<fmt:message key="registration.enter_email_message"/>"
+                                           pattern="^(\w+[\.-]?\w+[@][a-z]{2,10}[.][a-zA-Z]{2,4})$" required>
+                                    <label for="inputEmail">
+                                        <fmt:message key="registration.enter_email_message"/></label>
+                                    <small>${email_pattern}</small>
+                                </div>
+                                <hr>
+                                <div class="form-label-group">
+                                    <input type="text" id="inputLogin" class="form-control" name="login"
+                                           placeholder="<fmt:message key="registration.enter_login_message"/>"
+                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{3,20}$" required>
+                                    <label for="inputLogin">
+                                        <fmt:message key="registration.enter_login_message"/></label>
+                                    <small>${login_pattern}</small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="password" id="inputPassword" class="form-control" name="password"
+                                           placeholder="<fmt:message key="registration.enter_password_message"/>"
+                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,15}$" required>
+                                    <label for="inputPassword"><fmt:message
+                                            key="registration.enter_password_message"/></label>
+                                    <small>${password_pattern}</small>
+                                </div>
+                                <%--                                <div class="form-label-group">--%>
+                                <%--                                    <input type="password" id="inputConfirmPassword" class="form-control"--%>
+                                <%--                                           placeholder="<fmt:message key="registration.enter_password_message"/>"--%>
+                                <%--                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,15}$" required>--%>
+                                <%--                                    <label for="inputConfirmPassword"><fmt:message--%>
+                                <%--                                            key="registration.enter_confirm_password_message"/></label>--%>
+                                <%--                                </div>--%>
+                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                        type="submit" name="command" value="signUp">
+                                    <fmt:message key="button.register"/>
+                                </button>
+                                <a class="d-block text-center mt-2 small" href="controller?command=viewIndex">
+                                    <fmt:message key="button.signIn"/>
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<hr>
-<div class="footer">
-    <p>@2019 Copyright Yuri L. </p>
-</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery.slim.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

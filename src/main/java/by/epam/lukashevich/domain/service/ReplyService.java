@@ -9,7 +9,7 @@ public interface ReplyService {
 
     List<Reply> findAll() throws ServiceException;
 
-    Reply findById(String replyId) throws ServiceException;
+    Reply findById(int id) throws ServiceException;
 
-    void add(Reply newReply) throws ServiceException;
+    void add(Reply reply) throws ServiceException;
 }

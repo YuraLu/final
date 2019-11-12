@@ -7,100 +7,155 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title><fmt:message key="userstable.caption"/></title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        <fmt:message key="title.personal_cabinet"/>
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
 </head>
 <body>
 
-<div id="header">
-    <div>
-        <h1><fmt:message key="title.main"/></h1>
-    </div>
-    <nav>
-        <ul class="header">
-            <li>
-                <a href="index.jsp"><fmt:message key="button.go_home"/></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <c:if test="${roleId == 1}">
+                <li class="nav-item">
+                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                </li>
+            </c:if>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
             </li>
-            <c:if test="${userId != null}">
-                <li>
-                    <a href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
-                </li>
-            </c:if>
-            <c:if test="${userId == null}">
-                <p>You are not registered user?</p>
-                <li>
-                    <a href="controller?command=viewSignUp"><fmt:message key="button.signUp"/></a>
-                </li>
-            </c:if>
-            <li>
-                <a href="controller?command=viewUserCabinet"><fmt:message key="button.personal_cabinet"/></a>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
             </li>
         </ul>
-    </nav>
-</div>
-<hr>
-<div class="main-content">
-    <h1><fmt:message key="userstable.caption"/></h1>
-    <form action="controller" method="post">
 
-        <table cellspacing="2" border="1" cellpadding="5" bordercolor="gray">
-            <caption><span style="font-size: x-large; ">${test_list}</span></caption>
-            <tr>
-                <th><fmt:message key="table.message.user.userStatus"/></th>
-                <th><fmt:message key="table.message.user.name"/></th>
-                <th><fmt:message key="table.message.user.email"/></th>
-                <th><fmt:message key="table.message.user.login"/></th>
-                <th><fmt:message key="table.message.user.password"/></th>
-                <th><fmt:message key="table.message.user.banned"/></th>
-                <th><fmt:message key="table.chooseForAction"/></th>
-            </tr>
-            <c:forEach items="${userList}" var="user">
+        <div class="nav-tabs " id="localeDivNav">
+            <form>
+                <input type="hidden" name="command" value="viewUserTable"/>
+                <label for="locale"></label>
+                <select id="locale" name="locale" onchange="submit()">
+                    <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
+                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
+                </select>
+            </form>
+        </div>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=viewUserCabinet">
+                    <fmt:message key="title.personal_cabinet"/>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Begin page content -->
+<div class="container">
+    <div class="m-t-1">
+        <div class="col">
+            <h2><fmt:message key="title.user_list"/></h2>
+            <p><fmt:message key="title.userTable_intro"/></p>
+        </div>
+        <form action="controller" method="post">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td align="center" width="100">
-                        <c:if test="${user.role.id == 1}">
-                            ADMIN
-                        </c:if>
-                        <c:if test="${user.role.id == 2}">
-                            STUDENT
-                        </c:if>
-                        <c:if test="${user.role.id == 3}">
-                            TUTOR
-                        </c:if>
-                    </td>
-                    <td align="center" width="100"> ${user.name} </td>
-                    <td align="center" width="100"> ${user.email} </td>
-                    <td align="center" width="100"> ${user.login} </td>
-                    <td align="center" width="100"> ${user.password} </td>
-                    <td align="center" width="100"> ${user.banned} </td>
-                    <td>
-
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary">
-                                <input type="radio" name="userForAction" id="userForAction" value="${user.id}"/>
-                            </label>
-                            <input type="hidden" name="userId" value="${user.id}"/>
-                        </div>
-                    </td>
+                    <th scope="col">#</th>
+                    <th><fmt:message key="table.message.user.userStatus"/></th>
+                    <th><fmt:message key="table.message.user.name"/></th>
+                    <th><fmt:message key="table.message.user.email"/></th>
+                    <th><fmt:message key="table.message.user.login"/></th>
+                    <th><fmt:message key="table.message.user.password"/></th>
+                    <th><fmt:message key="table.message.user.banned"/></th>
+                    <th><fmt:message key="table.chooseForAction"/></th>
                 </tr>
-            </c:forEach>
-        </table>
+                </thead>
+                <tbody>
 
-        <button type="submit" name="command" value="changeUserStatus">
-            <strong><fmt:message key="table.button.change_status"/></strong>
-        </button>
-        <button type="submit" name="command" value="changeUserBanStatus">
-            <strong><fmt:message key="table.button.change_ban_status"/></strong>
-        </button>
-    </form>
+                <c:forEach items="${userList}" var="user">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>
+                            <c:if test="${user.role.id == 1}"> ADMIN </c:if>
+                            <c:if test="${user.role.id == 2}"> STUDENT </c:if>
+                            <c:if test="${user.role.id == 3}"> TUTOR </c:if>
+                        </td>
+                        <td> ${user.name} </td>
+                        <td> ${user.email} </td>
+                        <td> ${user.login} </td>
+                        <td> ${user.password} </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${user.banned}">banned</c:when>
+                                <c:otherwise>not banned</c:otherwise>
+                            </c:choose>
+
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" name="userForAction" value="${user.id}"/>
+                            </label>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+            <div class="col">
+                <button type="submit" name="command" value="changeUserStatus"
+                        class="mt-2">
+                    <strong><fmt:message key="table.button.change_status"/></strong>
+                </button>
+                <button type="submit" name="command" value="changeUserBanStatus"
+                        class="mt-2">
+                    <strong><fmt:message key="table.button.change_ban_status"/></strong>
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>
-<hr>
-<div class="footer">
-    <p>@2019 Copyright Yuri L. </p>
-</div>
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"><fmt:message key="footer.copyRight"/></span>
+    </div>
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.slim.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

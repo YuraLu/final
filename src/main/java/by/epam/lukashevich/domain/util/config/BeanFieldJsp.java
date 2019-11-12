@@ -27,23 +27,31 @@ public final class BeanFieldJsp {
     public static final String TEST_ID = "testId";
     public static final String TEST_TITLE = "testTitle";
     public static final String TEST_DESCRIPTION = "testDescription";
-    public static final String TEST_SUBJECT = "testSubjectId";
-    public static final String TEST_AUTHOR = "testAuthorId";
-    public static final String TEST_FOR_ACTION = "testForAction";
+    public static final String TEST_SUBJECT_ID = "testSubjectId";
+    public static final String TEST_AUTHOR_ID = "testAuthorId";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //SUBJECT
     public static final String SUBJECT_LIST = "subjectList";
 
     public static final String SUBJECT_ID = "subjectId";
     public static final String SUBJECT_NAME = "subjectName";
+    public static final String SUBJECT_FOR_ACTION = "subjectForAction";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //ANSWER
+    public static final String ANSWER_OBJECT = "answer";
     public static final String ANSWER_LIST = "answerList";
 
     public static final String ANSWER_ID = "answerId";
-    public static final String ANSWER_NAME = "answerName";
+    public static final String ANSWER_TEXT = "answerText";
     public static final String ANSWER_CORRECT = "answerCorrect";
+    public static final String ANSWER_FOR_ACTION = "answerForAction";
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //QUESTION
+    public static final String QUESTION_OBJECT = "question";
+    public static final String QUESTION_LIST = "questionList";
 
+    public static final String QUESTION_ID = "questionId";
+    public static final String QUESTION_TEXT = "questionText";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static final int ERROR_NUMBER_500 = 500;

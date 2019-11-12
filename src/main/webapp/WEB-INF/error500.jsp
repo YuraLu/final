@@ -13,6 +13,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
 	<fmt:message bundle="${rb}" key="error.error" var="error" />

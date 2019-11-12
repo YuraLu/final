@@ -12,5 +12,5 @@ public interface SubjectService {
 
     void add(Subject subject) throws ServiceException;
 
-    void delete(Subject subject) throws ServiceException;
+    void delete(int id) throws ServiceException;
 }

@@ -13,12 +13,22 @@ public class SQLReplyDAOImpl implements ReplyDAO {
     }
 
     @Override
-    public Reply findById(int id) throws DAOException {
+    public Reply findById(Integer id) throws DAOException {
         return null;
     }
 
     @Override
     public boolean add(Reply reply) throws DAOException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Reply reply) throws DAOException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Integer id) throws DAOException {
         return false;
     }
 }

@@ -4,6 +4,8 @@ public enum Role {
     ADMIN(1),
     STUDENT(2),
     TUTOR(3);
+
+    private static final long serialVersionUID = 1L;
     private int id;
 
     Role(int id) {

@@ -1,61 +1,50 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class TestQuestion implements Serializable {
-    private int id;
-    private int testID;
-    private int questionId;
+public class TestQuestion extends AbstractEntity {
+    private Test test;
+    private Question question;
 
     public TestQuestion() {
     }
 
-    public int getId() {
-        return id;
+    public Test getTest() {
+        return test;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTest(Test test) {
+        this.test = test;
     }
 
-    public int getTestID() {
-        return testID;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setTestID(int testID) {
-        this.testID = testID;
-    }
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         TestQuestion that = (TestQuestion) o;
-        return id == that.id &&
-                testID == that.testID &&
-                questionId == that.questionId;
+        return Objects.equals(test, that.test) &&
+                Objects.equals(question, that.question);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, testID, questionId);
+        return Objects.hash(super.hashCode(), test, question);
     }
 
     @Override
     public String toString() {
         return "TestQuestion{" +
-                "id=" + id +
-                ", testID=" + testID +
-                ", questionId=" + questionId +
+                "test=" + test +
+                ", question=" + question +
                 '}';
     }
 }

@@ -1,23 +1,16 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.io.Serializable;
+import by.epam.lukashevich.domain.entity.user.User;
+
 import java.util.Objects;
 
-public class Assignment implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
+public class Assignment extends AbstractEntity {
     private int testId;
     private int studentId;
+    private Test test;
+    private User student;
 
     public Assignment() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getTestId() {
@@ -36,27 +29,46 @@ public class Assignment implements Serializable {
         this.studentId = studentId;
     }
 
+    public Test getTest() {
+        return test;
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    public User getStudent() {
+        return student;
+    }
+
+    public void setStudent(User student) {
+        this.student = student;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Assignment that = (Assignment) o;
-        return id == that.id &&
-                testId == that.testId &&
-                studentId == that.studentId;
+        return testId == that.testId &&
+                studentId == that.studentId &&
+                Objects.equals(test, that.test) &&
+                Objects.equals(student, that.student);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, testId, studentId);
+        return Objects.hash(super.hashCode(), testId, studentId, test, student);
     }
 
     @Override
     public String toString() {
         return "Assignment{" +
-                "id=" + id +
-                ", testId=" + testId +
+                "testId=" + testId +
                 ", studentId=" + studentId +
+                ", test=" + test +
+                ", student=" + student +
                 '}';
     }
 }

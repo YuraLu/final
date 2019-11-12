@@ -13,12 +13,12 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
 	<fmt:message bundle="${rb}" key="error.error" var="error" />
 	<fmt:message bundle="${rb}" key="error.info403" var="info403" />
 	<fmt:message bundle="${rb}" key="error.forbidden" var="forbidden" />
-	<fmt:message bundle="${rb}" key="button.go_home" var="button_home" />
 
 	<br>
 	<br>

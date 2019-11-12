@@ -8,72 +8,77 @@
 
 <fmt:setBundle basename="text"/>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title><fmt:message key="title.main"/></title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>
+        <fmt:message key="title.main"/>
+    </title>
 
-    </head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/signIn.css"/>
+</head>
 <body>
-
-<div id="header">
-    <div>
-        <h1><fmt:message key="title.main"/></h1>
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+        </div>
+        <div class="col-md-8 col-lg-6">
+            <div id="localeDiv">
+                <form>
+                    <input type="hidden" name="command" value="viewIndex"/>
+                    <label for="locale"></label>
+                    <select id="locale" name="locale" onchange="submit()">
+                        <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
+                        <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
+                    </select>
+                </form>
+            </div>
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Welcome back!</h3>
+                            <form action="controller" method="post">
+                                <div class="form-label-group">
+                                    <input type="text" id="inputLogin" name="login" class="form-control"
+                                           placeholder="Login" required autofocus>
+                                    <label for="inputLogin">
+                                        <fmt:message key="registration.enter_login_message"/>
+                                    </label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="password" id="inputPassword" name="password" class="form-control"
+                                           placeholder="Password" required>
+                                    <label for="inputPassword">
+                                        <fmt:message key="registration.enter_password_message"/>
+                                    </label>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block btn-login
+                                                    text-uppercase font-weight-bold mb-2"
+                                        type="submit" name="command" value="signIn">
+                                    <fmt:message key="button.signIn"/>
+                                </button>
+                                <div class="text-center">
+                                    <a class="small" href="controller?command=viewSignUp">
+                                        <fmt:message key="button.signUp"/>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <nav>
-        <ul class="header">
-            <li>
-                <a href="index.jsp"><fmt:message key="button.go_home"/></a>
-            </li>
-            <c:if test="${userId != null}">
-                <li>
-                    <a href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
-                </li>
-                <li>
-                    <a href="controller?command=viewUserCabinet"><fmt:message key="button.personal_cabinet"/></a>
-                </li>
-            </c:if>
-            <c:if test="${userId == null}">
-                <p>You are not registered user?</p>
-                <li>
-                    <a href="controller?command=viewSignUp"><fmt:message key="button.signUp"/></a>
-                </li>
-            </c:if>
-        </ul>
-    </nav>
-
-
-    <div class="signInForm">
-        <form action="controller" method="post">
-            <label for="login">
-                <fmt:message key="registration.enter_login_message"/>
-                <input type="text" name="login" id="login" placeholder="" required/>
-            </label>
-            <label for="password">
-                <fmt:message key="registration.enter_password_message"/>
-                <input type="password" name="password" id="password" placeholder="" required/>
-            </label>
-            <button type="submit" name="command" value="signIn">
-                <strong><fmt:message key="button.signIn"/></strong>
-            </button>
-        </form>
-    </div>
-
 </div>
-
-<hr>
-<div class="main-content">
-
-    <p>Tutor Management system is very popular system to make student's assessment.</p>
-
-</div>
-<hr>
-<div class="footer">
-    <p>@2019 Copyright Yuri L. </p>
-</div>
-
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery.slim.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

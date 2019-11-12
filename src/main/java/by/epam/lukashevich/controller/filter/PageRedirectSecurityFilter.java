@@ -11,8 +11,8 @@ import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.REDIRECT_COMMA
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.USER_ROLE_ID;
 import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX;
 
-@WebFilter(urlPatterns = {"/signUp", "/index", "/testsTable", "/testAddPage", "/testEditPage", "/subjectTable"
-        , "/usersTable"})
+@WebFilter(urlPatterns = {"/index", "/signUp", "/usersTable", "/testsTable", "/testWorkPage"
+        , "/subjectAddPage", "/subjectsTable",  "/questionWorkPage", "/questionsTable"})
 public class PageRedirectSecurityFilter implements Filter {
 
     private static final String PATH_TO_CONTROLLER_WITH_ACTION = "/controller?command=";
@@ -33,7 +33,7 @@ public class PageRedirectSecurityFilter implements Filter {
         System.out.println(session.getAttribute(REDIRECT_COMMAND));
 
         String page = (String) session.getAttribute(REDIRECT_COMMAND);
-        System.out.println("redirectpath " + page);
+        System.out.println("redirect path " + page);
 
 
         if (session.getAttribute(USER_ROLE_ID) == null && !path.endsWith(INDEX)) {
