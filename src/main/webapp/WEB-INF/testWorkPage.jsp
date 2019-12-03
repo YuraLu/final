@@ -29,6 +29,8 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/alert.js"></script>
+
 </head>
 <body>
 
@@ -90,19 +92,18 @@
 <!-- Begin page content -->
 <div class="container">
     <div class="m-t-1">
-        <div class="col">
-            <h2><fmt:message key="title.test.work_current"/></h2>
-        </div>
         <form action="controller" method="post">
             <div class="col">
-                <c:if test="${test != null}">
-                    <div class="form-group">
-                        <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
-                        <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
-                               value=" ${test.author.name}" disabled>
-                        <input type="hidden" name="testAuthorId" value="${test.author.id}">
-                    </div>
-                </c:if>
+                <h2><fmt:message key="title.test.work_current"/></h2>
+            </div>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
+                    <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
+                           value=" ${test.author.name}" disabled>
+                    <input type="hidden" name="testAuthorId" value="${test.author.id}">
+                </div>
                 <div class="form-group">
                     <label for="inputTestTitle"><fmt:message key="test_title"/></label>
                     <input type="text" class="form-control" name="testTitle" id="inputTestTitle"
@@ -127,85 +128,46 @@
 
                 <div class="form-group">
                     <h5><fmt:message key="test_question"/></h5>
-
-                    <c:if test="${test==null}">
-                        <h6><fmt:message key="table.test_add_questions"/></h6>
-                        <select name="testQuestions" multiple>
-                            <option></option>
-                            <c:forEach items="${questionList}" var="question">
-                                <option value="${question.id}"
-                                        <c:if test="${question.questionText == test.question.questionText}">selected</c:if>>
+                    <ul>
+                        <c:forEach items="${test.questions}" var="question">
+                            <li>
+                                <a href="controller?command=viewQuestionWorkPage&questionId=${question.id}"
+                                   class="mt-2">
                                         ${question.questionText}
-                                </option>
-                            </c:forEach>
-                        </select>
-                        <h6>Another question?</h6>
-                        <select name="testQuestions" multiple>
-                            <option></option>
-                            <c:forEach items="${questionList}" var="question">
-                                <option value="${question.id}"
-                                        <c:if test="${question.questionText == test.question.questionText}">selected</c:if> >
-                                        ${question.questionText}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </c:if>
-                    <c:if test="${test != null}">
-                        <ul>
-                            <c:forEach items="${test.questions}" var="question">
-                                <li>
-                                    <a href="controller?command=viewQuestionWorkPage&questionId=${question.id}"
-                                       class="mt-2">
-                                            ${question.questionText}
-                                    </a>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
+                                </a>
+                            </li>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
 
-            <input type="hidden" name="testId" value="${test.id}">
             <div class="col">
-                <c:if test="${test == null}">
-                    <input type="hidden" name="testAuthorId" value="${userId}">
-
-                    <button type="submit" name="command" value="addTest" class="mt-2">
-                        <strong><fmt:message key="button.add"/></strong>
-                    </button>
-                </c:if>
-                <c:if test="${test != null}">
-                    <input type="hidden" name="testAuthorId" value="${test.author.id}">
-                    <input type="hidden" name="testSubjectId" value="${test.subject.id}">
-
-<%--                    <button type="submit" name="command" value="viewQuestionAddPage" class="mt-2">--%>
-<%--                        <strong><fmt:message key="table.button_addQuestion"/></strong>--%>
-<%--                    </button>--%>
-
-                    <div>
-                        <a href="controller?command=viewQuestionAddPage&testId=${test.id}" class="btn btn-primary mb-3"
-                           role="button"><fmt:message key="table.button_addQuestion"/></a>
-                    </div>
-
-                    <div class="mb-3">
-                        <a href="" class="overlayLink btn btn-primary mb-3" role="button">
-                            NEW STYLE ADD QUESTION
-                        </a>
-                    </div>
-
-                    <button type="submit" name="command" value="editTest" class="mt-2">
-                        <strong><fmt:message key="button.edit"/></strong>
-                    </button>
-
-                    <button type="submit" name="command" value="deleteTest" class="mt-2">
-                        <strong><fmt:message key="button.delete"/></strong>
-                    </button>
-                </c:if>
+                <a href="" class="overlayLink btn btn-primary mb-3" role="button">
+                    <fmt:message key="table.button_addQuestion"/>
+                </a>
             </div>
+            <hr>
 
+            <input type="hidden" name="testId" value="${test.id}">
+            <input type="hidden" name="testAuthorId" value="${test.author.id}">
+            <input type="hidden" name="testSubjectId" value="${test.subject.id}">
+
+            <%--                <button type="submit" name="command" value="editTest" class="mt-2">--%>
+            <%--                    <strong><fmt:message key="button.edit"/></strong>--%>
+            <%--                </button>--%>
+
+            <button type="submit" name="command" value="deleteTest" class="mt-2">
+                <strong><fmt:message key="button.delete"/></strong>
+            </button>
         </form>
     </div>
 </div>
+<c:if test="${errorMessage != null}">
+    <script>
+        showAlert("<fmt:message key="${errorMessage}"/>");
+    </script>
+</c:if>
+<c:remove var="errorMessage"/>
 
 <footer class="footer">
     <div class="container">
@@ -218,7 +180,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

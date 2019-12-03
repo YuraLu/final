@@ -16,6 +16,7 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
     private User student;
     private int score;
     private List<Reply> replies;
+    private  String date;
 
     public AssignmentBuilderImpl() {
         replies = new ArrayList<>();
@@ -33,6 +34,7 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
         assignment.setStudent(student);
         assignment.setScore(score);
         assignment.setReplies(replies);
+        assignment.setDate(date);
         return assignment;
     }
 
@@ -60,6 +62,11 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
         return this;
     }
 
+    @Override
+    public AssignmentBuilder withDate(String date) {
+        this.date = date;
+        return this;
+    }
 
     public int getId() {
         return id;

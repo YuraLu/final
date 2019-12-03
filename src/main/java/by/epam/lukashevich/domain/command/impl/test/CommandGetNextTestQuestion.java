@@ -41,6 +41,8 @@ public class CommandGetNextTestQuestion implements Command {
         int currentQuestionNumber = (int) session.getAttribute(CURRENT_QUESTION_NUMBER);
         final Assignment assignment = (Assignment) session.getAttribute(ASSIGNMENT_OBJECT);
         final List<Question> questionList = assignment.getTest().getQuestions();
+        final String date = request.getParameter("date");
+        assignment.setDate(date);
 
         int firstQuestion = 0;
 

@@ -51,7 +51,6 @@ public class CommandProvider {
         commands.put(CommandName.DELETE_SUBJECT, new CommandDeleteSubject());
 
         commands.put(CommandName.VIEW_QUESTION_TABLE, new CommandViewQuestionTable());
-        commands.put(CommandName.VIEW_QUESTION_ADD_PAGE, new CommandViewQuestionAdd());
         commands.put(CommandName.VIEW_QUESTION_WORK_PAGE, new CommandViewQuestionWorkPage());
         commands.put(CommandName.ADD_QUESTION, new CommandAddQuestion());
         commands.put(CommandName.DELETE_QUESTION, new CommandDeleteQuestion());

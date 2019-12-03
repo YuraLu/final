@@ -19,7 +19,7 @@
     <meta name="author" content="">
 
     <title>
-        QUESTION TABLE
+       <fmt:message key="nav.question_table"/>
     </title>
 
     <!-- Bootstrap CSS -->
@@ -27,6 +27,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/alert.js"></script>
 </head>
 <body>
 
@@ -83,10 +84,6 @@
         <div class="col">
             <h2><fmt:message key="title.question_list"/></h2>
             <p><fmt:message key="page.questionTable_intro"/></p>
-            <div>
-                <a href="controller?command=viewQuestionAddPage" class="btn btn-primary mb-3 "
-                   role="button"><fmt:message key="table.button_addQuestion"/></a>
-            </div>
         </div>
         <form action="controller" method="post">
             <table class="table table-hover">
@@ -132,7 +129,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -117,7 +117,7 @@
 <c:remove var="errorMessage"/>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -20,28 +20,18 @@
             <div class="login-content" id="loginTarget">
                 <a class="close">x</a>
                 <h3><fmt:message key="title.test.add_page"/></h3>
-
                 <form action="controller" method="post">
                     <div class="col">
-                        <c:if test="${test != null}">
-                            <div class="form-group">
-                                <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
-                                <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
-                                       value=" ${test.author.name}" disabled>
-                                <input type="hidden" name="testAuthorId" value="${test.author.id}">
-                            </div>
-                        </c:if>
                         <div class="form-group">
                             <label for="inputTestTitle"><fmt:message key="test_title"/></label>
                             <input type="text" class="form-control" name="testTitle" id="inputTestTitle"
-                                   value="${test.title}" placeholder="">
+                                   value="" placeholder="">
                         </div>
                         <div class="form-group">
                             <label for="inputTestDescription"><fmt:message key="test_description"/></label>
                             <input type="text" class="form-control" name="testDescription" id="inputTestDescription"
-                                   value="${test.description}" placeholder="">
+                                   value="" placeholder="">
                         </div>
-
                         <div class="form-group">
                             <h5><fmt:message key="test_subject"/></h5>
                             <select name="testSubjectId">
@@ -51,20 +41,7 @@
                                 </c:forEach>
                             </select>
                         </div>
-
-                        <div class="form-group">
-                            <h5><fmt:message key="test_question"/></h5>
-                            <h6><fmt:message key="table.test_add_questions"/></h6>
-                            <select name="testQuestions" multiple>
-                                <option></option>
-                                <c:forEach items="${questionList}" var="question">
-                                    <option value="${question.id}">${question.questionText}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-
                     </div>
-
                     <input type="hidden" name="testId" value="${test.id}">
                     <div class="col">
                         <input type="hidden" name="testAuthorId" value="${userId}">
@@ -72,7 +49,6 @@
                             <strong><fmt:message key="button.add"/></strong>
                         </button>
                     </div>
-
                 </form>
             </div>
         </div>

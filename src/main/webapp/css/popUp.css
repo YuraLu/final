@@ -39,7 +39,7 @@
     background-color: rgba(0, 0, 0, .25);
     border-radius: 2px;
     padding: 6px;
-    width: 450px;
+    width: 600px;
 }
 
 .promt_window div.overlay > div.login-wrapper > div.login-content {
@@ -55,74 +55,4 @@
     font-size: 1.8em;
     margin: 0 0 1.25em;
     padding: 0;
-}
-
-/*
-*    Форма
-*/
-.promt_window form label {
-    color: rgb(0, 0, 0);
-    display: block;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 1.25em;
-    margin: .75em 0;
-}
-
-.promt_window form input[type="text"],
-.promt_window form input[type="email"],
-.promt_window form input[type="number"],
-.promt_window form input[type="search"],
-.promt_window form input[type="password"],
-.promt_window form textarea {
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(186, 186, 186);
-    border-radius: 1px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
-    display: block;
-    font-size: .65em;
-    margin: 6px 0 12px 0;
-    padding: .8em .55em;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
-    transition: all 400ms ease;
-    width: 90%;
-}
-
-.promt_window form input[type="text"]:focus,
-.promt_window form input[type="email"]:focus,
-.promt_window form input[type="number"]:focus,
-.promt_window form input[type="search"]:focus,
-.promt_window form input[type="password"]:focus,
-.promt_window form textarea:focus,
-.promt_window form select:focus {
-    border-color: #4195fc;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px #4195fc;
-}
-
-.promt_window form input[type="text"]:invalid:focus,
-.promt_window form input[type="email"]:invalid:focus,
-.promt_window form input[type="number"]:invalid:focus,
-.promt_window form input[type="search"]:invalid:focus,
-.promt_window form input[type="password"]:invalid:focus,
-.promt_window form textarea:invalid:focus,
-.promt_window form select:invalid:focus {
-    border-color: rgb(248, 66, 66);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgb(248, 66, 66);
-}
-
-/*//////////*/
-
-.promt_window form button {
-    background-color: greenyellow;
-    border: 3px solid rgb(0, 0, 0);
-    color: black;
-    font-family: 'Varela Round', sans-serif;
-    font-size: .85em;
-    padding: .55em .9em;
-    transition: all 400ms ease;
-}
-
-.promt_window form button:hover {
-    background-color: greenyellow;
-    color: black;
-    cursor: pointer;
 }

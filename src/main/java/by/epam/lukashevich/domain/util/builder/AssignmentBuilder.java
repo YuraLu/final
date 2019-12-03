@@ -18,4 +18,6 @@ public interface AssignmentBuilder {
     AssignmentBuilder withScore(int score);
 
     AssignmentBuilder withReplies(List<Reply> replies);
+
+    AssignmentBuilder withDate(String date);
 }

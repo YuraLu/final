@@ -29,6 +29,8 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/alert.js"></script>
+
 </head>
 <body>
 
@@ -91,15 +93,8 @@
 <div class="container">
     <div class="m-t-1">
         <div class="col">
-
             <h2><fmt:message key="title.test_list"/></h2>
             <p><fmt:message key="title.testTable_intro"/></p>
-<%--            <div class="mb-3">--%>
-<%--                <a href="controller?command=viewTestAddPage" class="btn btn-primary mb-3 " role="button">--%>
-<%--                    <fmt:message key="button.add"/>--%>
-<%--                </a>--%>
-<%--            </div>--%>
-
             <div class="mb-3">
                 <a href="" class="overlayLink btn btn-primary mb-3" role="button">
                     <fmt:message key="button.add"/>
@@ -142,6 +137,12 @@
         </form>
     </div>
 </div>
+<c:if test="${errorMessage != null}">
+    <script>
+        showAlert("<fmt:message key="${errorMessage}"/>");
+    </script>
+</c:if>
+<c:remove var="errorMessage"/>
 
 <footer class="footer">
     <div class="container">

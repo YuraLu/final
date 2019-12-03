@@ -21,11 +21,14 @@ public class CommandViewQuestionWorkPage implements Command {
             throws ServletException, IOException, CommandException {
 
         final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
-        final int id = Integer.parseInt(request.getParameter(QUESTION_ID));
+        final int questionId = Integer.parseInt(request.getParameter(QUESTION_ID));
+//        final int testId = Integer.parseInt(request.getParameter(TEST_ID));
+
 
         try {
-            Question question = questionService.findById(id);
+            Question question = questionService.findById(questionId);
             request.setAttribute(QUESTION_OBJECT, question);
+//            request.setAttribute(TEST_ID, testId);
 
         } catch (ServiceException e) {
             throw new CommandException("Can't get list of questions in execute() CommandViewQuestionWorkPage", e);

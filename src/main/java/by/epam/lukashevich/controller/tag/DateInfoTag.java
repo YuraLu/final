@@ -13,14 +13,13 @@ public class DateInfoTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         final Date date = new Date();
         final String dateNow = dateFormat.format(date);
-        final String time = "<b>" + dateNow + " </b>";
 
         try {
             JspWriter out = pageContext.getOut();
-            out.write(time);
+            out.write(dateNow);
         } catch (IOException e) {
             throw new JspException(e.getMessage());
         }

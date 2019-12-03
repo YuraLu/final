@@ -27,7 +27,6 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-
     <script src="js/alert.js"></script>
 </head>
 <body>
@@ -147,8 +146,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

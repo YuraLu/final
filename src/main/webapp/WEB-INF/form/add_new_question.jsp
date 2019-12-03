@@ -19,60 +19,75 @@
         <div class="login-wrapper">
             <div class="login-content" id="loginTarget">
                 <a class="close">x</a>
-                <h2><fmt:message key="title.question.add_page"/></h2>
                 <form action="controller" method="post">
+                    <div class="col">
+                        <div class="form-group">
+                            <h2><fmt:message key="title.question.add_page"/></h2>
+                        </div>
+                    </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="inputQuestionText"><fmt:message key="question_text"/></label>
                             <input type="text" class="form-control" name="questionText" id="inputQuestionText"
-                                   value=" ${question.questionText}" placeholder="">
+                                   placeholder="<fmt:message key="question_text"/>">
                         </div>
                         <div id="answerList" class="mb-3">
-                            <div id="answer0" class="field-group">
-                                <h5><fmt:message key="answer_text"/>:</h5>
-                                <div class="inlineBox">
-                                    <input class="" type="checkbox" name="answerCorrect[]" id="a1" value="1"/>
-                                    <label for="a1" class="">This answer option is correct</label>
-                                    <br/>
-                                    <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                    <br/>
+                            <h5><fmt:message key="answer_text"/>:</h5>
+                            <h6><fmt:message key="table.question_add_answer_option.intro_text"/></h6>
+
+                            <div id="answer0" class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="answerCorrect[]" id="a1" value="0"
+                                               aria-label="Checkbox for following text input"/>
+                                    </div>
                                 </div>
+                                <input type="text" name="questionAnswer[]" class="form-control"
+                                       aria-label="Text input with checkbox"
+                                       placeholder="<fmt:message key="table.question_add_answer.option"/>">
                             </div>
-                            <div id="answer1" class="field-group">
-                                <h5><fmt:message key="answer_text"/>:</h5>
-                                <div class="inlineBox">
-                                    <input class="" type="checkbox" name="answerCorrect[]" id="a2" value="2"/>
-                                    <label for="a2" class="">This answer option is correct</label>
-                                    <br/>
-                                    <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                    <br/>
+
+                            <div id="answer1" class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="answerCorrect[]" id="a2" value="1"
+                                               aria-label="Checkbox for following text input"/>
+                                    </div>
                                 </div>
+                                <input type="text" name="questionAnswer[]" class="form-control"
+                                       aria-label="Text input with checkbox"
+                                       placeholder="<fmt:message key="table.question_add_answer.option"/>">
                             </div>
-                            <div id="answer2" class="field-group">
-                                <h5><fmt:message key="answer_text"/>:</h5>
-                                <div class="inlineBox">
-                                    <input class="" type="checkbox" name="answerCorrect[]" id="a3" value="3"/>
-                                    <label for="a3" class="">This answer option is correct</label>
-                                    <br/>
-                                    <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                    <br/>
+
+                            <div id="answer2" class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="answerCorrect[]" id="a3" value="2"
+                                               aria-label="Checkbox for following text input"/>
+                                    </div>
                                 </div>
+                                <input type="text" name="questionAnswer[]" class="form-control"
+                                       aria-label="Text input with checkbox"
+                                       placeholder="<fmt:message key="table.question_add_answer.option"/>">
                             </div>
-                            <div id="answer3" class="field-group">
-                                <h5><fmt:message key="answer_text"/>:</h5>
-                                <div class="inlineBox">
-                                    <input class="" type="checkbox" name="answerCorrect[]" id="a4" value="4"/>
-                                    <label for="a4" class="">This answer option is correct</label>
-                                    <br/>
-                                    <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                    <br/>
+
+                            <div id="answer3" class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="answerCorrect[]" id="a4" value="3"
+                                               aria-label="Checkbox for following text input"/>
+                                    </div>
                                 </div>
+                                <input type="text" name="questionAnswer[]" class="form-control"
+                                       aria-label="Text input with checkbox"
+                                       placeholder="<fmt:message key="table.question_add_answer.option"/>">
                             </div>
+
                         </div>
                     </div>
                     <div class="col">
-                        <input type="hidden" name="testId" value="${testId}">
-                        <button type="submit" name="command" value="addQuestion" class="mt-2">
+                        <input type="hidden" name="testId" value="${test.id}">
+                        <button type="submit" name="command" value="addQuestion" class="btn btn-primary mb-3">
                             <strong><fmt:message key="button.add"/></strong>
                         </button>
                     </div>

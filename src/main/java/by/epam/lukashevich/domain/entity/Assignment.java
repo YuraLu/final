@@ -11,6 +11,7 @@ public class Assignment extends AbstractEntity {
     private User student;
     private int score;
     private List<Reply> replies;
+    private String date;
 
     public Assignment() {
         replies = new ArrayList<>();
@@ -48,6 +49,14 @@ public class Assignment extends AbstractEntity {
         this.replies = replies;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,12 +66,13 @@ public class Assignment extends AbstractEntity {
         return score == that.score &&
                 Objects.equals(test, that.test) &&
                 Objects.equals(student, that.student) &&
-                Objects.equals(replies, that.replies);
+                Objects.equals(replies, that.replies) &&
+                Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), test, student, score, replies);
+        return Objects.hash(super.hashCode(), test, student, score, replies, date);
     }
 
     @Override
@@ -72,6 +82,7 @@ public class Assignment extends AbstractEntity {
                 ", student=" + student +
                 ", score=" + score +
                 ", replies=" + replies +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

@@ -27,6 +27,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/alert.js"></script>
 </head>
 <body>
 
@@ -89,18 +90,10 @@
 <div class="container">
     <div class="m-t-1">
         <div class="col">
-            <c:if test="${question != null}">
-                <h2>Question work page</h2>
-            </c:if>
-
-            <c:if test="${question == null}">
-                <h2><fmt:message key="title.question.add_page"/></h2>
-            </c:if>
-
+            <h2><fmt:message key="table.question_work_page"/></h2>
         </div>
         <form action="controller" method="post">
             <div class="col">
-
                 <div class="form-group">
                     <label for="inputQuestionText"><fmt:message key="question_text"/></label>
                     <input type="text" class="form-control" name="questionText" id="inputQuestionText"
@@ -108,7 +101,6 @@
                 </div>
 
                 <div id="answerList" class="mb-3">
-
                     <c:forEach items="${question.answers}" var="answer" varStatus="a">
                         <div class="field-group">
                             <h5><fmt:message key="answer_text"/>:</h5>
@@ -122,70 +114,18 @@
                             </div>
                         </div>
                     </c:forEach>
-
-                    <c:if test="${question==null}">
-                        <div id="answer0" class="field-group">
-                            <h5><fmt:message key="answer_text"/>:</h5>
-                            <div class="inlineBox">
-                                <input class="" type="checkbox" name="answerCorrect[]" id="a1" value="1"/>
-                                <label for="a1" class="">This answer option is correct</label>
-                                <br/>
-                                <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                <br/>
-                            </div>
-                        </div>
-                        <div id="answer1" class="field-group">
-                            <h5><fmt:message key="answer_text"/>:</h5>
-                            <div class="inlineBox">
-                                <input class="" type="checkbox" name="answerCorrect[]" id="a2" value="2"/>
-                                <label for="a2" class="">This answer option is correct</label>
-                                <br/>
-                                <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                <br/>
-                            </div>
-                        </div>
-                        <div id="answer2" class="field-group">
-                            <h5><fmt:message key="answer_text"/>:</h5>
-                            <div class="inlineBox">
-                                <input class="" type="checkbox" name="answerCorrect[]" id="a3" value="3"/>
-                                <label for="a3" class="">This answer option is correct</label>
-                                <br/>
-                                <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                <br/>
-                            </div>
-                        </div>
-                        <div id="answer3" class="field-group">
-                            <h5><fmt:message key="answer_text"/>:</h5>
-                            <div class="inlineBox">
-                                <input class="" type="checkbox" name="answerCorrect[]" id="a4" value="4"/>
-                                <label for="a4" class="">This answer option is correct</label>
-                                <br/>
-                                <textarea name="questionAnswer[]" cols="95" rows="2"></textarea>
-                                <br/>
-                            </div>
-                        </div>
-                    </c:if>
                 </div>
             </div>
             <input type="hidden" name="questionId" value="${question.id}">
             <input type="hidden" name="testId" value="${testId}">
             <div class="col">
-                <c:if test="${question == null}">
-                    <button type="submit" name="command" value="addQuestion" class="mt-2">
-                        <strong><fmt:message key="button.add"/></strong>
-                    </button>
-                </c:if>
-                <c:if test="${question != null}">
-                    <a href="controller?command=viewTestWorkPage&testId=${test.id}" class="mt-2">
-                        <strong><fmt:message key="button.back"/> </strong>
-                    </a>
-                    <button type="submit" name="command" value="viewQuestionAddPage" class="mt-2">
-                        <strong><fmt:message key="button.add"/></strong>
-                    </button>
-                    <button type="submit" name="command" value="deleteQuestion" class="mt-2">
-                        <strong><fmt:message key="button.delete"/></strong>
-                    </button>
-                </c:if>
+                <a href="controller?command=viewTestWorkPage&testId=${testId}" class="mt-2">
+                    <strong><fmt:message key="button.back"/> </strong>
+                </a>
+                <button type="submit" name="command" value="deleteQuestion" class="mt-2">
+                    <strong><fmt:message key="button.delete"/></strong>
+                </button>
+
             </div>
         </form>
     </div>
@@ -202,7 +142,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

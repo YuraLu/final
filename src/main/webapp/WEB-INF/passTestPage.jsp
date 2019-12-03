@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="customtags" prefix="ctg" %>
 <c:set var="locale"
        value="${not empty param.locale ? param.locale : not empty locale ? locale : pageContext.request.locale}"
        scope="session"/>
@@ -27,6 +28,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <script src="js/alert.js"></script>
 </head>
 <body>
 
@@ -87,44 +89,45 @@
 
 <!-- Begin page content -->
 <div class="container">
-        <div class="m-t-1">
-            <div class="col">
-                <h2><fmt:message key="title.test.pass_test"/></h2>
-            </div>
-            <form action="controller" method="post">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="inputTestTitle"><fmt:message key="test_title"/></label>
-                        <input type="text" class="form-control" name="testTitle" id="inputTestTitle"
-                               value="${assignment.test.title}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
-                        <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
-                               value=" ${assignment.test.author.name}" disabled>
-                        <label for="inputTestSubject"><fmt:message key="test_subject"/></label>
-                        <input type="text" class="form-control" name="testSubject" id="inputTestSubject"
-                               value="${assignment.test.subject.name}" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputTestDescription"><fmt:message key="test_description"/></label>
-                        <input type="text" class="form-control" name="testDescription" id="inputTestDescription"
-                               value="${assignment.test.description}" disabled>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <h4><fmt:message key="test_question"/></h4>
-                        <p>Total amount of questions: <strong>${numberOfQuestions}</strong></p>
-                    </div>
-                </div>
-                <div class="col">
-                    <button type="submit" name="command" value="getNextTestQuestion"
-                            class="mt-2">
-                        <strong><fmt:message key="button.start_test"/></strong>
-                    </button>
-                </div>
-            </form>
+    <div class="m-t-1">
+        <div class="col">
+            <h2><fmt:message key="title.test.pass_test"/></h2>
         </div>
+        <form action="controller" method="post">
+            <div class="col">
+                <div class="form-group">
+                    <label for="inputTestTitle"><fmt:message key="test_title"/></label>
+                    <input type="text" class="form-control" name="testTitle" id="inputTestTitle"
+                           value="${assignment.test.title}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
+                    <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
+                           value=" ${assignment.test.author.name}" disabled>
+                    <label for="inputTestSubject"><fmt:message key="test_subject"/></label>
+                    <input type="text" class="form-control" name="testSubject" id="inputTestSubject"
+                           value="${assignment.test.subject.name}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="inputTestDescription"><fmt:message key="test_description"/></label>
+                    <input type="text" class="form-control" name="testDescription" id="inputTestDescription"
+                           value="${assignment.test.description}" disabled>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h4><fmt:message key="test_question"/></h4>
+                    <p>Total amount of questions: <strong>${numberOfQuestions}</strong></p>
+                </div>
+            </div>
+            <div class="col">
+                <button type="submit" name="command" value="getNextTestQuestion"
+                        class="mt-2">
+                    <strong><fmt:message key="button.start_test"/></strong>
+                </button>
+                <input type="hidden" name="date" value="<ctg:date/>"/>
+            </div>
+        </form>
+    </div>
 </div>
 
 <footer class="footer">
@@ -138,7 +141,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

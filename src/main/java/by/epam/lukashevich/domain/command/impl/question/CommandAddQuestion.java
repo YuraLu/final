@@ -19,9 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.PARAMETER_COMMAND;
 import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_TEST_WORK_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.util.config.JSPPages.*;
+import static by.epam.lukashevich.domain.util.config.JSPPages.TEST_WORK_PAGE;
 
 public class CommandAddQuestion implements Command {
 
@@ -37,21 +36,12 @@ public class CommandAddQuestion implements Command {
         final String[] questionAnswers = request.getParameterValues(QUESTION_ANSWERS);
         final String[] questionAnswerCorrect = request.getParameterValues(ANSWER_CORRECT);
 
+
         if (text.isEmpty()) {
             throw new CommandException("No data in text field during Question add in execute() CommandAddQuestion");
         }
 
-        List<Answer> answerList = new ArrayList<>();
-
-        for (int i = 0; i < questionAnswers.length; i++) {
-            if (!questionAnswers[i].isEmpty()) {
-                Answer answer = new AnswerBuilderImpl()
-                        .withText(questionAnswers[i])
-                        .isCorrect(isAnswerCorrect(questionAnswerCorrect, i + 1))
-                        .build();
-                answerList.add(answer);
-            }
-        }
+        List<Answer> answerList = getAnswerOptionList(questionAnswers, questionAnswerCorrect);
 
         Question question = new QuestionBuilderImpl()
                 .withText(text)
@@ -59,21 +49,30 @@ public class CommandAddQuestion implements Command {
                 .build();
 
         try {
-//            questionService.add(question);
             questionService.addQuestionToTest(question, testId);
-//            session.setAttribute(REDIRECT_COMMAND, VIEW_QUESTION_TABLE);
-//            response.sendRedirect(QUESTION_TABLE_PAGE);
+            request.setAttribute(TEST_ID, testId);
 
-            String path = request.getContextPath() + request.getServletPath() + "?" + PARAMETER_COMMAND + "=" + VIEW_TEST_WORK_PAGE_COMMAND + "&" + TEST_ID + "=" + testId;
-
-            session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_WORK_PAGE_COMMAND + "&" + TEST_ID + "=" + testId);
-//            response.sendRedirect(TEST_WORK_PAGE);
-            response.sendRedirect(path);
         } catch (ServiceException e) {
-            response.sendRedirect(INDEX_PAGE);
             throw new CommandException("Can't add question in execute() CommandAddQuestion", e);
         }
-        return text;
+
+        session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_WORK_PAGE_COMMAND + "&" + TEST_ID + "=" + testId);
+        return TEST_WORK_PAGE;
+    }
+
+    private List<Answer> getAnswerOptionList(String[] questionAnswers, String[] questionAnswerCorrect) {
+        List<Answer> answerList = new ArrayList<>();
+
+        for (int i = 0; i < questionAnswers.length; i++) {
+            if (!questionAnswers[i].isEmpty()) {
+                Answer answer = new AnswerBuilderImpl()
+                        .withText(questionAnswers[i])
+                        .isCorrect(isAnswerCorrect(questionAnswerCorrect, i))
+                        .build();
+                answerList.add(answer);
+            }
+        }
+        return answerList;
     }
 
     private boolean isAnswerCorrect(String[] questionAnswerCorrect, int answerNumber) {
