@@ -3,7 +3,6 @@ package by.epam.lukashevich.domain.command.impl.user;
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.CommandProvider;
 import by.epam.lukashevich.domain.command.exception.CommandException;
-import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.user.InvalidLoginException;
 import by.epam.lukashevich.domain.service.exception.user.UserServiceException;
@@ -13,10 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.SIGN_IN_COMMAND;
 import static by.epam.lukashevich.domain.util.config.JSPActionCommand.SIGN_UP_COMMAND;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
@@ -43,14 +40,14 @@ public class SignUpCommandTest {
         when(mockRequest.getParameter("confirmedPassword")).thenReturn("confirmedPassword");
         when(mockRequest.getParameter("name")).thenReturn("name");
         when(mockRequest.getParameter("email")).thenReturn("email");
-        when(mockRequest.getParameter("role")).thenReturn("role");
+        when(mockRequest.getParameter("role")).thenReturn("ADMIN");
         when(mockRequest.getSession()).thenReturn(session);
         doThrow(InvalidLoginException.class).when(userService).registration(
                 anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyObject());
-        String result = command.execute(mockRequest,mockResponse);
+        String result = command.execute(mockRequest, mockResponse);
         //then
-        assertEquals(result, "signUp");
+        assertEquals(result, "userCabinet");
     }
 
 
@@ -70,13 +67,13 @@ public class SignUpCommandTest {
         when(mockRequest.getParameter("confirmedPassword")).thenReturn("confirmedPassword");
         when(mockRequest.getParameter("name")).thenReturn("name");
         when(mockRequest.getParameter("email")).thenReturn("email");
-        when(mockRequest.getParameter("role")).thenReturn("role");
+        when(mockRequest.getParameter("role")).thenReturn("ADMIN");
         when(mockRequest.getSession()).thenReturn(session);
         //
         doThrow(CommandException.class).when(userService).registration(
                 anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyObject());
-        String result = command.execute(mockRequest,mockResponse);
+        String result = command.execute(mockRequest, mockResponse);
         //then
 
         //exception

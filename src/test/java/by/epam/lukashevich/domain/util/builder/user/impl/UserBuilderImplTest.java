@@ -18,7 +18,8 @@ public class UserBuilderImplTest {
     @BeforeClass
     public void init() {
 
-        readyBuilder.withLogin("login")
+        readyBuilder
+                .withLogin("login")
                 .withName("name")
                 .withEmail("user@mail.ru")
                 .isBanned(false)
@@ -52,7 +53,6 @@ public class UserBuilderImplTest {
     }
 
 
-
     @Test
     public void testWithUserStatus() {
         builder.withRole(Role.ADMIN);
@@ -72,8 +72,9 @@ public class UserBuilderImplTest {
     public void testBuild() {
         User user = new User();
         user.setId(1);
-        user.setName("name");
         user.setLogin("login");
+        user.setName("name");
+        user.setEmail("user@mail.ru");
         user.setBanned(false);
         user.setRole(Role.ADMIN);
 

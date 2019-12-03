@@ -37,7 +37,7 @@ public class SignInCommandTest {
         UserService userService = mock(UserService.class);
         Command command = provider.getCommand(SIGN_IN_COMMAND);
         //when
-        when(mockRequest.getParameter("login")).thenReturn("userName");
+        when(mockRequest.getParameter("login")).thenReturn("login");
         when(mockRequest.getParameter("password")).thenReturn("password");
         doThrow(ServiceException.class).when(userService).signIn(anyString(), anyString());
         command.execute(mockRequest,mockResponse);
