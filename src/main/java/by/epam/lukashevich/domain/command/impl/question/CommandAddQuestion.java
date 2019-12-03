@@ -4,12 +4,9 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
-import by.epam.lukashevich.domain.service.AnswerService;
 import by.epam.lukashevich.domain.service.QuestionService;
 import by.epam.lukashevich.domain.service.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
-import by.epam.lukashevich.domain.util.builder.AnswerBuilder;
-import by.epam.lukashevich.domain.util.builder.QuestionBuilder;
 import by.epam.lukashevich.domain.util.builder.impl.AnswerBuilderImpl;
 import by.epam.lukashevich.domain.util.builder.impl.QuestionBuilderImpl;
 
@@ -22,21 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_QUESTION_TABLE;
+import static by.epam.lukashevich.domain.util.config.JSPActionCommand.PARAMETER_COMMAND;
+import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_TEST_WORK_PAGE_COMMAND;
 import static by.epam.lukashevich.domain.util.config.JSPPages.*;
 
 public class CommandAddQuestion implements Command {
 
+    private final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
         final HttpSession session = request.getSession();
-        final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
-
         final String text = request.getParameter(QUESTION_TEXT);
-        final String[] questionAnswers = request.getParameterValues("questionAnswer[]");
-        final String[] questionAnswerCorrect = request.getParameterValues("answerCorrect[]");
+        final int testId = Integer.parseInt(request.getParameter(TEST_ID));
+        final String[] questionAnswers = request.getParameterValues(QUESTION_ANSWERS);
+        final String[] questionAnswerCorrect = request.getParameterValues(ANSWER_CORRECT);
 
         if (text.isEmpty()) {
             throw new CommandException("No data in text field during Question add in execute() CommandAddQuestion");
@@ -60,18 +59,26 @@ public class CommandAddQuestion implements Command {
                 .build();
 
         try {
-            questionService.add(question);
-            session.setAttribute(REDIRECT_COMMAND, VIEW_QUESTION_TABLE);
-            response.sendRedirect(QUESTION_TABLE_PAGE);
+//            questionService.add(question);
+            questionService.addQuestionToTest(question, testId);
+//            session.setAttribute(REDIRECT_COMMAND, VIEW_QUESTION_TABLE);
+//            response.sendRedirect(QUESTION_TABLE_PAGE);
+
+            String path = request.getContextPath() + request.getServletPath() + "?" + PARAMETER_COMMAND + "=" + VIEW_TEST_WORK_PAGE_COMMAND + "&" + TEST_ID + "=" + testId;
+
+            session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_WORK_PAGE_COMMAND + "&" + TEST_ID + "=" + testId);
+//            response.sendRedirect(TEST_WORK_PAGE);
+            response.sendRedirect(path);
         } catch (ServiceException e) {
-            response.sendRedirect(INDEX);
+            response.sendRedirect(INDEX_PAGE);
             throw new CommandException("Can't add question in execute() CommandAddQuestion", e);
         }
+        return text;
     }
 
     private boolean isAnswerCorrect(String[] questionAnswerCorrect, int answerNumber) {
-        for (int i = 0; i < questionAnswerCorrect.length; i++) {
-            if (questionAnswerCorrect[i].equals(String.valueOf(answerNumber))) {
+        for (String s : questionAnswerCorrect) {
+            if (s.equals(String.valueOf(answerNumber))) {
                 return true;
             }
         }

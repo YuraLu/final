@@ -7,45 +7,47 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.REDIRECT_COMMAND;
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.USER_ROLE_ID;
-import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX;
+import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX_PAGE;
 
-@WebFilter(urlPatterns = {"/index", "/signUp", "/usersTable", "/testsTable", "/testWorkPage"
-        , "/subjectAddPage", "/subjectsTable",  "/questionWorkPage", "/questionsTable"})
+@WebFilter(urlPatterns = {
+        "/signIn",
+        "/signUp",
+        "/usersTable",
+        "/userCabinet",
+        "/testsTable",
+        "/testWorkPage",
+        "/subjectAddPage",
+        "/subjectsTable",
+        "/questionWorkPage",
+        "/questionsTable",
+        "/passTestPage",
+        "/passTestQuestionPage",
+        "/passTestResultPage"})
 public class PageRedirectSecurityFilter implements Filter {
 
-    private static final String PATH_TO_CONTROLLER_WITH_ACTION = "/controller?command=";
+    private static final String PATH_TO_CONTROLLER_WITH_COMMAND = "/controller?command=";
 
     @Override
     public void init(FilterConfig filterConfig) {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-        System.out.println("filter");
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        String path = request.getRequestURI();
-        HttpSession session = request.getSession();
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                         FilterChain filterChain) throws IOException, ServletException {
 
-        System.out.println(session.getAttribute(REDIRECT_COMMAND));
+        final HttpServletRequest request = (HttpServletRequest) servletRequest;
+        final HttpServletResponse response = (HttpServletResponse) servletResponse;
+        final HttpSession session = request.getSession();
 
-        String page = (String) session.getAttribute(REDIRECT_COMMAND);
-        System.out.println("redirect path " + page);
-
-
-        if (session.getAttribute(USER_ROLE_ID) == null && !path.endsWith(INDEX)) {
-            System.out.println("redirect to login page, cause role id == null");
-            response.sendRedirect(INDEX);
+        if (session.getAttribute(USER_ROLE_ID) == null
+                && session.getAttribute(MESSAGE_TO_JSP) == null) {
+            response.sendRedirect(INDEX_PAGE);
         } else if (session.getAttribute(USER_ROLE_ID) != null
-                && !path.endsWith(INDEX)) {
+                && session.getAttribute(MESSAGE_TO_JSP) == null) {
 
-            System.out.println("role not null redirect to " + page);
-
-            String redirectTo = request.getContextPath() +
-                    PATH_TO_CONTROLLER_WITH_ACTION + session.getAttribute(REDIRECT_COMMAND);
+            final String redirectTo = request.getContextPath() +
+                    PATH_TO_CONTROLLER_WITH_COMMAND + session.getAttribute(REDIRECT_COMMAND);
             response.sendRedirect(redirectTo);
         }
         filterChain.doFilter(servletRequest, servletResponse);

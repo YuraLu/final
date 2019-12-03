@@ -36,28 +36,27 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable"><fmt:message key="nav.user_table"/></a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable"><fmt:message key="nav.test_table"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable"><fmt:message key="nav.subject_table"/></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable"><fmt:message key="nav.question_table"/></a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
                 <input type="hidden" name="command" value="viewQuestionTable"/>
-                <label for="locale"></label>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -68,11 +67,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
@@ -83,21 +82,22 @@
     <div class="m-t-1">
         <div class="col">
             <h2><fmt:message key="title.question_list"/></h2>
+            <p><fmt:message key="page.questionTable_intro"/></p>
             <div>
                 <a href="controller?command=viewQuestionAddPage" class="btn btn-primary mb-3 "
-                   role="button"><fmt:message key="button.add"/></a>
+                   role="button"><fmt:message key="table.button_addQuestion"/></a>
             </div>
         </div>
         <form action="controller" method="post">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Details</th>
-                    <th><fmt:message key="question_text"/></th>
-                    <th>Answer option</th>
-                    <th>Answer option</th>
-                    <th>Answer option</th>
-                    <th>Answer option</th>
+                    <th></th>
+                    <th><fmt:message key="table.question_text"/></th>
+                    <th><fmt:message key="table.answer_option"/></th>
+                    <th><fmt:message key="table.answer_option"/></th>
+                    <th><fmt:message key="table.answer_option"/></th>
+                    <th><fmt:message key="table.answer_option"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -111,8 +111,7 @@
                         </td>
                         <td> ${question.questionText} </td>
                         <c:forEach items="${question.answers}" var="answer">
-
-                            <td<c:if test="${answer.isCorrect == true}"> class="bg-light" </c:if>> ${answer.answerText} </td>
+                            <td<c:if test="${answer.isCorrect == true}"> class="bg-info" </c:if>> ${answer.answerText} </td>
                         </c:forEach>
                     </tr>
                 </c:forEach>

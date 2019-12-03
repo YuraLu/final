@@ -12,24 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_TEST_TABLE;
+import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.REDIRECT_COMMAND;
+import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.TEST_ID;
+import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
 import static by.epam.lukashevich.domain.util.config.JSPPages.TEST_TABLE_PAGE;
 
 public class CommandDeleteTest implements Command {
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
+
         final HttpSession session = request.getSession();
         final TestService service = ServiceProvider.getInstance().getTestService();
         final int id = Integer.parseInt(request.getParameter(TEST_ID));
 
         try {
             service.delete(id);
-            session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_TABLE);
-            response.sendRedirect(TEST_TABLE_PAGE);
+
         } catch (ServiceException e) {
             throw new CommandException("Can't delete test in execute() CommandDeleteTest", e);
         }
+
+        session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_TABLE_COMMAND);
+        return TEST_TABLE_PAGE;
     }
 }

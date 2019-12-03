@@ -6,6 +6,8 @@ import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.service.ServiceProvider;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.exception.user.BannedUserServiceException;
+import by.epam.lukashevich.domain.service.exception.user.InvalidUserInformationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,35 +16,36 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_USER_CABINET;
-import static by.epam.lukashevich.domain.util.config.JSPPages.*;
+import static by.epam.lukashevich.domain.util.config.JSPPages.SIGN_IN_PAGE;
+import static by.epam.lukashevich.domain.util.config.JSPPages.USER_CABINET_PAGE;
 
 public class CommandSignIn implements Command {
 
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
         final HttpSession session = request.getSession();
         final String login = request.getParameter(USER_LOGIN);
         final String password = request.getParameter(USER_PASSWORD);
-        final UserService userService = ServiceProvider.getInstance().getUserService();
 
         try {
-            final User user = userService.authorization(login, password);
-            String page = INDEX;
-            if (user == null) {
-                request.setAttribute(PARAMETER_WRONG_PARAMS, "true");
-            } else {
-                session.setAttribute(USER_ID, user.getId());
-                session.setAttribute(USER_ROLE_ID, user.getRole().getId());
-                page = USER_CABINET_PAGE;
-            }
-            session.setAttribute(REDIRECT_COMMAND, VIEW_USER_CABINET);
-            response.sendRedirect(page);
+            final User user = userService.signIn(login, password);
+
+            session.setAttribute(USER_ID, user.getId());
+            session.setAttribute(USER_ROLE_ID, user.getRole().getId());
+            session.setAttribute(MESSAGE_TO_JSP, "message.successful_login");
+
+        } catch (BannedUserServiceException e) {
+            session.setAttribute(MESSAGE_TO_JSP, "message.user_is_banned");
+        } catch (InvalidUserInformationException e) {
+            session.setAttribute(MESSAGE_TO_JSP, "message.invalid_sign_parameters");
         } catch (ServiceException e) {
-            response.sendError(ERROR_NUMBER_500);
             throw new CommandException("Can't authorize in execute() CommandSignIn", e);
         }
+
+        return SIGN_IN_PAGE;
     }
 }

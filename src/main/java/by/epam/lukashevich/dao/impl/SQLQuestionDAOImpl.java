@@ -107,7 +107,7 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
 
     @Override
     public boolean update(Question question) throws DAOException {
-    return false;
+        return false;
     }
 
     @Override
@@ -129,9 +129,6 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(ADD_NEW_QUESTION, Statement.RETURN_GENERATED_KEYS)) {
 
-//            if (isTextUsed(con, question.getQuestionText())) {
-//                throw new DAOException("Text of question is already in use!");
-//            }
             st.setString(1, question.getQuestionText());
             st.executeUpdate();
 
@@ -185,6 +182,59 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during add()", e);
         }
+    }
+
+    @Override
+    public List<Integer> addQuestionList(List<Question> questions) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(ADD_NEW_QUESTION, Statement.RETURN_GENERATED_KEYS)) {
+
+            con.setAutoCommit(false);
+            for (int i = 0; i < questions.size(); i++) {
+                st.setString(1, questions.get(i).getQuestionText());
+                st.addBatch();
+            }
+
+            st.executeBatch();
+            con.commit();
+            con.setAutoCommit(true);
+
+            List<Integer> idsList = new ArrayList<>();
+            ResultSet rs = st.getGeneratedKeys();
+
+            if (rs != null) {
+                while (rs.next()) {
+                    idsList.add(rs.getInt(1));
+                }
+            } else {
+                throw new SQLException("No ID obtained.");
+            }
+            return idsList;
+
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception during add()", e);
+        }
+    }
+
+    @Override
+    public List<Question> findAllQuestionsForTestId(int testId) throws DAOException {
+        List<Question> list = new ArrayList<>();
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(GET_ALL_QUESTIONS_BY_TEST_ID)) {
+
+            st.setInt(1,testId);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Question question = SQLUtil.getQuestion(rs);
+                list.add(question);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception can't create list of questions in findAllQuestionsForTestId() SQLQuestionDAOImpl", e);
+        }
+        return list;
     }
 
     private boolean isTextUsed(Connection connection, String text) throws SQLException {

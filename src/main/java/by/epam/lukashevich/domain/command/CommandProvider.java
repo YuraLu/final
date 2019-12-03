@@ -19,37 +19,44 @@ public class CommandProvider {
 
 
     private CommandProvider() {
-        commands.put(CommandName.MISSING, new CommandMissing());
-        commands.put(CommandName.SIGN_IN, new CommandSignIn());
-        commands.put(CommandName.SIGN_UP, new CommandSignUp());
-        commands.put(CommandName.SIGN_OUT, new CommandSignOut());
+
+        commands.put(CommandName.VIEW_INDEX, new CommandViewIndex());
+        commands.put(CommandName.VIEW_SIGN_IN, new CommandViewSignIn());
         commands.put(CommandName.VIEW_SIGN_UP, new CommandViewSignUp());
         commands.put(CommandName.VIEW_USER_CABINET, new CommandViewUserCabinet());
         commands.put(CommandName.VIEW_USER_TABLE, new CommandViewUserTable());
         commands.put(CommandName.CHANGE_USER_STATUS, new CommandChangeUserStatus());
         commands.put(CommandName.CHANGE_USER_BAN_STATUS, new CommandChangeUserBanStatus());
-        commands.put(CommandName.VIEW_INDEX, new CommandViewIndex());
+        commands.put(CommandName.SIGN_IN, new CommandSignIn());
+        commands.put(CommandName.SIGN_UP, new CommandSignUp());
+        commands.put(CommandName.SIGN_OUT, new CommandSignOut());
+        commands.put(CommandName.EDIT_USER, new CommandEditUser());
 
 
         commands.put(CommandName.VIEW_TEST_TABLE, new CommandViewTestTable());
         commands.put(CommandName.VIEW_TEST_ADD_PAGE, new CommandViewTestAdd());
         commands.put(CommandName.VIEW_TEST_WORK_PAGE, new CommandViewTestWorkPage());
+        commands.put(CommandName.VIEW_PASS_TEST_PAGE, new CommandViewPassTestPage());
+        commands.put(CommandName.VIEW_PASS_TEST_QUESTION_PAGE, new CommandViewPassTestQuestionPage());
+        commands.put(CommandName.VIEW_PASS_TEST_RESULT_PAGE, new CommandViewPassTestResultPage());
         commands.put(CommandName.ADD_TEST, new CommandAddTest());
-        commands.put(CommandName.EDIT_TEST, new CommandEditTest());
         commands.put(CommandName.DELETE_TEST, new CommandDeleteTest());
-
+        commands.put(CommandName.ABORT_TEST, new CommandPassTestAbort());
+        commands.put(CommandName.FINISH_TEST, new CommandPassTestFinish());
+        commands.put(CommandName.GET_NEXT_TEST_QUESTION, new CommandGetNextTestQuestion());
 
         commands.put(CommandName.VIEW_SUBJECT_TABLE, new CommandViewSubjectTable());
         commands.put(CommandName.VIEW_SUBJECT_ADD_PAGE, new CommandViewSubjectAdd());
         commands.put(CommandName.ADD_SUBJECT, new CommandAddSubject());
         commands.put(CommandName.DELETE_SUBJECT, new CommandDeleteSubject());
 
-
         commands.put(CommandName.VIEW_QUESTION_TABLE, new CommandViewQuestionTable());
-        commands.put(CommandName.VIEW_QUESTION_WORK_PAGE, new CommandViewQuestionWorkPage());
         commands.put(CommandName.VIEW_QUESTION_ADD_PAGE, new CommandViewQuestionAdd());
+        commands.put(CommandName.VIEW_QUESTION_WORK_PAGE, new CommandViewQuestionWorkPage());
         commands.put(CommandName.ADD_QUESTION, new CommandAddQuestion());
         commands.put(CommandName.DELETE_QUESTION, new CommandDeleteQuestion());
+
+        commands.put(CommandName.MISSING, new CommandMissing());
 
     }
 

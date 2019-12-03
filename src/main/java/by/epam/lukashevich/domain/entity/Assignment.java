@@ -2,31 +2,18 @@ package by.epam.lukashevich.domain.entity;
 
 import by.epam.lukashevich.domain.entity.user.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Assignment extends AbstractEntity {
-    private int testId;
-    private int studentId;
     private Test test;
     private User student;
+    private int score;
+    private List<Reply> replies;
 
     public Assignment() {
-    }
-
-    public int getTestId() {
-        return testId;
-    }
-
-    public void setTestId(int testId) {
-        this.testId = testId;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+        replies = new ArrayList<>();
     }
 
     public Test getTest() {
@@ -45,30 +32,46 @@ public class Assignment extends AbstractEntity {
         this.student = student;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Assignment that = (Assignment) o;
-        return testId == that.testId &&
-                studentId == that.studentId &&
+        return score == that.score &&
                 Objects.equals(test, that.test) &&
-                Objects.equals(student, that.student);
+                Objects.equals(student, that.student) &&
+                Objects.equals(replies, that.replies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), testId, studentId, test, student);
+        return Objects.hash(super.hashCode(), test, student, score, replies);
     }
 
     @Override
     public String toString() {
         return "Assignment{" +
-                "testId=" + testId +
-                ", studentId=" + studentId +
-                ", test=" + test +
+                "test=" + test +
                 ", student=" + student +
+                ", score=" + score +
+                ", replies=" + replies +
                 '}';
     }
 }

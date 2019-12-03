@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX;
+import static by.epam.lukashevich.domain.util.config.JSPPages.SIGN_IN_PAGE;
 
 public class CommandSignOut implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        HttpSession session = request.getSession();
-//        String locale = (String) session.getAttribute("locale");
+        final HttpSession session = request.getSession();
         if (session != null) {
             session.invalidate();
         }
-//        HttpSession newSession = request.getSession();
-//        newSession.setAttribute("locale", locale);
-        request.getRequestDispatcher(INDEX).forward(request, response);
+        return SIGN_IN_PAGE;
     }
 }
 

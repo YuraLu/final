@@ -4,7 +4,6 @@ import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.AnswerDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.domain.entity.Answer;
-import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.AnswerService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
@@ -68,6 +67,16 @@ public class AnswerServiceImpl implements AnswerService {
             return answerDAO.addAnswerList(answers);
         } catch (DAOException e) {
             throw new ServiceException("Can't add answer", e);
+        }
+    }
+
+
+    @Override
+    public List<Answer> findAllAnswersForQuestionId(int questionId)throws ServiceException {
+        try {
+            return answerDAO.findAllAnswersForQuestionId(questionId);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't find all answers for questionId", e);
         }
     }
 }

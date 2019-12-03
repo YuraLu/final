@@ -7,6 +7,8 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
+
+<c:import url="/WEB-INF/form/add_new_question.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,28 +38,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable">
+                        <fmt:message key="nav.user_table"/>
+                    </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable">
+                    <fmt:message key="nav.test_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable">
+                    <fmt:message key="nav.subject_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable">
+                    <fmt:message key="nav.question_table"/>
+                </a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
-                <input type="hidden" name="command" value="viewTestAddPage"/>
-                <label for="locale"></label>
+                <input type="hidden" name="command" value="viewTestWorkPage"/>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -68,11 +77,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
@@ -97,12 +106,12 @@
                 <div class="form-group">
                     <label for="inputTestTitle"><fmt:message key="test_title"/></label>
                     <input type="text" class="form-control" name="testTitle" id="inputTestTitle"
-                           value="${test.title}" placeholder="">
+                           value="${test.title}">
                 </div>
                 <div class="form-group">
-                    <label for="inputTestDescription"><fmt:message key="test_title"/></label>
+                    <label for="inputTestDescription"><fmt:message key="test_description"/></label>
                     <input type="text" class="form-control" name="testDescription" id="inputTestDescription"
-                           value="${test.description}" placeholder="">
+                           value="${test.description}">
                 </div>
 
                 <div class="form-group">
@@ -118,24 +127,50 @@
 
                 <div class="form-group">
                     <h5><fmt:message key="test_question"/></h5>
-                    <select name="testQuestionId">
-                        <option></option>
-<%--                        <c:forEach items="${test.questions}" var="question">--%>
-<%--                            <option value="${question.id}"--%>
-<%--                                    <c:if test="${question.questionText == test.question.questionText}">selected</c:if> >${question.questionText}</option>--%>
-<%--                        </c:forEach>--%>
-                    </select>
 
+                    <c:if test="${test==null}">
+                        <h6><fmt:message key="table.test_add_questions"/></h6>
+                        <select name="testQuestions" multiple>
+                            <option></option>
+                            <c:forEach items="${questionList}" var="question">
+                                <option value="${question.id}"
+                                        <c:if test="${question.questionText == test.question.questionText}">selected</c:if>>
+                                        ${question.questionText}
+                                </option>
+                            </c:forEach>
+                        </select>
+                        <h6>Another question?</h6>
+                        <select name="testQuestions" multiple>
+                            <option></option>
+                            <c:forEach items="${questionList}" var="question">
+                                <option value="${question.id}"
+                                        <c:if test="${question.questionText == test.question.questionText}">selected</c:if> >
+                                        ${question.questionText}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </c:if>
+                    <c:if test="${test != null}">
+                        <ul>
+                            <c:forEach items="${test.questions}" var="question">
+                                <li>
+                                    <a href="controller?command=viewQuestionWorkPage&questionId=${question.id}"
+                                       class="mt-2">
+                                            ${question.questionText}
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </div>
-
             </div>
 
             <input type="hidden" name="testId" value="${test.id}">
             <div class="col">
                 <c:if test="${test == null}">
                     <input type="hidden" name="testAuthorId" value="${userId}">
-                    <button type="submit" name="command" value="addTest"
-                            class="mt-2">
+
+                    <button type="submit" name="command" value="addTest" class="mt-2">
                         <strong><fmt:message key="button.add"/></strong>
                     </button>
                 </c:if>
@@ -143,16 +178,26 @@
                     <input type="hidden" name="testAuthorId" value="${test.author.id}">
                     <input type="hidden" name="testSubjectId" value="${test.subject.id}">
 
-                    <button type="submit" name="command" value="viewTestAddPage"
-                            class="mt-2">
-                        <strong><fmt:message key="button.add"/></strong>
-                    </button>
-                    <button type="submit" name="command" value="editTest"
-                            class="mt-2">
+<%--                    <button type="submit" name="command" value="viewQuestionAddPage" class="mt-2">--%>
+<%--                        <strong><fmt:message key="table.button_addQuestion"/></strong>--%>
+<%--                    </button>--%>
+
+                    <div>
+                        <a href="controller?command=viewQuestionAddPage&testId=${test.id}" class="btn btn-primary mb-3"
+                           role="button"><fmt:message key="table.button_addQuestion"/></a>
+                    </div>
+
+                    <div class="mb-3">
+                        <a href="" class="overlayLink btn btn-primary mb-3" role="button">
+                            NEW STYLE ADD QUESTION
+                        </a>
+                    </div>
+
+                    <button type="submit" name="command" value="editTest" class="mt-2">
                         <strong><fmt:message key="button.edit"/></strong>
                     </button>
-                    <button type="submit" name="command" value="deleteTest"
-                            class="mt-2">
+
+                    <button type="submit" name="command" value="deleteTest" class="mt-2">
                         <strong><fmt:message key="button.delete"/></strong>
                     </button>
                 </c:if>

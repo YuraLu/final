@@ -1,7 +1,6 @@
 package by.epam.lukashevich.domain.service;
 
 import by.epam.lukashevich.domain.entity.Answer;
-import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
 import java.util.List;
@@ -19,4 +18,6 @@ public interface AnswerService {
     int addAndReturnId(Answer answer) throws ServiceException;
 
     List<Integer> addAnswerList(List<Answer> answers) throws ServiceException;
+
+    List<Answer> findAllAnswersForQuestionId(int questionId)throws ServiceException;
 }

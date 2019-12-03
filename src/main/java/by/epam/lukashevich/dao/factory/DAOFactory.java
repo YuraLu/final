@@ -15,6 +15,7 @@ public class DAOFactory {
     }
 
     private final AnswerDAO answerDAO = new SQLAnswerDAOImpl();
+    private final AssignmentDAO assignmentDAO = new SQLAssignmentDAOImpl();
     private final QuestionDAO questionDAO = new SQLQuestionDAOImpl();
     private final ReplyDAO replyDAO = new SQLReplyDAOImpl();
     private final SubjectDAO subjectDAO = new SQLSubjectDAOImpl();
@@ -23,6 +24,10 @@ public class DAOFactory {
 
     public AnswerDAO getAnswerDAO() {
         return answerDAO;
+    }
+
+    public AssignmentDAO getAssignmentDAO() {
+        return assignmentDAO;
     }
 
     public QuestionDAO getQuestionDAO() {

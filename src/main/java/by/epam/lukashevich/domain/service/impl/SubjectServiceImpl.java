@@ -43,8 +43,6 @@ public class SubjectServiceImpl implements SubjectService {
         }
     }
 
-
-
     @Override
     public void delete(int id) throws ServiceException {
         try {
@@ -53,8 +51,4 @@ public class SubjectServiceImpl implements SubjectService {
             throw new ServiceException("Can't delete subject", e);
         }
     }
-
-
-
-
 }

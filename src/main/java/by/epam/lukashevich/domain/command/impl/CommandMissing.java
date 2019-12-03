@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.ERROR_NUMBER_500;
+import static by.epam.lukashevich.domain.util.config.JSPPages.ERROR_PAGE;
 
 public class CommandMissing implements Command {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        response.sendError(ERROR_NUMBER_500);
+        response.sendRedirect(ERROR_PAGE);
         throw new CommandException("There is no such command");
     }
 }

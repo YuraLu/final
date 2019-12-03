@@ -36,28 +36,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable">
+                        <fmt:message key="nav.user_table"/>
+                    </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable">
+                    <fmt:message key="nav.test_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable">
+                    <fmt:message key="nav.subject_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable">
+                    <fmt:message key="nav.question_table"/>
+                </a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
-                <input type="hidden" name="command" value="viewQuestionEditPage"/>
-                <label for="locale"></label>
+                <input type="hidden" name="command" value="viewQuestionWorkPage"/>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -68,11 +75,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
@@ -82,7 +89,14 @@
 <div class="container">
     <div class="m-t-1">
         <div class="col">
-            <h2><fmt:message key="title.question.add_page"/></h2>
+            <c:if test="${question != null}">
+                <h2>Question work page</h2>
+            </c:if>
+
+            <c:if test="${question == null}">
+                <h2><fmt:message key="title.question.add_page"/></h2>
+            </c:if>
+
         </div>
         <form action="controller" method="post">
             <div class="col">
@@ -95,13 +109,13 @@
 
                 <div id="answerList" class="mb-3">
 
-                    <c:forEach items="${question.answers}" var="answer">
+                    <c:forEach items="${question.answers}" var="answer" varStatus="a">
                         <div class="field-group">
                             <h5><fmt:message key="answer_text"/>:</h5>
                             <div class="inlineBox">
-                                <input class="" type="checkbox" name="answerCorrect[]" id="a1" value="1"
+                                <input class="" type="checkbox" name="answerCorrect[]" id="${a.count}" value="1"
                                        <c:if test="${answer.isCorrect == true}">checked</c:if>/>
-                                <label for="a1" class="">This answer option is correct</label>
+                                <label for="${a.count}" class="">This answer option is correct</label>
                                 <br/>
                                 <textarea name="questionAnswer[]" cols="95" rows="2">${answer.answerText}</textarea>
                                 <br/>
@@ -154,20 +168,21 @@
                 </div>
             </div>
             <input type="hidden" name="questionId" value="${question.id}">
+            <input type="hidden" name="testId" value="${testId}">
             <div class="col">
                 <c:if test="${question == null}">
-                    <button type="submit" name="command" value="addQuestion"
-                            class="mt-2">
+                    <button type="submit" name="command" value="addQuestion" class="mt-2">
                         <strong><fmt:message key="button.add"/></strong>
                     </button>
                 </c:if>
                 <c:if test="${question != null}">
-                    <button type="submit" name="command" value="viewQuestionAddPage"
-                            class="mt-2">
+                    <a href="controller?command=viewTestWorkPage&testId=${test.id}" class="mt-2">
+                        <strong><fmt:message key="button.back"/> </strong>
+                    </a>
+                    <button type="submit" name="command" value="viewQuestionAddPage" class="mt-2">
                         <strong><fmt:message key="button.add"/></strong>
                     </button>
-                    <button type="submit" name="command" value="deleteQuestion"
-                            class="mt-2">
+                    <button type="submit" name="command" value="deleteQuestion" class="mt-2">
                         <strong><fmt:message key="button.delete"/></strong>
                     </button>
                 </c:if>

@@ -1,16 +1,14 @@
 package by.epam.lukashevich.domain.service.impl;
 
-import by.epam.lukashevich.dao.AnswerDAO;
+import by.epam.lukashevich.dao.TestDAO;
 import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.QuestionDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
-import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
+import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.service.QuestionService;
 import by.epam.lukashevich.domain.service.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
-import by.epam.lukashevich.domain.util.builder.impl.AnswerBuilderImpl;
-import by.epam.lukashevich.domain.util.builder.impl.QuestionBuilderImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionDAO questionDAO = DAOFactory.getInstance().getQuestionDAO();
+    private final TestDAO testDAO = DAOFactory.getInstance().getTestDAO();
 
     public QuestionServiceImpl() {
     }
@@ -66,6 +65,40 @@ public class QuestionServiceImpl implements QuestionService {
             questionDAO.delete(id);
         } catch (DAOException e) {
             throw new ServiceException("Can't delete question", e);
+        }
+    }
+
+    @Override
+    public List<Integer> addQuestionList(List<Question> questions) throws ServiceException {
+        try {
+            return questionDAO.addQuestionList(questions);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't add questions list", e);
+        }
+    }
+
+
+    @Override
+    public List<Question> findAllQuestionsForTestId(int testId) throws ServiceException {
+        try {
+            return questionDAO.findAllQuestionsForTestId(testId);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't find all question for testId", e);
+        }
+    }
+
+    @Override
+    public void addQuestionToTest(Question question, int testId) throws ServiceException {
+            try {
+            int questionId = questionDAO.addAndReturnId(question);
+            List<Integer> answerIdsList = ServiceProvider.getInstance().getAnswerService().addAnswerList(question.getAnswers());
+            questionDAO.addAnswersList(questionId, answerIdsList);
+
+            List<Integer> questionIdsList = new ArrayList<>();
+            questionIdsList.add(questionId);
+            testDAO.addQuestionsList(testId, questionIdsList);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't add Question to Test", e);
         }
     }
 }

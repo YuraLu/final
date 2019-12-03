@@ -1,6 +1,6 @@
 package by.epam.lukashevich.dao;
 
-import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.exception.user.UserDAOException;
 import by.epam.lukashevich.domain.entity.user.User;
 
 import java.util.List;
@@ -8,28 +8,28 @@ import java.util.List;
 public interface UserDAO extends CommonDAO<User> {
 
     @Override
-    List<User> findAll() throws DAOException;
+    List<User> findAll() throws UserDAOException;
 
     @Override
-    User findById(Integer id) throws DAOException;
+    User findById(Integer id) throws UserDAOException;
 
     @Override
-    boolean add(User user) throws DAOException;
+    boolean add(User user) throws UserDAOException;
 
     @Override
-    boolean update(User user) throws DAOException;
+    boolean update(User user) throws UserDAOException;
 
     @Override
-    boolean delete(Integer id) throws DAOException;
+    boolean delete(Integer id) throws UserDAOException;
 
+    //
+    void updateBanStatus(Integer id) throws UserDAOException;
 
+    void updateStatus(Integer id) throws UserDAOException;
 
+    User getByLoginAndPass(String login, String encodedPass) throws UserDAOException;
 
-    void updateBanStatus(Integer id) throws DAOException;
+    void updatePassword(int id, String newEncodedPass)throws UserDAOException;
 
-    void updateStatus(Integer id) throws DAOException;
-
-    User authorization(String login, String password) throws DAOException;
-
-    boolean updateUserPassword(String login, String newPassword) throws DAOException;
+    boolean isLoginUsed(String login) throws UserDAOException;
 }

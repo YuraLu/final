@@ -30,35 +30,41 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable">
+                        <fmt:message key="nav.user_table"/>
+                    </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable">
+                    <fmt:message key="nav.test_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable">
+                    <fmt:message key="nav.subject_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable">
+                    <fmt:message key="nav.question_table"/>
+                </a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
                 <input type="hidden" name="command" value="viewUserCabinet"/>
-                <label for="locale"></label>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -69,23 +75,60 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
 </nav>
 
 <!-- Begin page content -->
-<div class="container">
-    <div class="m-t-1">
-        <div class="col">
-            <h2><fmt:message key="title.personal_cabinet"/></h2>
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h2><fmt:message key="title.personal_cabinet"/></h2>
+                            <form action="controller" method="post">
+                                <input type="hidden" name="userId" value="${user.id}">
+                                <input type="hidden" name="roleId" value="${user.role.id}">
+                                <div class="form-label-group">
+                                    <label for="login">
+                                        <fmt:message key="registration.enter_login_message"/>
+                                    </label>
+                                    <input type="text" id="login" name="login" class="form-control"
+                                           placeholder="Login" value="${user.login}" readonly>
+                                </div>
+                                <div class="form-label-group">
+                                    <label for="name">
+                                        <fmt:message key="registration.enter_name_message"/>
+                                    </label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                           value="${user.name}"/>
+                                </div>
+                                <div class="form-label-group">
+                                    <label for="email">
+                                        <fmt:message key="registration.enter_email_message"/>
+                                    </label>
+                                    <input type="text" id="email" name="email" class="form-control"
+                                           value="${user.email}"/>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block btn-login
+                                                    text-uppercase font-weight-bold mb-2"
+                                        type="submit" name="command" value="editUser">
+                                    <strong><fmt:message key="personal_cabinet.button_save"/></strong>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
 

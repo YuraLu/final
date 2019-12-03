@@ -14,25 +14,27 @@ import java.io.IOException;
 
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.REDIRECT_COMMAND;
 import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.USER_FOR_ACTION;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_USER_TABLE;
+import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_USER_TABLE_COMMAND;
 import static by.epam.lukashevich.domain.util.config.JSPPages.USER_TABLE_PAGE;
 
 public class CommandChangeUserStatus implements Command {
 
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
         final HttpSession session = request.getSession();
-        int id = Integer.parseInt(request.getParameter(USER_FOR_ACTION));
-        final UserService userService = ServiceProvider.getInstance().getUserService();
 
         try {
+            int id = Integer.parseInt(request.getParameter(USER_FOR_ACTION));
             userService.updateStatus(id);
-            session.setAttribute(REDIRECT_COMMAND, VIEW_USER_TABLE);
-            response.sendRedirect(USER_TABLE_PAGE);
         } catch (ServiceException e) {
             throw new CommandException("Can't update user status in CommandChangeUserStatus", e);
         }
+
+        session.setAttribute(REDIRECT_COMMAND, VIEW_USER_TABLE_COMMAND);
+        return USER_TABLE_PAGE;
     }
 }

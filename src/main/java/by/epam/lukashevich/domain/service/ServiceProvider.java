@@ -15,6 +15,7 @@ public class ServiceProvider {
     }
 
     private final AnswerService answerService = new AnswerServiceImpl();
+    private final AssignmentService assignmentService = new AssignmentServiceImpl();
     private final QuestionService questionService = new QuestionServiceImpl();
     private final ReplyService replyService = new ReplyServiceImpl();
     private final SubjectService subjectService = new SubjectServiceImpl();
@@ -23,6 +24,10 @@ public class ServiceProvider {
 
     public AnswerService getAnswerService() {
         return answerService;
+    }
+
+    public AssignmentService getAssignmentService() {
+        return assignmentService;
     }
 
     public QuestionService getQuestionService() {

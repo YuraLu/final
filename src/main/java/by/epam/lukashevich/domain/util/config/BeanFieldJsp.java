@@ -1,6 +1,8 @@
 package by.epam.lukashevich.domain.util.config;
 
 public final class BeanFieldJsp {
+
+
     private BeanFieldJsp() {
     }
 
@@ -13,11 +15,12 @@ public final class BeanFieldJsp {
     public static final String USER_EMAIL = "email";
     public static final String USER_LOGIN = "login";
     public static final String USER_PASSWORD = "password";
+    public static final String USER_CONFIRMED_PASSWORD = "confirmedPassword";
     public static final String USER_NEW_PASSWORD = "newPassword";
     public static final String USER_ROLE = "role";
     public static final String USER_ROLE_ID = "roleId";
-    public static final String USER_STUDENT = "student";
-    public static final String USER_TUTOR = "tutor";
+    public static final String USER_BANNED = "banned";
+
     public static final String USER_FOR_ACTION = "userForAction";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //TEST
@@ -28,23 +31,17 @@ public final class BeanFieldJsp {
     public static final String TEST_TITLE = "testTitle";
     public static final String TEST_DESCRIPTION = "testDescription";
     public static final String TEST_SUBJECT_ID = "testSubjectId";
+    public static final String TEST_QUESTIONS = "testQuestions";
     public static final String TEST_AUTHOR_ID = "testAuthorId";
+    public static final String PASS_TEST_FINISH_STATUS = "passTestFinishStatus";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //SUBJECT
     public static final String SUBJECT_LIST = "subjectList";
-
-    public static final String SUBJECT_ID = "subjectId";
     public static final String SUBJECT_NAME = "subjectName";
     public static final String SUBJECT_FOR_ACTION = "subjectForAction";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //ANSWER
-    public static final String ANSWER_OBJECT = "answer";
-    public static final String ANSWER_LIST = "answerList";
-
-    public static final String ANSWER_ID = "answerId";
-    public static final String ANSWER_TEXT = "answerText";
-    public static final String ANSWER_CORRECT = "answerCorrect";
-    public static final String ANSWER_FOR_ACTION = "answerForAction";
+    public static final String ANSWER_CORRECT = "answerCorrect[]";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     //QUESTION
     public static final String QUESTION_OBJECT = "question";
@@ -52,14 +49,27 @@ public final class BeanFieldJsp {
 
     public static final String QUESTION_ID = "questionId";
     public static final String QUESTION_TEXT = "questionText";
+    public static final String QUESTION_ANSWERS = "questionAnswer[]";
+    public static final String QUESTION_ANSWER_ID = "questionAnswerId";
     ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //ASSIGNMENT
+    public static final String ASSIGNMENT_OBJECT = "assignment";
+    public static final String ASSIGNMENT_SCORE = "assignmentScore";
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static final String NUMBER_OF_QUESTIONS = "numberOfQuestions";
+    public static final String CURRENT_QUESTION_NUMBER = "currentQuestionNumber";
+    public static final String REPLIES ="replies";
 
-    public static final int ERROR_NUMBER_500 = 500;
-    public static final String PARAMETER_PREVIOUS_REQUEST = "prev_request";
-    public static final String PARAMETER_WRONG_PARAMS = "wrong_params";
-    public static final String PARAMETER_COMMAND = "command";
+    //////////////////////////////////////////////////////////////////////////////
+    public static final String ALLOWED = "allowed";
 
-    public static final Integer ERROR_NUMBER_403 = 403;
+    public static final String SECURITY_MESSAGE = "securityMessage";
+
+    public static final String MESSAGE_TO_JSP = "errorMessage";
+    public static final String MESSAGE_TO_JSP_PASSWORD = "errorMessagePassword";
+
+    public static final String MESSAGE_TO_SIGN_UP = "errorMessageSingUp";
+    public static final String MESSAGE_TO_EDIT_USER = "errorMessageEditUser";
 
     public static final String REDIRECT_COMMAND = "redirectTo";
 }

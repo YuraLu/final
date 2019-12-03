@@ -7,6 +7,8 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
+
+<c:import url="/WEB-INF/form/add_new_test.jsp"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,28 +38,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable">
+                        <fmt:message key="nav.user_table"/>
+                    </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable">
+                    <fmt:message key="nav.test_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable">
+                    <fmt:message key="nav.subject_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable">
+                    <fmt:message key="nav.question_table"/>
+                </a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
                 <input type="hidden" name="command" value="viewTestTable"/>
-                <label for="locale"></label>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -68,11 +77,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
@@ -85,9 +94,16 @@
 
             <h2><fmt:message key="title.test_list"/></h2>
             <p><fmt:message key="title.testTable_intro"/></p>
+<%--            <div class="mb-3">--%>
+<%--                <a href="controller?command=viewTestAddPage" class="btn btn-primary mb-3 " role="button">--%>
+<%--                    <fmt:message key="button.add"/>--%>
+<%--                </a>--%>
+<%--            </div>--%>
+
             <div class="mb-3">
-                <a href="controller?command=viewTestAddPage" class="btn btn-primary mb-3 " role="button"><fmt:message
-                        key="button.add"/></a>
+                <a href="" class="overlayLink btn btn-primary mb-3" role="button">
+                    <fmt:message key="button.add"/>
+                </a>
             </div>
         </div>
         <form action="controller" method="post">
@@ -99,6 +115,7 @@
                     <th><fmt:message key="test_description"/></th>
                     <th><fmt:message key="test_subject"/></th>
                     <th><fmt:message key="test_author"/></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -113,6 +130,11 @@
                         <td> ${test.description} </td>
                         <td> ${test.subject.name} </td>
                         <td> ${test.author.name} </td>
+                        <td>
+                            <a href="controller?command=viewPassTestPage&testId=${test.id}" class="mt-2">
+                                <strong><fmt:message key="pass_test"/></strong>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -132,7 +154,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery.slim.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

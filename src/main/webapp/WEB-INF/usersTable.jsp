@@ -36,28 +36,35 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="title.main"/></a>
+        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${roleId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">User Table</a>
+                    <a class="nav-link" href="controller?command=viewUserTable">
+                        <fmt:message key="nav.user_table"/>
+                    </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">Test Table</a>
+                <a class="nav-link" href="controller?command=viewTestTable">
+                    <fmt:message key="nav.test_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">Subject Table</a>
+                <a class="nav-link" href="controller?command=viewSubjectTable">
+                    <fmt:message key="nav.subject_table"/>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">Question Table</a>
+                <a class="nav-link" href="controller?command=viewQuestionTable">
+                    <fmt:message key="nav.question_table"/>
+                </a>
             </li>
         </ul>
 
         <div class="nav-tabs " id="localeDivNav">
             <form>
                 <input type="hidden" name="command" value="viewUserTable"/>
-                <label for="locale"></label>
                 <select id="locale" name="locale" onchange="submit()">
                     <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
                     <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
@@ -68,11 +75,11 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="title.personal_cabinet"/>
+                    <fmt:message key="nav.personal_cabinet"/>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="button.signOut"/></a>
+                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
         </ul>
     </div>
@@ -94,7 +101,6 @@
                     <th><fmt:message key="table.message.user.name"/></th>
                     <th><fmt:message key="table.message.user.email"/></th>
                     <th><fmt:message key="table.message.user.login"/></th>
-                    <th><fmt:message key="table.message.user.password"/></th>
                     <th><fmt:message key="table.message.user.banned"/></th>
                     <th><fmt:message key="table.chooseForAction"/></th>
                 </tr>
@@ -105,18 +111,17 @@
                     <tr>
                         <td>${user.id}</td>
                         <td>
-                            <c:if test="${user.role.id == 1}"> ADMIN </c:if>
-                            <c:if test="${user.role.id == 2}"> STUDENT </c:if>
-                            <c:if test="${user.role.id == 3}"> TUTOR </c:if>
+                            <c:if test="${user.role.id == 1}"><fmt:message key="title.admin"/></c:if>
+                            <c:if test="${user.role.id == 2}"><fmt:message key="title.student"/></c:if>
+                            <c:if test="${user.role.id == 3}"><fmt:message key="title.tutor"/></c:if>
                         </td>
                         <td> ${user.name} </td>
                         <td> ${user.email} </td>
                         <td> ${user.login} </td>
-                        <td> ${user.password} </td>
                         <td>
                             <c:choose>
-                                <c:when test="${user.banned}">banned</c:when>
-                                <c:otherwise>not banned</c:otherwise>
+                                <c:when test="${user.banned}"><fmt:message key="table.user_banned"/></c:when>
+                                <c:otherwise><fmt:message key="table.user_not_banned"/></c:otherwise>
                             </c:choose>
 
                         </td>

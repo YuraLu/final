@@ -22,4 +22,9 @@ public interface TestDAO extends CommonDAO<Test> {
     @Override
     boolean delete(Integer id) throws DAOException;
 
+
+
+    int addAndReturnId(Test test) throws DAOException;
+
+    List<Integer> addQuestionsList(int testId, List<Integer> questionIdsList) throws DAOException;
 }

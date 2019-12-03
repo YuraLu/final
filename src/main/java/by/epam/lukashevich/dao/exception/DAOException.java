@@ -1,6 +1,9 @@
 package by.epam.lukashevich.dao.exception;
 
-public class DAOException extends Exception{
+public class DAOException extends Exception {
+    public DAOException() {
+    }
+
     public DAOException(String message) {
         super(message);
     }
@@ -11,8 +14,5 @@ public class DAOException extends Exception{
 
     public DAOException(Throwable cause) {
         super(cause);
-    }
-
-    public DAOException() {
     }
 }

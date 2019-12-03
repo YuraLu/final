@@ -20,6 +20,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/signIn.css"/>
+    <script src="js/alert.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -61,7 +62,7 @@
                                 <div class="form-label-group">
                                     <input type="email" id="inputEmail" class="form-control" name="email"
                                            placeholder="<fmt:message key="registration.enter_email_message"/>"
-                                           pattern="^(\w+[\.-]?\w+[@][a-z]{2,10}[.][a-zA-Z]{2,4})$" required>
+                                           pattern="[a-z][[a-z][0-9][-][_]]{3,15}[@][a-z]{2,10}[.][a-z]{2,4}$" required>
                                     <label for="inputEmail">
                                         <fmt:message key="registration.enter_email_message"/></label>
                                     <small>${email_pattern}</small>
@@ -70,7 +71,7 @@
                                 <div class="form-label-group">
                                     <input type="text" id="inputLogin" class="form-control" name="login"
                                            placeholder="<fmt:message key="registration.enter_login_message"/>"
-                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{3,20}$" required>
+                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{3,16}$" required>
                                     <label for="inputLogin">
                                         <fmt:message key="registration.enter_login_message"/></label>
                                     <small>${login_pattern}</small>
@@ -78,25 +79,27 @@
                                 <div class="form-label-group">
                                     <input type="password" id="inputPassword" class="form-control" name="password"
                                            placeholder="<fmt:message key="registration.enter_password_message"/>"
-                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,15}$" required>
+                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,16}$" required>
                                     <label for="inputPassword"><fmt:message
                                             key="registration.enter_password_message"/></label>
                                     <small>${password_pattern}</small>
                                 </div>
-                                <%--                                <div class="form-label-group">--%>
-                                <%--                                    <input type="password" id="inputConfirmPassword" class="form-control"--%>
-                                <%--                                           placeholder="<fmt:message key="registration.enter_password_message"/>"--%>
-                                <%--                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,15}$" required>--%>
-                                <%--                                    <label for="inputConfirmPassword"><fmt:message--%>
-                                <%--                                            key="registration.enter_confirm_password_message"/></label>--%>
-                                <%--                                </div>--%>
+                                <div class="form-label-group">
+                                    <input type="password" id="inputConfirmPassword" class="form-control" name="confirmedPassword"
+                                           placeholder="<fmt:message key="registration.enter_password_message"/>"
+                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,16}$" required>
+                                    <label for="inputConfirmPassword"><fmt:message
+                                            key="registration.enter_confirm_password_message"/></label>
+                                </div>
                                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                                         type="submit" name="command" value="signUp">
                                     <fmt:message key="button.register"/>
                                 </button>
-                                <a class="d-block text-center mt-2 small" href="controller?command=viewIndex">
+                                <p class="d-block text-center"><fmt:message key="registration.registered_promo"/>
+                                <a class="mt-2 small" href="controller?command=viewSignIn">
                                     <fmt:message key="button.signIn"/>
                                 </a>
+                                </p>
                             </form>
                         </div>
                     </div>
@@ -105,6 +108,13 @@
         </div>
     </div>
 </div>
+
+<c:if test="${errorMessage !=null}">
+    <script>
+        showAlert("<fmt:message key="${errorMessage}"/>");
+    </script>
+</c:if>
+<c:remove var="errorMessage"/>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery.slim.js"></script>

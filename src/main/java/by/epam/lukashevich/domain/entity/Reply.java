@@ -1,17 +1,18 @@
 package by.epam.lukashevich.domain.entity;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Reply extends AbstractEntity {
+
     private int assignmentId;
-    private int answerId;
-    private int questionId;
-    private Assignment assignment;
-    private Answer answer;
     private Question question;
+    private List<Answer> answers;
+
 
     public Reply() {
+        answers = new ArrayList<>();
     }
 
     public int getAssignmentId() {
@@ -22,44 +23,20 @@ public class Reply extends AbstractEntity {
         this.assignmentId = assignmentId;
     }
 
-    public int getAnswerId() {
-        return answerId;
-    }
-
-    public void setAnswerId(int answerId) {
-        this.answerId = answerId;
-    }
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
-    }
-
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
-
     public Question getQuestion() {
         return question;
     }
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
     @Override
@@ -69,27 +46,21 @@ public class Reply extends AbstractEntity {
         if (!super.equals(o)) return false;
         Reply reply = (Reply) o;
         return assignmentId == reply.assignmentId &&
-                answerId == reply.answerId &&
-                questionId == reply.questionId &&
-                Objects.equals(assignment, reply.assignment) &&
-                Objects.equals(answer, reply.answer) &&
-                Objects.equals(question, reply.question);
+                Objects.equals(question, reply.question) &&
+                Objects.equals(answers, reply.answers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), assignmentId, answerId, questionId, assignment, answer, question);
+        return Objects.hash(super.hashCode(), assignmentId, question, answers);
     }
 
     @Override
     public String toString() {
         return "Reply{" +
                 "assignmentId=" + assignmentId +
-                ", answerId=" + answerId +
-                ", questionId=" + questionId +
-                ", assignment=" + assignment +
-                ", answer=" + answer +
                 ", question=" + question +
+                ", answers=" + answers +
                 '}';
     }
 }

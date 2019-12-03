@@ -6,7 +6,7 @@ public enum Role {
     TUTOR(3);
 
     private static final long serialVersionUID = 1L;
-    private int id;
+    private final int id;
 
     Role(int id) {
         this.id = id;

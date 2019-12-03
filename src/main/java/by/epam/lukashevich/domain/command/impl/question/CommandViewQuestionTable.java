@@ -10,7 +10,6 @@ import by.epam.lukashevich.domain.service.exception.ServiceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,18 +18,18 @@ import static by.epam.lukashevich.domain.util.config.JSPPages.QUESTION_TABLE_PAG
 
 public class CommandViewQuestionTable implements Command {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        final HttpSession session = request.getSession();
-        final QuestionService service = ServiceProvider.getInstance().getQuestionService();
+        final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
 
         try {
-            List<Question> list = service.findAll();
+            List<Question> list = questionService.findAll();
             request.setAttribute(QUESTION_LIST, list);
-            request.getRequestDispatcher(QUESTION_TABLE_PAGE).forward(request, response);
+
         } catch (ServiceException e) {
             throw new CommandException("Can't get list of questions in execute() CommandViewQuestionTable", e);
         }
+        return QUESTION_TABLE_PAGE;
     }
 }

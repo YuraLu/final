@@ -7,7 +7,6 @@ import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
 import by.epam.lukashevich.dao.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Answer;
-import by.epam.lukashevich.domain.entity.Question;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -75,17 +74,18 @@ public class SQLAnswerDAOImpl implements AnswerDAO {
 
     @Override
     public boolean update(Answer answer) throws DAOException {
-        try (ProxyConnection proxyConnection = pool.getConnection();
-             Connection con = proxyConnection.getConnectionWrapper();
-             PreparedStatement st = con.prepareStatement(UPDATE_ANSWER)) {
-
-            st.setString(1, answer.getAnswerText());
-            st.setBoolean(2, answer.getIsCorrect());
-            st.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            throw new DAOException("SQL Exception during answer update()", e);
-        }
+//        try (ProxyConnection proxyConnection = pool.getConnection();
+//             Connection con = proxyConnection.getConnectionWrapper();
+//             PreparedStatement st = con.prepareStatement(UPDATE_ANSWER)) {
+//
+//            st.setString(1, answer.getAnswerText());
+//            st.setBoolean(2, answer.getIsCorrect());
+//            st.executeUpdate();
+//            return true;
+//        } catch (SQLException e) {
+//            throw new DAOException("SQL Exception during answer update()", e);
+//        }
+        return false;
     }
 
     @Override
@@ -127,13 +127,14 @@ public class SQLAnswerDAOImpl implements AnswerDAO {
         }
     }
 
-
     @Override
     public List<Answer> findAllAnswersForQuestionId(int questionId) throws DAOException {
         List<Answer> list = new ArrayList<>();
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_ALL_ANSWERS_BY_QUESTION_ID)) {
+
+            st.setInt(1,questionId);
 
             ResultSet rs = st.executeQuery();
 
@@ -147,34 +148,12 @@ public class SQLAnswerDAOImpl implements AnswerDAO {
         return list;
     }
 
-
-    private boolean isTextUsed(Connection connection, String text) throws SQLException {
-        try (PreparedStatement st = connection.prepareStatement(GET_ANSWER_BY_TEXT)) {
-            st.setString(1, text);
-            ResultSet rs = st.executeQuery();
-            return rs.first();
-        }
-    }
-
     @Override
     public List<Integer> addAnswerList(List<Answer> answers) throws DAOException {
-
-//        String sql = "INSERT INTO answers (text, correct) VALUES ";
-//
-//
-//        for (int i = 0; i < answers.size(); i++) {
-//            sql += String.format("(%s, %b)", answers.get(i).getAnswerText(), answers.get(i).getIsCorrect());
-//            if (i != answers.size() - 1) {
-//                sql += ",";
-//            }
-//        }
-
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
-
              PreparedStatement st = con.prepareStatement(ADD_NEW_ANSWER, Statement.RETURN_GENERATED_KEYS)) {
 
-//            st.execute();
             con.setAutoCommit(false);
 
             for (int i = 0; i < answers.size(); i++) {
@@ -204,4 +183,11 @@ public class SQLAnswerDAOImpl implements AnswerDAO {
         }
     }
 
+    private boolean isTextUsed(Connection connection, String text) throws SQLException {
+        try (PreparedStatement st = connection.prepareStatement(GET_ANSWER_BY_TEXT)) {
+            st.setString(1, text);
+            ResultSet rs = st.executeQuery();
+            return rs.first();
+        }
+    }
 }

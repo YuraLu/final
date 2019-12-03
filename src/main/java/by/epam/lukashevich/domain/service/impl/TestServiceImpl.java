@@ -3,10 +3,12 @@ package by.epam.lukashevich.domain.service.impl;
 import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.TestDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.service.TestService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestServiceImpl implements TestService {
@@ -37,12 +39,16 @@ public class TestServiceImpl implements TestService {
     @Override
     public void add(Test test) throws ServiceException {
         try {
-            testDAO.add(test);
+            int testId = testDAO.addAndReturnId(test);
+//            List<Integer> questionIdsList = new ArrayList<>();
+//            for (Question item: test.getQuestions()){
+//                questionIdsList.add(item.getId());
+//            }
+//            testDAO.addQuestionsList(testId, questionIdsList);
         } catch (DAOException e) {
             throw new ServiceException("Can't add test", e);
         }
     }
-
 
     @Override
     public void update(Test test) throws ServiceException {
@@ -61,6 +67,4 @@ public class TestServiceImpl implements TestService {
             throw new ServiceException("Can't delete test", e);
         }
     }
-
-
 }

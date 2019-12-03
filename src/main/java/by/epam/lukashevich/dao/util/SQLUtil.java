@@ -1,15 +1,14 @@
 package by.epam.lukashevich.dao.util;
 
-import by.epam.lukashevich.domain.entity.Answer;
-import by.epam.lukashevich.domain.entity.Question;
-import by.epam.lukashevich.domain.entity.Subject;
-import by.epam.lukashevich.domain.entity.Test;
+import by.epam.lukashevich.domain.entity.*;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.util.builder.impl.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLUtil {
     private SQLUtil() {
@@ -36,17 +35,16 @@ public class SQLUtil {
         String name = rs.getString("u.name");
         String email = rs.getString("u.email");
         String login = rs.getString("u.login");
-        String password = rs.getString("u.password");
         int roleId = rs.getInt("u.roleId");
         boolean isBanned = rs.getBoolean("u.banned");
 
         Role role = Role.fromValue(roleId);
 
         return
-                new UserBuilderImpl(id).withName(name)
+                new UserBuilderImpl(id)
+                        .withName(name)
                         .withEmail(email)
                         .withLogin(login)
-                        .withPassword(password)
                         .withRole(role)
                         .isBanned(isBanned)
                         .build();
@@ -81,6 +79,37 @@ public class SQLUtil {
                 new AnswerBuilderImpl(id)
                         .withText(text)
                         .isCorrect(isCorrect)
+                        .build();
+    }
+
+
+    public static Assignment getAssignment(ResultSet rs) throws SQLException {
+        int id = rs.getInt("as.id");
+        int testId = rs.getInt("as.testId");
+        int studentId = rs.getInt("as.studentId");
+        int score = rs.getInt("as.score");
+
+        return
+                new AssignmentBuilderImpl(id)
+                        .withTest(new TestBuilderImpl(testId).build())
+                        .withUser(new UserBuilderImpl(studentId).build())
+                        .build();
+    }
+
+    public static Reply getReply(ResultSet rs) throws SQLException {
+        int id = rs.getInt("r.id");
+        int assignmentId = rs.getInt("r.assignmentId");
+        int answerId = rs.getInt("r.answerId");
+        int questionId = rs.getInt("r.questionId");
+
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(new AnswerBuilderImpl(answerId).build());
+
+        return
+                new ReplyBuilderImpl(id)
+                        .withAssignmentId(assignmentId)
+                        .withQuestion(new QuestionBuilderImpl(questionId).build())
+                        .withAnswers(answerList)
                         .build();
     }
 }

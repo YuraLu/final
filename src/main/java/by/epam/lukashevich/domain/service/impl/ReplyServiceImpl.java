@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements ReplyService {
         try {
             return replyDAO.findAll();
         } catch (DAOException e) {
-            throw new ServiceException("No replys", e);
+            throw new ServiceException("No replies", e);
         }
     }
 

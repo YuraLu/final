@@ -17,18 +17,19 @@ import static by.epam.lukashevich.domain.util.config.JSPPages.QUESTION_WORK_PAGE
 
 public class CommandViewQuestionWorkPage implements Command {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
+    public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        final QuestionService service = ServiceProvider.getInstance().getQuestionService();
+        final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
         final int id = Integer.parseInt(request.getParameter(QUESTION_ID));
 
         try {
-            Question question = service.findById(id);
+            Question question = questionService.findById(id);
             request.setAttribute(QUESTION_OBJECT, question);
-            request.getRequestDispatcher(QUESTION_WORK_PAGE).forward(request, response);
+
         } catch (ServiceException e) {
             throw new CommandException("Can't get list of questions in execute() CommandViewQuestionWorkPage", e);
         }
+        return QUESTION_WORK_PAGE;
     }
 }

@@ -8,10 +8,7 @@ import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
 import by.epam.lukashevich.dao.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +110,73 @@ public class SQLTestDAOImpl implements TestDAO {
             st.setString(1, title);
             ResultSet rs = st.executeQuery();
             return rs.first();
+        }
+    }
+
+    @Override
+    public int addAndReturnId(Test test) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(ADD_NEW_TEST, Statement.RETURN_GENERATED_KEYS)) {
+
+            if (isTitleUsed(con, test.getTitle())) {
+                throw new DAOException("Title is already is use!");
+            }
+            st.setString(1, test.getTitle());
+            st.setString(2, test.getDescription());
+            st.setInt(3, test.getSubject().getId());
+            st.setInt(4, test.getAuthor().getId());
+            st.executeUpdate();
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("No ID obtained.");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception during add()", e);
+        }
+    }
+
+    @Override
+    public List<Integer> addQuestionsList(int testId, List<Integer> questionIdsList) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(ADD_QUESTIONS_LIST_FOR_TEST_ID
+                     , Statement.RETURN_GENERATED_KEYS)) {
+
+            con.setAutoCommit(false);
+            int[] executeResult = null;
+
+            for (int i = 0; i < questionIdsList.size(); i++) {
+                st.setInt(1, testId);
+                st.setInt(2, questionIdsList.get(i));
+                st.addBatch();
+
+                if (i % 3 == 0 || (i + 1) == questionIdsList.size()) {
+                    executeResult = st.executeBatch(); // Execute every 4 items.
+                }
+            }
+            st.executeBatch();
+            con.commit();
+            con.setAutoCommit(true);
+
+            List<Integer> idsList = new ArrayList<>();
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs != null) {
+                while (rs.next()) {
+                    idsList.add(rs.getInt(1));
+                }
+            } else {
+                throw new SQLException("No ID obtained.");
+            }
+
+            return idsList;
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception during add()", e);
         }
     }
 
