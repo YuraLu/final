@@ -27,29 +27,33 @@
     <div class="row no-gutter">
         <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
         <div class="col-md-8 col-lg-6">
-            <div id="localeDiv">
-                <form>
-                    <input type="hidden" name="command" value="viewSignUp"/>
-                    <label for="locale"></label>
-                    <select id="locale" name="locale" onchange="submit()">
-                        <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
-                        <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                    </select>
-                </form>
+
+            <div id="localeDiv" class="input-group mb-3 justify-content-end">
+                <c:import url="/WEB-INF/jsp/common/localeDiv.jsp">
+                    <c:param name="paramRedirect" value="viewSignUp"/>
+                </c:import>
             </div>
+
             <div class="login d-flex align-items-center py-5">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
                             <h3 class="login-heading mb-4"><fmt:message key="registration.welcome_message"/></h3>
                             <form action="controller" method="post">
-                                <div class="form-label-group">
+
+                                <div class="input-group mb-3 form-label-group">
                                     <select name="role" class="custom-select select-box" id="FormControlSelect">
-                                        <option selected><fmt:message key="role_name"/></option>
                                         <option value="STUDENT"><fmt:message key="student_title"/></option>
                                         <option value="TUTOR"><fmt:message key="tutor_title"/></option>
                                     </select>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="FormControlSelect"
+                                               style="border-bottom-right-radius: 2rem; border-top-right-radius: 2rem">
+                                            <fmt:message key="role_name"/>
+                                        </label>
+                                    </div>
                                 </div>
+
                                 <div class="form-label-group">
                                     <input type="text" id="inputUserName" class="form-control" name="name"
                                            placeholder="<fmt:message key="registration.enter_name_message"/>"
@@ -85,20 +89,22 @@
                                     <small>${password_pattern}</small>
                                 </div>
                                 <div class="form-label-group">
-                                    <input type="password" id="inputConfirmPassword" class="form-control" name="confirmedPassword"
+                                    <input type="password" id="inputConfirmPassword" class="form-control"
+                                           name="confirmedPassword"
                                            placeholder="<fmt:message key="registration.enter_password_message"/>"
                                            pattern="^[a-zA-Z][a-zA-Z0-9-_.]{6,16}$" required>
                                     <label for="inputConfirmPassword"><fmt:message
                                             key="registration.enter_confirm_password_message"/></label>
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase
+                                font-weight-bold mb-2"
                                         type="submit" name="command" value="signUp">
                                     <fmt:message key="button.register"/>
                                 </button>
                                 <p class="d-block text-center"><fmt:message key="registration.registered_promo"/>
-                                <a class="mt-2 small" href="controller?command=viewSignIn">
-                                    <fmt:message key="button.signIn"/>
-                                </a>
+                                    <a class="mt-2 small" href="controller?command=viewSignIn">
+                                        <fmt:message key="button.signIn"/>
+                                    </a>
                                 </p>
                             </form>
                         </div>
@@ -115,6 +121,7 @@
     </script>
 </c:if>
 <c:remove var="errorMessage"/>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="js/jquery-3.4.1.min.js"></script>

@@ -3,7 +3,6 @@ package by.epam.lukashevich.domain.entity;
 import by.epam.lukashevich.domain.entity.user.User;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Test extends AbstractEntity {
 
@@ -61,23 +60,31 @@ public class Test extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Test test = (Test) o;
-        return Objects.equals(title, test.title) &&
-                Objects.equals(description, test.description) &&
-                Objects.equals(subject, test.subject) &&
-                Objects.equals(author, test.author) &&
-                Objects.equals(questions, test.questions);
+
+        if (title != null ? !title.equals(test.title) : test.title != null) return false;
+        if (description != null ? !description.equals(test.description) : test.description != null) return false;
+        if (subject != null ? !subject.equals(test.subject) : test.subject != null) return false;
+        if (author != null ? !author.equals(test.author) : test.author != null) return false;
+        return questions != null ? questions.equals(test.questions) : test.questions == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, description, subject, author, questions);
+        int result = super.hashCode();
+        result = 37 * result + (title != null ? title.hashCode() : 0);
+        result = 37 * result + (description != null ? description.hashCode() : 0);
+        result = 37 * result + (subject != null ? subject.hashCode() : 0);
+        result = 37 * result + (author != null ? author.hashCode() : 0);
+        result = 37 * result + (questions != null ? questions.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Test{" +
-                "title='" + title + '\'' +
+        return getClass().getSimpleName() + "@" +
+                "{title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", subject=" + subject +
                 ", author=" + author +

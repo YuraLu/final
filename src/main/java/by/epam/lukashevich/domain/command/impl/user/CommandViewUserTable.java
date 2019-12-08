@@ -3,7 +3,7 @@ package by.epam.lukashevich.domain.command.impl.user;
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.USER_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.USERS_LIST;
+import static by.epam.lukashevich.domain.config.JSPPages.USER_TABLE_PAGE;
 
 public class CommandViewUserTable implements Command {
 

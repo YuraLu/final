@@ -3,7 +3,8 @@ package by.epam.lukashevich.domain.entity.user;
 public enum Role {
     ADMIN(1),
     STUDENT(2),
-    TUTOR(3);
+    TUTOR(3),
+    GUEST(4);
 
     private static final long serialVersionUID = 1L;
     private final int id;

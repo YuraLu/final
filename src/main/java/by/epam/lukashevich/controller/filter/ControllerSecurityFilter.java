@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.*;
+import static by.epam.lukashevich.domain.config.JSPPages.INDEX_PAGE;
 import static by.epam.lukashevich.domain.entity.user.Role.*;
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX_PAGE;
-
 
 @WebFilter(urlPatterns = {"*"}, servletNames = {"controller"})
 public class ControllerSecurityFilter implements Filter {
 
+    private List<String> guestActions;
     private List<String> adminActions;
     private List<String> studentActions;
     private List<String> tutorActions;
@@ -24,10 +24,12 @@ public class ControllerSecurityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
 
+        guestActions = new ArrayList<>();
         adminActions = new ArrayList<>();
         studentActions = new ArrayList<>();
         tutorActions = new ArrayList<>();
 
+        addGuestActions();
         addAdminActions();
         addStudentActions();
         addTutorActions();
@@ -44,14 +46,15 @@ public class ControllerSecurityFilter implements Filter {
 
         if (command != null) {
 
-            int userRoleId = STUDENT.getId();
+            int userRoleId = GUEST.getId();
 
             if (session.getAttribute(USER_ROLE_ID) != null) {
                 userRoleId = (int) (session.getAttribute(USER_ROLE_ID));
             }
 
-            if (userRoleId == ADMIN.getId() && adminActions.contains(command)
-                    || userRoleId == TUTOR.getId() && studentActions.contains(command)
+            if (userRoleId == GUEST.getId() && guestActions.contains(command)
+                    ||userRoleId == ADMIN.getId() && adminActions.contains(command)
+                    || userRoleId == TUTOR.getId() && tutorActions.contains(command)
                     || userRoleId == STUDENT.getId() && studentActions.contains(command)) {
                 request.setAttribute(ALLOWED, true);
             } else {
@@ -69,6 +72,15 @@ public class ControllerSecurityFilter implements Filter {
 
     @Override
     public void destroy() {
+    }
+
+
+    private void addGuestActions() {
+        guestActions.add(VIEW_INDEX_COMMAND);
+        guestActions.add(VIEW_SIGN_IN_PAGE_COMMAND);
+        guestActions.add(VIEW_SIGN_UP_PAGE_COMMAND);
+        guestActions.add(SIGN_IN_COMMAND);
+        guestActions.add(SIGN_UP_COMMAND);
     }
 
     private void addStudentActions() {
@@ -104,7 +116,6 @@ public class ControllerSecurityFilter implements Filter {
         tutorActions.add(VIEW_USER_CABINET_COMMAND);
         tutorActions.add(VIEW_USER_TABLE_COMMAND);
         tutorActions.add(VIEW_TEST_TABLE_COMMAND);
-        tutorActions.add(VIEW_TEST_ADD_PAGE_COMMAND);
         tutorActions.add(VIEW_TEST_WORK_PAGE_COMMAND);
         tutorActions.add(VIEW_PASS_TEST_PAGE_COMMAND);
         tutorActions.add(VIEW_PASS_TEST_QUESTION_PAGE_COMMAND);
@@ -139,7 +150,6 @@ public class ControllerSecurityFilter implements Filter {
         adminActions.add(VIEW_USER_CABINET_COMMAND);
         adminActions.add(VIEW_USER_TABLE_COMMAND);
         adminActions.add(VIEW_TEST_TABLE_COMMAND);
-        adminActions.add(VIEW_TEST_ADD_PAGE_COMMAND);
         adminActions.add(VIEW_TEST_WORK_PAGE_COMMAND);
         adminActions.add(VIEW_PASS_TEST_PAGE_COMMAND);
         adminActions.add(VIEW_PASS_TEST_QUESTION_PAGE_COMMAND);

@@ -1,7 +1,5 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.util.Objects;
-
 public class Answer extends AbstractEntity {
     private String answerText;
     private boolean isCorrect;
@@ -25,25 +23,31 @@ public class Answer extends AbstractEntity {
         this.isCorrect = correct;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Answer answer = (Answer) o;
-        return isCorrect == answer.isCorrect &&
-                Objects.equals(answerText, answer.answerText);
+
+        if (isCorrect != answer.isCorrect) return false;
+        return answerText != null ? answerText.equals(answer.answerText) : answer.answerText == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), answerText, isCorrect);
+        int result = super.hashCode();
+        result = 37 * result + (answerText != null ? answerText.hashCode() : 0);
+        result = 37 * result + (isCorrect ? 1 : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Answer{" +
-                "text='" + answerText + '\'' +
+        return getClass().getSimpleName() + "@" +
+                "{answerText='" + answerText + '\'' +
                 ", isCorrect=" + isCorrect +
                 '}';
     }

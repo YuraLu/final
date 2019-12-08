@@ -6,14 +6,6 @@ import by.epam.lukashevich.dao.impl.*;
 public class DAOFactory {
 
     private static final DAOFactory instance = new DAOFactory();
-
-    private DAOFactory() {
-    }
-
-    public static DAOFactory getInstance() {
-        return instance;
-    }
-
     private final AnswerDAO answerDAO = new SQLAnswerDAOImpl();
     private final AssignmentDAO assignmentDAO = new SQLAssignmentDAOImpl();
     private final QuestionDAO questionDAO = new SQLQuestionDAOImpl();
@@ -21,6 +13,13 @@ public class DAOFactory {
     private final SubjectDAO subjectDAO = new SQLSubjectDAOImpl();
     private final TestDAO testDAO = new SQLTestDAOImpl();
     private final UserDAO userDAO = new SQLUserDAOImpl();
+
+    private DAOFactory() {
+    }
+
+    public static DAOFactory getInstance() {
+        return instance;
+    }
 
     public AnswerDAO getAnswerDAO() {
         return answerDAO;

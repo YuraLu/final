@@ -1,6 +1,9 @@
-package by.epam.lukashevich.domain.util.config;
+package by.epam.lukashevich.domain.config;
 
 public final class JSPActionCommand {
+
+    private JSPActionCommand() {
+    }
 
     public static final String PARAMETER_COMMAND = "command";
 
@@ -21,7 +24,6 @@ public final class JSPActionCommand {
     public static final String VIEW_USER_TABLE_COMMAND = "viewUserTable";
 
     public static final String VIEW_TEST_TABLE_COMMAND = "viewTestTable";
-    public static final String VIEW_TEST_ADD_PAGE_COMMAND = "viewTestAddPage";
     public static final String VIEW_TEST_WORK_PAGE_COMMAND = "viewTestWorkPage";
     public static final String VIEW_PASS_TEST_PAGE_COMMAND = "viewPassTestPage";
     public static final String VIEW_PASS_TEST_QUESTION_PAGE_COMMAND = "viewPassTestQuestionPage";
@@ -43,7 +45,3 @@ public final class JSPActionCommand {
     public static final String DELETE_QUESTION_COMMAND = "deleteQuestion";
     public static final String VIEW_QUESTION_WORK_PAGE_COMMAND = "viewQuestionWorkPage";
 }
-
-
-
-

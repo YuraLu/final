@@ -18,6 +18,3 @@ public interface TestService {
 
     void delete(int id) throws ServiceException;
 }
-
-
-

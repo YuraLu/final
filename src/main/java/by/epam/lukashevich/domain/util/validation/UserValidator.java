@@ -11,4 +11,3 @@ public interface UserValidator {
 
     boolean validatePassword(String currentPassword, String newPassword, String confirmedPassword);
 }
-

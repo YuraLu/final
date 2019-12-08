@@ -4,10 +4,11 @@ import by.epam.lukashevich.dao.UserDAO;
 import by.epam.lukashevich.dao.exception.user.InvalidLoginOrPasswordException;
 import by.epam.lukashevich.dao.exception.user.UsedLoginException;
 import by.epam.lukashevich.dao.exception.user.UserDAOException;
-import by.epam.lukashevich.dao.pool.connection.ConnectionWrapper;
-import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
-import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
-import by.epam.lukashevich.dao.util.SQLUtil;
+import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
+import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
+import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.impl.util.SQLUtil;
+import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
 
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.epam.lukashevich.dao.util.SQLQuery.*;
+import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
 public class SQLUserDAOImpl implements UserDAO {
 
@@ -56,9 +57,9 @@ public class SQLUserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new UserDAOException("SQL Exception can't find user in findById()", e);
         }
-        throw new UserDAOException("No user with ID=" + id + ".");
+//        throw new UserDAOException("No user with ID=" + id + ".");
+        return null;
     }
-
 
     @Override
     public boolean add(User user) throws UserDAOException {
@@ -114,14 +115,14 @@ public class SQLUserDAOImpl implements UserDAO {
 
     @Override
     public void updateBanStatus(Integer id) throws UserDAOException {
-        final User user = findById(id);
-        final boolean isBanned = !user.getBanned();
+
+        final boolean banStatus = getBanStatus(id);
 
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(UPDATE_USER_BAN_STATUS)) {
 
-            st.setBoolean(1, isBanned);
+            st.setBoolean(1, banStatus);
             st.setInt(2, id);
             st.executeUpdate();
         } catch (SQLException e) {
@@ -129,10 +130,17 @@ public class SQLUserDAOImpl implements UserDAO {
         }
     }
 
+    private boolean getBanStatus(Integer id) throws UserDAOException {
+        final User user = findById(id);
+        return !user.getBanned();
+    }
+
+
     @Override
     public void updateStatus(Integer id) throws UserDAOException {
+
         final User user = findById(id);
-        int roleId = user.getRole().getId() == 2 ? 3 : 2;
+        int roleId = getStatus(id);
 
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
@@ -144,7 +152,11 @@ public class SQLUserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new UserDAOException("SQL Exception during update status()", e);
         }
+    }
 
+    private int getStatus(Integer id) throws UserDAOException {
+        final User user = findById(id);
+        return user.getRole().getId() == Role.STUDENT.getId() ? Role.TUTOR.getId() : Role.STUDENT.getId();
     }
 
     @Override
@@ -199,5 +211,4 @@ public class SQLUserDAOImpl implements UserDAO {
         }
         return false;
     }
-
 }

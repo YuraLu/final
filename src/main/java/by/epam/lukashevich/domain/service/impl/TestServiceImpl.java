@@ -3,20 +3,15 @@ package by.epam.lukashevich.domain.service.impl;
 import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.TestDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
-import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.service.TestService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TestServiceImpl implements TestService {
 
     private final TestDAO testDAO = DAOFactory.getInstance().getTestDAO();
-
-    public TestServiceImpl() {
-    }
 
     @Override
     public List<Test> findAll() throws ServiceException {

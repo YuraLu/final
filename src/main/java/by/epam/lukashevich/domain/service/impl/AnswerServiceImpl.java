@@ -12,8 +12,6 @@ import java.util.List;
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerDAO answerDAO = DAOFactory.getInstance().getAnswerDAO();
 
-    public AnswerServiceImpl() {
-    }
 
     @Override
     public List<Answer> findAll() throws ServiceException {

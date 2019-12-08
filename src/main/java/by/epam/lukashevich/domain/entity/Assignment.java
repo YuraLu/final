@@ -3,15 +3,15 @@ package by.epam.lukashevich.domain.entity;
 import by.epam.lukashevich.domain.entity.user.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class Assignment extends AbstractEntity {
     private Test test;
     private User student;
     private int score;
     private List<Reply> replies;
-    private String date;
+    private Date date;
 
     public Assignment() {
         replies = new ArrayList<>();
@@ -49,11 +49,11 @@ public class Assignment extends AbstractEntity {
         this.replies = replies;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -62,27 +62,34 @@ public class Assignment extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Assignment that = (Assignment) o;
-        return score == that.score &&
-                Objects.equals(test, that.test) &&
-                Objects.equals(student, that.student) &&
-                Objects.equals(replies, that.replies) &&
-                Objects.equals(date, that.date);
+
+        if (score != that.score) return false;
+        if (test != null ? !test.equals(that.test) : that.test != null) return false;
+        if (student != null ? !student.equals(that.student) : that.student != null) return false;
+        if (replies != null ? !replies.equals(that.replies) : that.replies != null) return false;
+        return date != null ? date.equals(that.date) : that.date == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), test, student, score, replies, date);
+        int result = super.hashCode();
+        result = 37 * result + (test != null ? test.hashCode() : 0);
+        result = 37 * result + (student != null ? student.hashCode() : 0);
+        result = 37 * result + score;
+        result = 37 * result + (replies != null ? replies.hashCode() : 0);
+        result = 37 * result + (date != null ? date.hashCode() : 0);
+        return result;
     }
 
-    @Override
     public String toString() {
-        return "Assignment{" +
-                "test=" + test +
+        return getClass().getSimpleName() + "@" +
+                "{test = " + test +
                 ", student=" + student +
                 ", score=" + score +
                 ", replies=" + replies +
-                ", date='" + date + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

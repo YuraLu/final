@@ -2,7 +2,6 @@ package by.epam.lukashevich.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Reply extends AbstractEntity {
 
@@ -44,21 +43,27 @@ public class Reply extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Reply reply = (Reply) o;
-        return assignmentId == reply.assignmentId &&
-                Objects.equals(question, reply.question) &&
-                Objects.equals(answers, reply.answers);
+
+        if (assignmentId != reply.assignmentId) return false;
+        if (question != null ? !question.equals(reply.question) : reply.question != null) return false;
+        return answers != null ? answers.equals(reply.answers) : reply.answers == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), assignmentId, question, answers);
+        int result = super.hashCode();
+        result = 37 * result + assignmentId;
+        result = 37 * result + (question != null ? question.hashCode() : 0);
+        result = 37 * result + (answers != null ? answers.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Reply{" +
-                "assignmentId=" + assignmentId +
+        return getClass().getSimpleName() + "@" +
+                "{assignmentId=" + assignmentId +
                 ", question=" + question +
                 ", answers=" + answers +
                 '}';

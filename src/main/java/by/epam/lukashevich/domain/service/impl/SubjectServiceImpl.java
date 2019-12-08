@@ -13,8 +13,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectDAO subjectDAO = DAOFactory.getInstance().getSubjectDAO();
 
-    public SubjectServiceImpl() {
-    }
 
     @Override
     public List<Subject> findAll() throws ServiceException {

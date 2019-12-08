@@ -1,8 +1,7 @@
 package by.epam.lukashevich.domain.entity;
 
-import java.util.Objects;
-
 public class Subject extends AbstractEntity {
+
     private String name;
 
     public Subject() {
@@ -21,19 +20,23 @@ public class Subject extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Subject subject = (Subject) o;
-        return Objects.equals(name, subject.name);
+
+        return name != null ? name.equals(subject.name) : subject.name == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name);
+        int result = super.hashCode();
+        result = 37 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Subject{" +
-                "name='" + name + '\'' +
+        return getClass().getSimpleName() + "@" +
+                "{name='" + name + '\'' +
                 '}';
     }
 }

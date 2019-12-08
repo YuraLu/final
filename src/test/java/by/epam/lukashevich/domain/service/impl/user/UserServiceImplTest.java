@@ -18,10 +18,10 @@ import static org.testng.Assert.assertEquals;
 
 public class UserServiceImplTest {
 
-    private UserServiceImpl service = new UserServiceImpl();
-    private UserValidator validator = mock(UserValidator.class);
-    private PasswordHashKeeper keeper = mock(PasswordHashKeeper.class);
-    private UserDAO userDAO = mock(UserDAO.class);
+    private final UserServiceImpl service = new UserServiceImpl();
+    private final UserValidator validator = mock(UserValidator.class);
+    private final PasswordHashKeeper keeper = mock(PasswordHashKeeper.class);
+    private final UserDAO userDAO = mock(UserDAO.class);
 
 
     @BeforeClass

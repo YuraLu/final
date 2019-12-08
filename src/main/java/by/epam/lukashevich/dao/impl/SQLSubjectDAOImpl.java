@@ -2,10 +2,10 @@ package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.SubjectDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
-import by.epam.lukashevich.dao.pool.connection.ConnectionWrapper;
-import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
-import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
-import by.epam.lukashevich.dao.util.SQLUtil;
+import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
+import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
+import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Subject;
 
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.epam.lukashevich.dao.util.SQLQuery.*;
+import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
 public class SQLSubjectDAOImpl implements SubjectDAO {
 
@@ -23,7 +23,9 @@ public class SQLSubjectDAOImpl implements SubjectDAO {
 
     @Override
     public List<Subject> findAll() throws DAOException {
+
         List<Subject> list = new ArrayList<>();
+
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_ALL_SUBJECTS)) {
@@ -34,8 +36,8 @@ public class SQLSubjectDAOImpl implements SubjectDAO {
                 Subject subject = SQLUtil.getSubject(rs);
                 list.add(subject);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("SQL Exception can't create list of subjects in findAll()", e);
         }
         return list;
@@ -43,15 +45,18 @@ public class SQLSubjectDAOImpl implements SubjectDAO {
 
     @Override
     public Subject findById(Integer id) throws DAOException {
+
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_SUBJECT_BY_ID)) {
 
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
+
             if (rs.next()) {
                 return SQLUtil.getSubject(rs);
             }
+
         } catch (SQLException e) {
             throw new DAOException("SQL Exception can't find subject in findById()", e);
         }
@@ -67,8 +72,10 @@ public class SQLSubjectDAOImpl implements SubjectDAO {
             if (isNameUsed(con, subject.getName())) {
                 throw new DAOException("Subject name is already is use!");
             }
+
             st.setString(1, subject.getName());
             st.executeUpdate();
+
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during subject add()", e);
         }
@@ -89,7 +96,9 @@ public class SQLSubjectDAOImpl implements SubjectDAO {
 
             st.setInt(1, id);
             st.executeUpdate();
+
             return true;
+
         } catch (SQLException e) {
             throw new DAOException("SQL Exception can't delete subject with id=" + id, e);
         }

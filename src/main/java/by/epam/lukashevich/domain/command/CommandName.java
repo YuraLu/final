@@ -15,7 +15,6 @@ public enum CommandName {
     EDIT_USER("editUser"),
 
     VIEW_TEST_TABLE("viewTestTable"),
-    VIEW_TEST_ADD_PAGE("viewTestAddPage"),
     VIEW_TEST_WORK_PAGE("viewTestWorkPage"),
     VIEW_PASS_TEST_PAGE("viewPassTestPage"),
     VIEW_PASS_TEST_QUESTION_PAGE("viewPassTestQuestionPage"),
@@ -24,7 +23,6 @@ public enum CommandName {
     DELETE_TEST("deleteTest"),
     ABORT_TEST("abortTest"),
     FINISH_TEST("finishTest"),
-
     GET_NEXT_TEST_QUESTION("getNextTestQuestion"),
 
     VIEW_SUBJECT_TABLE("viewSubjectTable"),
@@ -49,12 +47,12 @@ public enum CommandName {
         return name;
     }
 
-    public static CommandName fromValue(String value) {
-        for (CommandName item : CommandName.values()) {
-            if (item.name.equalsIgnoreCase(value)) {
-                return item;
+    public static CommandName fromValue(String receivedCommandName) {
+        for (CommandName commandName : CommandName.values()) {
+            if (commandName.name.equals(receivedCommandName)) {
+                return commandName;
             }
         }
-        throw new IllegalArgumentException(value);
+        return MISSING;
     }
 }

@@ -16,5 +16,4 @@ public interface CrudRepository<E, T> {
     boolean update(E e) throws DAOException;
 
     boolean delete(T id) throws DAOException;
-
 }

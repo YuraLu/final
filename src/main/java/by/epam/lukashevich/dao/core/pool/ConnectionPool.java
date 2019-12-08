@@ -1,7 +1,7 @@
-package by.epam.lukashevich.dao.pool;
+package by.epam.lukashevich.dao.core.pool;
 
 
-import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
+import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
 
 public interface ConnectionPool {
 
@@ -11,4 +11,3 @@ public interface ConnectionPool {
 
     void destroyPool();
 }
-

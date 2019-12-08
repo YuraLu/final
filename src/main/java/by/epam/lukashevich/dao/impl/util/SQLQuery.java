@@ -1,6 +1,8 @@
-package by.epam.lukashevich.dao.util;
+package by.epam.lukashevich.dao.impl.util;
 
 public final class SQLQuery {
+    private SQLQuery() {
+    }
 
     public static final String GET_TEST_BY_ID = "SELECT " +
             "t.id, t.title, t.description, " +
@@ -120,10 +122,10 @@ public final class SQLQuery {
             "(text, correct) " +
             "VALUES(?,?)";
 
-//    public static final String UPDATE_ANSWER = "UPDATE answers SET " +
-//            "text=?, " +
-//            "correct =? " +
-//            " WHERE id = ?";
+    public static final String UPDATE_ANSWER = "UPDATE answers SET " +
+            "text=?, " +
+            "correct =? " +
+            " WHERE id = ?";
 
     public static final String GET_ANSWER_BY_TEXT = "SELECT id FROM answers where text=?";
 
@@ -140,20 +142,19 @@ public final class SQLQuery {
     public static final String ADD_ANSWERS_LIST_FOR_QUESTION_ID = "INSERT INTO answergroups " +
             "(answerId, questionId) VALUES(?,?)";
 
-
     ////////////////////////
     public static final String GET_ASSIGNMENT_BY_ID = "SELECT " +
-            "as.id, as.testId, as.studentId" +
+            "as.id, as.testId, as.studentId, as.score, as.date" +
             " FROM assignments as" +
             " WHERE as.id=?";
 
     public static final String GET_ALL_ASSIGNMENTS = "SELECT " +
-            "as.id, as.testId, as.studentId" +
+            "as.id, as.testId, as.studentId, as.score, as.date" +
             " FROM assignments as";
 
     public static final String ADD_NEW_ASSIGNMENT = "INSERT INTO assignments " +
-            "(testId, studentId) " +
-            "VALUES(?,?)";
+            "(testId, studentId, score, date) " +
+            "VALUES(?,?,?,?)";
 
     public static final String UPDATE_ASSIGNMENT = "UPDATE assignments SET " +
             "score=?" +
@@ -162,7 +163,7 @@ public final class SQLQuery {
     public static final String DELETE_ASSIGNMENT = "DELETE FROM assignments where id = ?";
 
     public static final String GET_ALL_ASSIGNMENTS_BY_USER_ID = "SELECT " +
-            "as.id, as.testId, as.studentId" +
+            "as.id, as.testId, as.score, as.date" +
             " FROM assignments as" +
             " WHERE as.studentId=?";
 

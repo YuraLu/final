@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.util.config.JSPPages.TEST_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPPages.TEST_TABLE_PAGE;
 
 /**
  * Aborts passing test by Student
@@ -29,7 +29,7 @@ public class CommandPassTestAbort implements Command {
         session.removeAttribute(NUMBER_OF_QUESTIONS);
         session.removeAttribute(CURRENT_QUESTION_NUMBER);
 
-        session.setAttribute(REDIRECT_COMMAND,VIEW_TEST_TABLE_COMMAND);
+        session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_TABLE_COMMAND);
         return TEST_TABLE_PAGE;
     }
 }

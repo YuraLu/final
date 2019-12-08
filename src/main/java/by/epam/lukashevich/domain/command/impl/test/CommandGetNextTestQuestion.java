@@ -6,8 +6,8 @@ import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.AnswerService;
-import by.epam.lukashevich.domain.service.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.util.builder.impl.AnswerBuilderImpl;
 import by.epam.lukashevich.domain.util.builder.impl.QuestionBuilderImpl;
 import by.epam.lukashevich.domain.util.builder.impl.ReplyBuilderImpl;
@@ -19,14 +19,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.PASS_TEST_QUESTION_PAGE;
-import static by.epam.lukashevich.domain.util.config.JSPPages.PASS_TEST_RESULT_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.FINISH_TEST_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_PASS_TEST_QUESTION_PAGE_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_QUESTION_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_RESULT_PAGE;
 
+/**
+ * Prepares next and saves current page of passing test
+ *
+ * @author Lukashevich_Y_A
+ */
 public class CommandGetNextTestQuestion implements Command {
 
     private static final Logger logger = LogManager.getLogger(CommandPassTestAbort.class);
@@ -41,10 +49,12 @@ public class CommandGetNextTestQuestion implements Command {
         int currentQuestionNumber = (int) session.getAttribute(CURRENT_QUESTION_NUMBER);
         final Assignment assignment = (Assignment) session.getAttribute(ASSIGNMENT_OBJECT);
         final List<Question> questionList = assignment.getTest().getQuestions();
-        final String date = request.getParameter("date");
-        assignment.setDate(date);
 
         int firstQuestion = 0;
+
+        if (firstQuestion == 0) {
+            assignment.setDate(new Date());
+        }
 
         if (currentQuestionNumber != firstQuestion) {
             saveUserAnswer(request, assignment, currentQuestionNumber - 1);
@@ -85,7 +95,7 @@ public class CommandGetNextTestQuestion implements Command {
         final String[] questionAnswerChecked = request.getParameterValues(ANSWER_CORRECT);
 
         for (String answerId : questionAnswerChecked) {
-            Answer answer = new AnswerBuilderImpl(Integer.valueOf(answerId))
+            Answer answer = new AnswerBuilderImpl(Integer.parseInt(answerId))
                     .isCorrect(true)
                     .build();
             checkedAnswerList.add(answer);

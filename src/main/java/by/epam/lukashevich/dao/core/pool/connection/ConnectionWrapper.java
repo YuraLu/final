@@ -1,11 +1,9 @@
-package by.epam.lukashevich.dao.pool.connection;
-
+package by.epam.lukashevich.dao.core.pool.connection;
 
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-
 
 /**
  * Wrapper under {@code java.sql.Connection}
@@ -15,16 +13,15 @@ import java.util.concurrent.Executor;
  */
 public class ConnectionWrapper implements Connection {
 
-    private Connection connection;
+    private final Connection connection;
 
     public ConnectionWrapper(Connection connection) {
         this.connection = connection;
     }
 
-
     @Override
     public void close() throws SQLException {
-//        pool.close();
+
     }
 
     public void realClose() throws SQLException {
@@ -298,5 +295,3 @@ public class ConnectionWrapper implements Connection {
         return connection.isWrapperFor(iface);
     }
 }
-
-

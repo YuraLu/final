@@ -12,8 +12,8 @@ import static org.testng.Assert.assertFalse;
 
 public class UserBuilderImplTest {
 
-    private UserBuilderImpl builder = new UserBuilderImpl();
-    private UserBuilderImpl readyBuilder = new UserBuilderImpl(1);
+    private final UserBuilderImpl builder = new UserBuilderImpl();
+    private final UserBuilderImpl readyBuilder = new UserBuilderImpl(1);
 
     @BeforeClass
     public void init() {

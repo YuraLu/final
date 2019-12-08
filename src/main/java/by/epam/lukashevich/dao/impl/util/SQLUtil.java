@@ -1,16 +1,19 @@
-package by.epam.lukashevich.dao.util;
+package by.epam.lukashevich.dao.impl.util;
 
 import by.epam.lukashevich.domain.entity.*;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.util.builder.impl.*;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class SQLUtil {
+public final class SQLUtil {
+
     private SQLUtil() {
     }
 
@@ -88,11 +91,14 @@ public class SQLUtil {
         int testId = rs.getInt("as.testId");
         int studentId = rs.getInt("as.studentId");
         int score = rs.getInt("as.score");
+        Date date = rs.getDate("as.date");
 
         return
                 new AssignmentBuilderImpl(id)
                         .withTest(new TestBuilderImpl(testId).build())
                         .withUser(new UserBuilderImpl(studentId).build())
+                        .withScore(score)
+                        .withDate(date)
                         .build();
     }
 
@@ -111,5 +117,17 @@ public class SQLUtil {
                         .withQuestion(new QuestionBuilderImpl(questionId).build())
                         .withAnswers(answerList)
                         .build();
+    }
+
+
+    public static List<Integer> getIdList(PreparedStatement st) throws SQLException {
+        List<Integer> insertedIdsList = new ArrayList<>();
+        ResultSet generatedKeys = st.getGeneratedKeys();
+
+        while (generatedKeys.next()) {
+            insertedIdsList.add(generatedKeys.getInt(1));
+        }
+
+        return insertedIdsList;
     }
 }

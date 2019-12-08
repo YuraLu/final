@@ -1,4 +1,4 @@
-package by.epam.lukashevich.controller.tag;
+package by.epam.lukashevich.presentationjsp.tag;
 
 
 import javax.servlet.jsp.JspException;
@@ -11,9 +11,12 @@ import java.util.Date;
 
 public class DateInfoTag extends TagSupport {
 
+    private static final String DATE_FORMAT = "dd.MM.yyyy";
+    private static final DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
     @Override
     public int doStartTag() throws JspException {
-        final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
         final Date date = new Date();
         final String dateNow = dateFormat.format(date);
 
@@ -27,7 +30,7 @@ public class DateInfoTag extends TagSupport {
     }
 
     @Override
-    public int doEndTag() throws JspException {
+    public int doEndTag() {
         return EVAL_PAGE;
     }
 }

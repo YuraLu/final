@@ -1,8 +1,8 @@
 package by.epam.lukashevich.domain.service.impl;
 
 import by.epam.lukashevich.dao.ReplyDAO;
-import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.service.ReplyService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
@@ -12,8 +12,6 @@ import java.util.List;
 public class ReplyServiceImpl implements ReplyService {
     private final ReplyDAO replyDAO = DAOFactory.getInstance().getReplyDAO();
 
-    public ReplyServiceImpl() {
-    }
 
     @Override
     public List<Reply> findAll() throws ServiceException {

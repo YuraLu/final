@@ -23,8 +23,6 @@ public class UserServiceImpl implements UserService {
     private PasswordHashKeeper keeper = UtilManager.getInstance().getPasswordHashKeeper();
     private UserValidator validator = UtilManager.getInstance().getUserValidator();
 
-    public UserServiceImpl() {
-    }
 
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
@@ -100,9 +98,9 @@ public class UserServiceImpl implements UserService {
 
             userDAO.add(user);
         } catch (UsedLoginException e) {
-            throw new InvalidLoginException(e);
+            throw new InvalidLoginException("Login is used, try another one!", e);
         } catch (UsedEmailException e) {
-            throw new InvalidEmailException(e);
+            throw new InvalidEmailException("Email is used, try another one!",e);
         } catch (UserDAOException e) {
             throw new UserServiceException("Can't register user", e);
         }

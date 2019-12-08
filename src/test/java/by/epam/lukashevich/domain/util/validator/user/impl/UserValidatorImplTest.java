@@ -22,7 +22,7 @@ public class UserValidatorImplTest {
 
     @Test
     public void testValidate_incorrect_userNameEnd() {
-        boolean result = validator.validate("incorrect-", "pass123");
+        boolean result = validator.validate("incorrect?", "pass123");
 
         assertFalse(result);
     }
@@ -90,7 +90,7 @@ public class UserValidatorImplTest {
     @Test
     public void testValidate_badEmail_false() {
         boolean result = validator.validate("admin",
-                "pass123", "pass123", "Admin", "admin123@gmail.com");
+                "pass123", "pass123", "Admin", "admin?@gmail.com");
 
         assertFalse(result);
     }

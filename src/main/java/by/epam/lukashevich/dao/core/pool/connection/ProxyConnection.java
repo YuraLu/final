@@ -1,8 +1,7 @@
-package by.epam.lukashevich.dao.pool.connection;
+package by.epam.lukashevich.dao.core.pool.connection;
 
-
-import by.epam.lukashevich.dao.pool.ConnectionPool;
-import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.core.pool.ConnectionPool;
+import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,11 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ProxyConnection implements AutoCloseable {
+
     private static final Logger logger = LogManager.getLogger(ProxyConnection.class);
-    private ConnectionWrapper connectionWrapper;
 
-    private ConnectionPool pool = DatabaseConnectionPool.getInstance();
-
+    private final ConnectionWrapper connectionWrapper;
+    private final ConnectionPool pool = DatabaseConnectionPool.getInstance();
 
     public ProxyConnection(Connection connection) {
         this.connectionWrapper = new ConnectionWrapper(connection);
@@ -25,17 +24,15 @@ public class ProxyConnection implements AutoCloseable {
         pool.putBackConnection(this);
     }
 
-
     public ConnectionWrapper getConnectionWrapper() {
         return connectionWrapper;
     }
 
-
     public void destroy() {
         try {
             this.connectionWrapper.realClose();
-        } catch (SQLException ex) {
-            logger.error(ex);
+        } catch (SQLException e) {
+            logger.error(e);
         }
     }
 }

@@ -5,6 +5,8 @@ import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public interface AssignmentBuilder {
@@ -19,5 +21,5 @@ public interface AssignmentBuilder {
 
     AssignmentBuilder withReplies(List<Reply> replies);
 
-    AssignmentBuilder withDate(String date);
+    AssignmentBuilder withDate(Date date);
 }

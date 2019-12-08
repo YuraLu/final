@@ -1,11 +1,12 @@
 package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.QuestionDAO;
+import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
+import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
+import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.core.transaction.Transactional;
 import by.epam.lukashevich.dao.exception.DAOException;
-import by.epam.lukashevich.dao.pool.connection.ConnectionWrapper;
-import by.epam.lukashevich.dao.pool.connection.ProxyConnection;
-import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
-import by.epam.lukashevich.dao.util.SQLUtil;
+import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static by.epam.lukashevich.dao.util.SQLQuery.*;
+import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
 public class SQLQuestionDAOImpl implements QuestionDAO {
 
@@ -23,45 +24,20 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
 
     @Override
     public List<Question> findAll() throws DAOException {
-        List<Question> questionList = new ArrayList<>();
+
+        List<Question> questionList;
+
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_ALL_QUESTIONS)) {
 
             ResultSet rs = st.executeQuery();
-
-            Map<Question, List<Answer>> hashMap = getQuestionListMap(rs);
-
-            for (Map.Entry<Question, List<Answer>> entry : hashMap.entrySet()) {
-                Question item = entry.getKey();
-                item.setAnswers(entry.getValue());
-                questionList.add(item);
-            }
+            questionList = getQuestionList(rs);
 
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new DAOException("SQL Exception can't create list of questions in findAll()", e);
         }
         return questionList;
-    }
-
-    private Map<Question, List<Answer>> getQuestionListMap(ResultSet rs) throws SQLException {
-        Map<Question, List<Answer>> hashMap = new HashMap<>();
-
-        while (rs.next()) {
-            Question question = SQLUtil.getQuestion(rs);
-            Answer answer = SQLUtil.getAnswer(rs);
-
-            if (!hashMap.containsKey(question)) {
-                List<Answer> list = new ArrayList<>();
-                list.add(answer);
-
-                hashMap.put(question, list);
-            } else {
-                hashMap.get(question).add(answer);
-            }
-        }
-        return hashMap;
     }
 
     @Override
@@ -73,19 +49,11 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
 
-            Map<Question, List<Answer>> hashMap = getQuestionListMap(rs);
-            Question question = null;
-            for (Map.Entry<Question, List<Answer>> entry : hashMap.entrySet()) {
-                question = entry.getKey();
-                question.setAnswers(entry.getValue());
-            }
-            if (question != null) {
-                return question;
-            }
+            return getQuestionList(rs).get(0);
+
         } catch (SQLException e) {
             throw new DAOException("SQL Exception can't find question in findById()", e);
         }
-        throw new DAOException("No question with ID=" + id + ".");
     }
 
     @Override
@@ -97,8 +65,10 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
             if (isTextUsed(con, question.getQuestionText())) {
                 throw new DAOException("Text of question is already in use!");
             }
+
             st.setString(1, question.getQuestionText());
             st.executeUpdate();
+
             return true;
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during add()", e);
@@ -115,9 +85,12 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(DELETE_QUESTION)) {
+
             st.setInt(1, id);
             st.executeUpdate();
+
             return true;
+
         } catch (SQLException e) {
             throw new DAOException("SQL Exception can't delete question with id=" + id, e);
         }
@@ -132,12 +105,12 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
             st.setString(1, question.getQuestionText());
             st.executeUpdate();
 
-            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("No ID obtained.");
-                }
+            ResultSet generatedKeys = st.getGeneratedKeys();
+
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new DAOException("No ID obtained.");
             }
 
         } catch (SQLException e) {
@@ -147,38 +120,24 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
 
     @Override
     public List<Integer> addAnswersList(int questionId, List<Integer> answerIdsList) throws DAOException {
+
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
-             PreparedStatement st = con.prepareStatement(ADD_ANSWERS_LIST_FOR_QUESTION_ID
-                     , Statement.RETURN_GENERATED_KEYS)) {
+             Transactional transactional = new Transactional(con);
+             PreparedStatement st = con.prepareStatement(ADD_ANSWERS_LIST_FOR_QUESTION_ID,
+                     Statement.RETURN_GENERATED_KEYS)) {
 
-            con.setAutoCommit(false);
-            int[] executeResult = null;
-
-            for (int i = 0; i < answerIdsList.size(); i++) {
-                st.setInt(1, answerIdsList.get(i));
+            for (Integer answerId : answerIdsList) {
+                st.setInt(1, answerIdsList.get(answerId));
                 st.setInt(2, questionId);
                 st.addBatch();
-
-                if (i % 3 == 0 || (i + 1) == answerIdsList.size()) {
-                    executeResult = st.executeBatch(); // Execute every 4 items.
-                }
             }
+
             st.executeBatch();
-            con.commit();
-            con.setAutoCommit(true);
+            transactional.commit();
 
-            List<Integer> idsList = new ArrayList<>();
-            ResultSet rs = st.getGeneratedKeys();
-            if (rs != null) {
-                while (rs.next()) {
-                    idsList.add(rs.getInt(1));
-                }
-            } else {
-                throw new SQLException("No ID obtained.");
-            }
+            return SQLUtil.getIdList(st);
 
-            return idsList;
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during add()", e);
         }
@@ -188,29 +147,18 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
     public List<Integer> addQuestionList(List<Question> questions) throws DAOException {
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             Transactional transactional = new Transactional(con);
              PreparedStatement st = con.prepareStatement(ADD_NEW_QUESTION, Statement.RETURN_GENERATED_KEYS)) {
 
-            con.setAutoCommit(false);
-            for (int i = 0; i < questions.size(); i++) {
-                st.setString(1, questions.get(i).getQuestionText());
+            for (Question question : questions) {
+                st.setString(1, question.getQuestionText());
                 st.addBatch();
             }
 
             st.executeBatch();
-            con.commit();
-            con.setAutoCommit(true);
+            transactional.commit();
 
-            List<Integer> idsList = new ArrayList<>();
-            ResultSet rs = st.getGeneratedKeys();
-
-            if (rs != null) {
-                while (rs.next()) {
-                    idsList.add(rs.getInt(1));
-                }
-            } else {
-                throw new SQLException("No ID obtained.");
-            }
-            return idsList;
+            return SQLUtil.getIdList(st);
 
         } catch (SQLException e) {
             throw new DAOException("SQL Exception during add()", e);
@@ -219,22 +167,57 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
 
     @Override
     public List<Question> findAllQuestionsForTestId(int testId) throws DAOException {
+
         List<Question> list = new ArrayList<>();
+
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
              PreparedStatement st = con.prepareStatement(GET_ALL_QUESTIONS_BY_TEST_ID)) {
 
-            st.setInt(1,testId);
-
+            st.setInt(1, testId);
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
                 Question question = SQLUtil.getQuestion(rs);
                 list.add(question);
             }
+
         } catch (SQLException e) {
-            throw new DAOException("SQL Exception can't create list of questions in findAllQuestionsForTestId() SQLQuestionDAOImpl", e);
+            throw new DAOException("SQL Exception can't create list of questions " +
+                    "in findAllQuestionsForTestId() SQLQuestionDAOImpl", e);
         }
         return list;
+    }
+
+    private List<Question> getQuestionList(ResultSet resultSet) throws SQLException {
+
+        List<Question> questionList = new ArrayList<>();
+        Map<Question, List<Answer>> hashMap = getQuestionListMap(resultSet);
+
+        for (Map.Entry<Question, List<Answer>> entry : hashMap.entrySet()) {
+            Question item = entry.getKey();
+            item.setAnswers(entry.getValue());
+            questionList.add(item);
+        }
+        return questionList;
+    }
+
+    private Map<Question, List<Answer>> getQuestionListMap(ResultSet resultSet) throws SQLException {
+        Map<Question, List<Answer>> hashMap = new HashMap<>();
+
+        while (resultSet.next()) {
+            Question question = SQLUtil.getQuestion(resultSet);
+            Answer answer = SQLUtil.getAnswer(resultSet);
+
+            if (!hashMap.containsKey(question)) {
+                List<Answer> list = new ArrayList<>();
+                list.add(answer);
+                hashMap.put(question, list);
+            } else {
+                hashMap.get(question).add(answer);
+            }
+        }
+        return hashMap;
     }
 
     private boolean isTextUsed(Connection connection, String text) throws SQLException {

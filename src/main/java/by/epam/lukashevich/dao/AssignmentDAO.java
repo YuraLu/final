@@ -19,6 +19,4 @@ public interface AssignmentDAO extends CommonDAO<Assignment> {
     boolean delete(Integer id) throws DAOException;
 
     int addAndReturnId(Assignment assignment) throws DAOException;
-
-    int getAssignmentScore(Assignment assignment)throws DAOException;
 }

@@ -1,7 +1,6 @@
-package by.epam.lukashevich.domain.util.config;
+package by.epam.lukashevich.domain.config;
 
 public final class BeanFieldJsp {
-
 
     private BeanFieldJsp() {
     }

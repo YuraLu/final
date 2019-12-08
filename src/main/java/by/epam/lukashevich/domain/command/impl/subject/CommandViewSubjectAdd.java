@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPPages.SUBJECT_ADD_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPages.SUBJECT_ADD_PAGE;
 
 public class CommandViewSubjectAdd implements Command {
 

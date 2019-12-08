@@ -1,4 +1,4 @@
-package by.epam.lukashevich.dao.pool.exception;
+package by.epam.lukashevich.dao.core.pool.exception;
 
 public class ConnectionPoolException extends Exception {
     public ConnectionPoolException() {

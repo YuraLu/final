@@ -1,7 +1,7 @@
 package by.epam.lukashevich.domain.command.impl.user;
 
 import by.epam.lukashevich.domain.command.Command;
-import by.epam.lukashevich.domain.command.CommandProvider;
+import by.epam.lukashevich.domain.command.provider.CommandProvider;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.user.InvalidLoginException;
@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.SIGN_UP_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.SIGN_UP_COMMAND;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
 
 public class SignUpCommandTest {
 
-    private CommandProvider provider = CommandProvider.getInstance();
+    private final CommandProvider provider = CommandProvider.getInstance();
 
     @Test
     public void testExecute_signUp_correct()

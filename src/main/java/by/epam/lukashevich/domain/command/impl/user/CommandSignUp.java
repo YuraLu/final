@@ -4,7 +4,7 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 import by.epam.lukashevich.domain.service.exception.user.InvalidEmailException;
@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_SIGN_UP_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.util.config.JSPPages.*;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_SIGN_UP_PAGE_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_USER_CABINET_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPPages.SIGN_UP_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPages.USER_CABINET_PAGE;
 
 public class CommandSignUp implements Command {
 
@@ -39,8 +41,11 @@ public class CommandSignUp implements Command {
         final String roleName = request.getParameter(USER_ROLE);
         final Role role = Role.valueOf(roleName.toUpperCase());
 
+        session.setAttribute(REDIRECT_COMMAND, VIEW_SIGN_UP_PAGE_COMMAND);
         String redirectPage = SIGN_UP_PAGE;
+
         try {
+
             userService.registration(login, password, confirmedPassword, name, email, role);
             final User user = userService.signIn(login, password);
 
@@ -48,18 +53,18 @@ public class CommandSignUp implements Command {
             session.setAttribute(USER_ID, user.getId());
             session.setAttribute(USER_ROLE_ID, role.getId());
 
+            session.setAttribute(REDIRECT_COMMAND, VIEW_USER_CABINET_COMMAND);
             redirectPage = USER_CABINET_PAGE;
-        } catch (InvalidLoginException ex) {
+        } catch (InvalidLoginException e) {
             session.setAttribute(MESSAGE_TO_SIGN_UP, "message.invalid_username");
-        } catch (InvalidEmailException ex) {
+        } catch (InvalidEmailException e) {
             session.setAttribute(MESSAGE_TO_SIGN_UP, "message.invalid_email");
-        } catch (InvalidUserInformationException ex) {
+        } catch (InvalidUserInformationException e) {
             session.setAttribute(MESSAGE_TO_SIGN_UP, "message.invalid_info");
         } catch (ServiceException e) {
             throw new CommandException("Can't signUp in execute() CommandSignUp", e);
         }
 
-        session.setAttribute(REDIRECT_COMMAND, VIEW_SIGN_UP_PAGE_COMMAND);
-        return USER_CABINET_PAGE;
+        return redirectPage;
     }
 }

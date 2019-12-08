@@ -20,8 +20,6 @@ public interface AnswerDAO extends CommonDAO<Answer> {
 
     int addAndReturnId(Answer answer) throws DAOException;
 
-//    List<Answer> findAllAnswersForQuestionId(int questionId) throws DAOException;
-
     List<Answer> findAllAnswersForQuestionId(int questionId) throws DAOException;
 
     List<Integer> addAnswerList(List<Answer> answers) throws DAOException;

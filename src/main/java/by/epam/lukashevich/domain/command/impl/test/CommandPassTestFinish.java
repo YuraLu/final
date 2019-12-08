@@ -4,7 +4,7 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.service.AssignmentService;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_PASS_TEST_RESULT_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.util.config.JSPPages.PASS_TEST_RESULT_PAGE;
-
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_PASS_TEST_RESULT_PAGE_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_RESULT_PAGE;
+/**
+ * Finishes passing test
+ *
+ * @author Lukashevich_Y_A
+ */
 public class CommandPassTestFinish implements Command {
 
     private final AssignmentService assignmentService = ServiceProvider.getInstance().getAssignmentService();
@@ -29,6 +33,10 @@ public class CommandPassTestFinish implements Command {
         final Assignment assignment = (Assignment) session.getAttribute(ASSIGNMENT_OBJECT);
 
         try {
+
+            int assignmentId = assignmentService.addAndReturnId(assignment);
+            assignment.setId(assignmentId);
+
             int score = assignmentService.getAssignmentScore(assignment);
             assignment.setScore(score);
             assignmentService.update(assignment);

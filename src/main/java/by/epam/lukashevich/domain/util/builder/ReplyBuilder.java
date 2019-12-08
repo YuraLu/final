@@ -15,5 +15,4 @@ public interface ReplyBuilder {
     ReplyBuilder withQuestion(Question question);
 
     ReplyBuilder withAnswers(List<Answer> answers);
-
 }

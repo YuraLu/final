@@ -20,8 +20,6 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AssignmentDAO assignmentDAO = DAOFactory.getInstance().getAssignmentDAO();
     private final ReplyDAO replyDAO = DAOFactory.getInstance().getReplyDAO();
 
-    public AssignmentServiceImpl() {
-    }
 
     @Override
     public List<Assignment> findAll() throws ServiceException {
@@ -95,7 +93,6 @@ public class AssignmentServiceImpl implements AssignmentService {
                 replyDAO.add(reply);
             }
         } catch (DAOException e) {
-
             throw new ServiceException("Can't add replies for assignment", e);
         }
     }
@@ -160,7 +157,6 @@ public class AssignmentServiceImpl implements AssignmentService {
                 }
             }
         }
-
         return result == correctOriginalAnswers;
     }
 }

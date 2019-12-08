@@ -4,7 +4,7 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
 import javax.servlet.ServletException;
@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.QUESTION_WORK_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_ID;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_OBJECT;
+import static by.epam.lukashevich.domain.config.JSPPages.QUESTION_WORK_PAGE;
 
 public class CommandViewQuestionWorkPage implements Command {
     @Override

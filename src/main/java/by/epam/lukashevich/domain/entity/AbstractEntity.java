@@ -1,7 +1,6 @@
 package by.epam.lukashevich.domain.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public abstract class AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -26,19 +25,22 @@ public abstract class AbstractEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         AbstractEntity that = (AbstractEntity) o;
+
         return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return id;
     }
 
     @Override
     public String toString() {
-        return "AbstractEntity{" +
-                "id=" + id +
-                '}';
+        final StringBuilder sb = new StringBuilder("by.epam.lukashevich.domain.entity.AbstractEntity{");
+        sb.append("id=").append(id);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -8,6 +8,7 @@ import by.epam.lukashevich.domain.entity.Subject;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.service.*;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.TEST_WORK_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPPages.TEST_WORK_PAGE;
 
 public class CommandViewTestWorkPage implements Command {
 
@@ -36,8 +37,7 @@ public class CommandViewTestWorkPage implements Command {
             List<Subject> subjectList = subjectService.findAll();
             List<Question> questionList = questionService.findAllQuestionsForTestId(testId);
 
-            for (int i = 0, questionListSize = questionList.size(); i < questionListSize; i++) {
-                Question question = questionList.get(i);
+            for (Question question : questionList) {
                 List<Answer> answerList = answerService.findAllAnswersForQuestionId(question.getId());
                 question.setAnswers(answerList);
             }

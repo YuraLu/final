@@ -34,12 +34,14 @@
                         </div>
                         <div class="form-group">
                             <h5><fmt:message key="test_subject"/></h5>
-                            <select name="testSubjectId">
-                                <option></option>
-                                <c:forEach items="${subjectList}" var="subject">
-                                    <option value="${subject.id}">${subject.name}</option>
-                                </c:forEach>
-                            </select>
+                            <label>
+                                <select name="testSubjectId">
+                                    <option></option>
+                                    <c:forEach items="${subjectList}" var="subject">
+                                        <option value="${subject.id}">${subject.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </label>
                         </div>
                     </div>
                     <input type="hidden" name="testId" value="${test.id}">

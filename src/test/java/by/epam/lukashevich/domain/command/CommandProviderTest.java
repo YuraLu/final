@@ -4,16 +4,17 @@ import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.command.impl.CommandMissing;
 import by.epam.lukashevich.domain.command.impl.test.CommandPassTestAbort;
 import by.epam.lukashevich.domain.command.impl.user.CommandSignIn;
+import by.epam.lukashevich.domain.command.provider.CommandProvider;
 import org.testng.annotations.Test;
 
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.*;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.*;
 import static org.testng.Assert.*;
 
 public class CommandProviderTest {
 
-    private CommandProvider provider = CommandProvider.getInstance();
+    private final CommandProvider provider = CommandProvider.getInstance();
 
-    @Test(expectedExceptions = CommandException.class)
+    @Test
     public void testCreateCommand_invalidCommand_CommandException() throws CommandException {
         Command command = provider.getCommand("noCommand");
 

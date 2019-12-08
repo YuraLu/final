@@ -1,6 +1,7 @@
-package by.epam.lukashevich.domain.service;
+package by.epam.lukashevich.domain.service.provider;
 
 
+import by.epam.lukashevich.domain.service.*;
 import by.epam.lukashevich.domain.service.impl.*;
 
 public class ServiceProvider {
@@ -49,5 +50,4 @@ public class ServiceProvider {
     public UserService getUserService() {
         return userService;
     }
-
 }

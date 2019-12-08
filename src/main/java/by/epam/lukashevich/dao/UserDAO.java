@@ -22,7 +22,6 @@ public interface UserDAO extends CommonDAO<User> {
     @Override
     boolean delete(Integer id) throws UserDAOException;
 
-    //
     void updateBanStatus(Integer id) throws UserDAOException;
 
     void updateStatus(Integer id) throws UserDAOException;

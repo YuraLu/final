@@ -4,24 +4,22 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Question;
-import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.service.*;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.util.builder.impl.AssignmentBuilderImpl;
-import by.epam.lukashevich.domain.util.builder.impl.UserBuilderImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.PASS_TEST_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_PAGE;
 
 /**
  * Shows pass test page
@@ -55,9 +53,6 @@ public class CommandViewPassTestPage implements Command {
                     .withTest(test)
                     .withUser(user)
                     .build();
-
-            int assignmentId = assignmentService.addAndReturnId(assignment);
-            assignment.setId(assignmentId);
 
             int firstQuestion = 0;
             session.setAttribute(CURRENT_QUESTION_NUMBER, firstQuestion);

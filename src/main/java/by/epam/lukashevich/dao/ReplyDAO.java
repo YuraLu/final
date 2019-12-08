@@ -6,6 +6,7 @@ import by.epam.lukashevich.domain.entity.Reply;
 import java.util.List;
 
 public interface ReplyDAO extends CommonDAO<Reply> {
+
     @Override
     List<Reply> findAll() throws DAOException;
 
@@ -20,5 +21,4 @@ public interface ReplyDAO extends CommonDAO<Reply> {
 
     @Override
     boolean delete(Integer id) throws DAOException;
-
 }

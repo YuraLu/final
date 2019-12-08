@@ -1,6 +1,11 @@
-package by.epam.lukashevich.domain.util.config;
+package by.epam.lukashevich.domain.config;
 
 public final class JSPPages {
+
+    private JSPPages() {
+    }
+
+    public static final String SLASH = "/";
 
     public static final String ERROR_PAGE = "error";
 

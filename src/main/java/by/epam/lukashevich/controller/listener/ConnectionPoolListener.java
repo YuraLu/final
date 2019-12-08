@@ -1,8 +1,6 @@
 package by.epam.lukashevich.controller.listener;
 
-import by.epam.lukashevich.dao.pool.impl.DatabaseConnectionPool;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -11,8 +9,6 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class ConnectionPoolListener implements ServletContextListener {
-
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolListener.class);
 
     private static final String DRIVER = "db.driver";
     private static final String URL = "db.url";

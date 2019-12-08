@@ -32,60 +32,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <c:if test="${roleId == 1}">
-                <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">
-                        <fmt:message key="nav.user_table"/>
-                    </a>
-                </li>
-            </c:if>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">
-                    <fmt:message key="nav.test_table"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">
-                    <fmt:message key="nav.subject_table"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">
-                    <fmt:message key="nav.question_table"/>
-                </a>
-            </li>
-        </ul>
-
-        <div class="nav-tabs " id="localeDivNav">
-            <form>
-                <input type="hidden" name="command" value="viewUserCabinet"/>
-                <select id="locale" name="locale" onchange="submit()">
-                    <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
-                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                </select>
-            </form>
-        </div>
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="nav.personal_cabinet"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+    <c:param name="paramRedirect" value="viewUserCabinet"/>
+</c:import>
 
 <!-- Begin page content -->
 <div class="container-fluid">
@@ -99,21 +48,21 @@
                             <form action="controller" method="post">
                                 <input type="hidden" name="userId" value="${user.id}">
                                 <input type="hidden" name="roleId" value="${user.role.id}">
-                                <div class="form-label-group">
+                                <div class="form-label-group mt-3">
                                     <label for="login">
                                         <fmt:message key="registration.enter_login_message"/>
                                     </label>
                                     <input type="text" id="login" name="login" class="form-control"
                                            placeholder="Login" value="${user.login}" readonly>
                                 </div>
-                                <div class="form-label-group">
+                                <div class="form-label-group mt-3">
                                     <label for="name">
                                         <fmt:message key="registration.enter_name_message"/>
                                     </label>
                                     <input type="text" id="name" name="name" class="form-control"
                                            value="${user.name}"/>
                                 </div>
-                                <div class="form-label-group">
+                                <div class="form-label-group mt-3">
                                     <label for="email">
                                         <fmt:message key="registration.enter_email_message"/>
                                     </label>
@@ -121,7 +70,7 @@
                                            value="${user.email}"/>
                                 </div>
                                 <button class="btn btn-lg btn-primary btn-block btn-login
-                                                    text-uppercase font-weight-bold mb-2"
+                                                    text-uppercase font-weight-bold mb-2 mt-5"
                                         type="submit" name="command" value="editUser">
                                     <strong><fmt:message key="personal_cabinet.button_save"/></strong>
                                 </button>
@@ -140,18 +89,7 @@
 </c:if>
 <c:remove var="errorMessage"/>
 
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted"><fmt:message key="footer.copyRight"/></span>
-    </div>
-</footer>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

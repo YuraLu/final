@@ -1,4 +1,4 @@
-package by.epam.lukashevich.dao.pool.exception;
+package by.epam.lukashevich.dao.core.pool.exception;
 
 public class CannotGetJdbcConnectionException extends RuntimeException {
 
@@ -18,4 +18,3 @@ public class CannotGetJdbcConnectionException extends RuntimeException {
         super(cause);
     }
 }
-

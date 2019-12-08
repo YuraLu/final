@@ -4,9 +4,12 @@ import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
+import by.epam.lukashevich.domain.util.builder.AnswerBuilder;
 import by.epam.lukashevich.domain.util.builder.AssignmentBuilder;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AssignmentBuilderImpl implements AssignmentBuilder {
@@ -16,7 +19,7 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
     private User student;
     private int score;
     private List<Reply> replies;
-    private  String date;
+    private Date date;
 
     public AssignmentBuilderImpl() {
         replies = new ArrayList<>();
@@ -63,7 +66,7 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
     }
 
     @Override
-    public AssignmentBuilder withDate(String date) {
+    public AssignmentBuilder withDate(Date date) {
         this.date = date;
         return this;
     }
@@ -86,5 +89,9 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
 
     public List<Reply> getReplies() {
         return replies;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

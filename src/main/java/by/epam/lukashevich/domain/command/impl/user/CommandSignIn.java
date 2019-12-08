@@ -3,7 +3,7 @@ package by.epam.lukashevich.domain.command.impl.user;
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 import by.epam.lukashevich.domain.service.exception.user.BannedUserServiceException;
@@ -15,9 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.util.config.JSPPages.SIGN_IN_PAGE;
-import static by.epam.lukashevich.domain.util.config.JSPPages.USER_CABINET_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPPages.SIGN_IN_PAGE;
 
 public class CommandSignIn implements Command {
 

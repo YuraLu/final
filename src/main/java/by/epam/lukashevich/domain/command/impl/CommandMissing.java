@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPPages.ERROR_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPages.ERROR_PAGE;
+
 
 public class CommandMissing implements Command {
 
@@ -17,6 +18,7 @@ public class CommandMissing implements Command {
             throws ServletException, IOException, CommandException {
 
         response.sendRedirect(ERROR_PAGE);
+
         throw new CommandException("There is no such command");
     }
 }

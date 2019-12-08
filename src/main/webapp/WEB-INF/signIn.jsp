@@ -29,16 +29,13 @@
         <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
         </div>
         <div class="col-md-8 col-lg-6">
-            <div id="localeDiv">
-                <form>
-                    <input type="hidden" name="command" value="viewSignIn"/>
-                    <label for="locale"></label>
-                    <select id="locale" name="locale" onchange="submit()">
-                        <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
-                        <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                    </select>
-                </form>
+
+            <div id="localeDiv" class="input-group mb-3 justify-content-end">
+                <c:import url="/WEB-INF/jsp/common/localeDiv.jsp" >
+                    <c:param name="paramRedirect" value="viewSignIn"/>
+                </c:import>
             </div>
+
             <div class="login d-flex align-items-center py-5">
                 <div class="container">
                     <div class="row">

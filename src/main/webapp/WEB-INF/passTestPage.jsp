@@ -32,66 +32,21 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="controller?command=viewIndex"><fmt:message key="nav.title_main"/></a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <c:if test="${roleId == 1}">
-                <li class="nav-item">
-                    <a class="nav-link" href="controller?command=viewUserTable">
-                        <fmt:message key="nav.user_table"/>
-                    </a>
-                </li>
-            </c:if>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewTestTable">
-                    <fmt:message key="nav.test_table"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewSubjectTable">
-                    <fmt:message key="nav.subject_table"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewQuestionTable">
-                    <fmt:message key="nav.question_table"/>
-                </a>
-            </li>
-        </ul>
-
-        <div class="nav-tabs " id="localeDivNav">
-            <form>
-                <input type="hidden" name="command" value="viewPassTestPage"/>
-                <select id="locale" name="locale" onchange="submit()">
-                    <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
-                    <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-                </select>
-            </form>
-        </div>
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=viewUserCabinet">
-                    <fmt:message key="nav.personal_cabinet"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+    <c:param name="paramRedirect" value="viewPassTestPage"/>
+</c:import>
 
 <!-- Begin page content -->
 <div class="container">
     <div class="m-t-1">
-        <div class="col">
-            <h2><fmt:message key="title.test.pass_test"/></h2>
+        <div class="row px-lg-3 justify-content-lg-end">
+            <div class="col-lg-9">
+                <h2><fmt:message key="title.test.pass_test"/></h2>
+            </div>
+
+            <div class="col-lg-3-auto mx-2 px-2">
+                <p>Today is <ctg:date/></p>
+            </div>
         </div>
         <form action="controller" method="post">
             <div class="col">
@@ -124,24 +79,12 @@
                         class="mt-2">
                     <strong><fmt:message key="button.start_test"/></strong>
                 </button>
-                <input type="hidden" name="date" value="<ctg:date/>"/>
+
             </div>
         </form>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted"><fmt:message key="footer.copyRight"/></span>
-    </div>
-</footer>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-3.4.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
 </body>
 </html>

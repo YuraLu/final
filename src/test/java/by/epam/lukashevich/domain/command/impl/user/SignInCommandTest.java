@@ -1,7 +1,7 @@
 package by.epam.lukashevich.domain.command.impl.user;
 
 import by.epam.lukashevich.domain.command.Command;
-import by.epam.lukashevich.domain.command.CommandProvider;
+import by.epam.lukashevich.domain.command.provider.CommandProvider;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
@@ -18,14 +18,14 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.SIGN_IN_COMMAND;
-import static by.epam.lukashevich.domain.util.config.JSPPages.INDEX_PAGE;
+import static by.epam.lukashevich.domain.config.JSPActionCommand.SIGN_IN_COMMAND;
+import static by.epam.lukashevich.domain.config.JSPPages.INDEX_PAGE;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
 
 public class SignInCommandTest {
 
-    private CommandProvider provider = CommandProvider.getInstance();
+    private final CommandProvider commandProvider = CommandProvider.getInstance();
 
     @Test(expectedExceptions = CommandException.class)
     public void testExecute_exceptionFromService_CommandException()
@@ -35,7 +35,7 @@ public class SignInCommandTest {
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         UserService userService = mock(UserService.class);
-        Command command = provider.getCommand(SIGN_IN_COMMAND);
+        Command command = commandProvider.getCommand(SIGN_IN_COMMAND);
         //when
         when(mockRequest.getParameter("login")).thenReturn("login");
         when(mockRequest.getParameter("password")).thenReturn("password");
@@ -47,7 +47,7 @@ public class SignInCommandTest {
 
 
     @Test
-    public void testExecute_bannedUserExceptionFromSignIn_main()
+    public void testExecute_bannedUserExceptionFromSignIn()
             throws ServiceException, CommandException, ServletException, IOException {
         //given
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
@@ -56,9 +56,9 @@ public class SignInCommandTest {
         User user = mock(User.class);
         Role role = Role.ADMIN;
         HttpSession session = mock(HttpSession.class);
-        Command command = provider.getCommand(SIGN_IN_COMMAND);
+        Command command = commandProvider.getCommand(SIGN_IN_COMMAND);
         //when
-        when(mockRequest.getParameter("username")).thenReturn("Username");
+        when(mockRequest.getParameter("login")).thenReturn("Username");
         when(mockRequest.getParameter("password")).thenReturn("Password");
         when(mockRequest.getSession()).thenReturn(session);
         doReturn(user).when(service).signIn(anyString(), anyString());
@@ -70,7 +70,7 @@ public class SignInCommandTest {
     }
 
     @Test
-    public void execute_invalidUserInformationExceptionFromSignIn_index()
+    public void execute_invalidUserInformationExceptionFromSignIn()
             throws ServiceException, CommandException, ServletException, IOException {
         //given
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
@@ -79,9 +79,9 @@ public class SignInCommandTest {
         User user = mock(User.class);
         Role role = Role.ADMIN;
         HttpSession session = mock(HttpSession.class);
-        Command command = provider.getCommand(SIGN_IN_COMMAND);
+        Command command = commandProvider.getCommand(SIGN_IN_COMMAND);
         //when
-        when(mockRequest.getParameter("username")).thenReturn("Username");
+        when(mockRequest.getParameter("login")).thenReturn("Username");
         when(mockRequest.getParameter("password")).thenReturn("Password");
         when(mockRequest.getSession()).thenReturn(session);
         doReturn(user).when(service).signIn(anyString(), anyString());
@@ -94,7 +94,7 @@ public class SignInCommandTest {
 
 
     @Test
-    public void execute_validParameters_main()
+    public void execute_validParameters()
             throws ServiceException, CommandException, ServletException, IOException {
         //given
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
@@ -103,10 +103,10 @@ public class SignInCommandTest {
         User user = mock(User.class);
         Role role = Role.ADMIN;
         HttpSession session = mock(HttpSession.class);
-        Command command = provider.getCommand(SIGN_IN_COMMAND);
+        Command command = commandProvider.getCommand(SIGN_IN_COMMAND);
         //when
-        when(mockRequest.getParameter("username")).thenReturn("Username");
-        when(mockRequest.getParameter("password")).thenReturn("Password");
+        when(mockRequest.getParameter("login")).thenReturn("admin");
+        when(mockRequest.getParameter("password")).thenReturn("qwerty789");
         when(mockRequest.getSession()).thenReturn(session);
         when(service.signIn(anyString(), anyString())).thenReturn(user);
         when(user.getRole()).thenReturn(role);

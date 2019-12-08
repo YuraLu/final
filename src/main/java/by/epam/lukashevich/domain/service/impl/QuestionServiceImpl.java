@@ -5,9 +5,8 @@ import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.QuestionDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.domain.entity.Question;
-import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.ServiceProvider;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 
 import java.util.ArrayList;
@@ -18,8 +17,6 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionDAO questionDAO = DAOFactory.getInstance().getQuestionDAO();
     private final TestDAO testDAO = DAOFactory.getInstance().getTestDAO();
 
-    public QuestionServiceImpl() {
-    }
 
     @Override
     public List<Question> findAll() throws ServiceException {

@@ -5,9 +5,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.*;
-import static by.epam.lukashevich.domain.util.config.JSPActionCommand.VIEW_QUESTION_WORK_PAGE_COMMAND;
-
 @WebFilter(urlPatterns = {"/*"},
         initParams = {
                 @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})

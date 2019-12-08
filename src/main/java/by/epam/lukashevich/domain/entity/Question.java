@@ -1,7 +1,6 @@
 package by.epam.lukashevich.domain.entity;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Question  extends AbstractEntity {
     private String questionText;
@@ -31,20 +30,26 @@ public class Question  extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         Question question = (Question) o;
-        return Objects.equals(questionText, question.questionText) &&
-                Objects.equals(answers, question.answers);
+
+        if (questionText != null ? !questionText.equals(question.questionText) : question.questionText != null)
+            return false;
+        return answers != null ? answers.equals(question.answers) : question.answers == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), questionText, answers);
+        int result = super.hashCode();
+        result = 37 * result + (questionText != null ? questionText.hashCode() : 0);
+        result = 37 * result + (answers != null ? answers.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Question{" +
-                "questionText='" + questionText + '\'' +
+        return getClass().getSimpleName() + "@" +
+                "{questionText='" + questionText + '\'' +
                 ", answers=" + answers +
                 '}';
     }
