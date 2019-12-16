@@ -8,8 +8,16 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.config.JSPPages.*;
+import static by.epam.lukashevich.domain.config.JSPPage.*;
 
+/**
+ * Filters requests according to the below logic
+ * and redirects to page according the command.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 @WebFilter(urlPatterns = {
         SLASH + SIGN_IN_PAGE,
         SLASH + SIGN_UP_PAGE,

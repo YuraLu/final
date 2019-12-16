@@ -6,7 +6,7 @@
     <uri>customtags</uri>
     <tag>
         <name>date</name>
-        <tag-class>by.epam.lukashevich.presentationjsp.tag.DateInfoTag</tag-class>
+        <tag-class>by.epam.lukashevich.presentation.tag.DateInfoTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>

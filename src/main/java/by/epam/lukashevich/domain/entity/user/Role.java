@@ -13,10 +13,6 @@ public enum Role {
         this.id = id;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public static Role fromValue(int value) {
         for (Role item : Role.values()) {
             if (item.id == value) {
@@ -24,5 +20,9 @@ public enum Role {
             }
         }
         throw new IllegalArgumentException(String.valueOf(value));
+    }
+
+    public int getId() {
+        return id;
     }
 }

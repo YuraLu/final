@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.config.JSPPages.INDEX_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.INDEX_PAGE;
 
 public class CommandViewIndex implements Command {
     @Override

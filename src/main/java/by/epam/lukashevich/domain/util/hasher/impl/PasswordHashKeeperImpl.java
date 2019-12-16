@@ -28,6 +28,8 @@ public class PasswordHashKeeperImpl implements PasswordHashKeeper {
      * @param login    user's login.
      * @param password user's password.
      * @return encoded password.
+     * @author Yuri Lukashevich
+     * @since JDK1.0
      */
     public String generateHash(String login, String password) {
         final byte[] salt = login.getBytes();

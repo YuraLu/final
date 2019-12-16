@@ -8,6 +8,14 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Represents ProxyConnection class which give us possibility
+ * to use connections in try-with-resources.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 public class ProxyConnection implements AutoCloseable {
 
     private static final Logger logger = LogManager.getLogger(ProxyConnection.class);

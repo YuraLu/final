@@ -2,7 +2,7 @@ package by.epam.lukashevich.domain.command.provider;
 
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.CommandName;
-import by.epam.lukashevich.domain.command.impl.CommandMissing;
+import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.command.impl.CommandViewIndex;
 import by.epam.lukashevich.domain.command.impl.question.CommandAddQuestion;
 import by.epam.lukashevich.domain.command.impl.question.CommandDeleteQuestion;
@@ -10,7 +10,6 @@ import by.epam.lukashevich.domain.command.impl.question.CommandViewQuestionTable
 import by.epam.lukashevich.domain.command.impl.question.CommandViewQuestionWorkPage;
 import by.epam.lukashevich.domain.command.impl.subject.CommandAddSubject;
 import by.epam.lukashevich.domain.command.impl.subject.CommandDeleteSubject;
-import by.epam.lukashevich.domain.command.impl.subject.CommandViewSubjectAdd;
 import by.epam.lukashevich.domain.command.impl.subject.CommandViewSubjectTable;
 import by.epam.lukashevich.domain.command.impl.test.*;
 import by.epam.lukashevich.domain.command.impl.user.*;
@@ -18,28 +17,31 @@ import by.epam.lukashevich.domain.command.impl.user.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Provides Command by given string parameter.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 public final class CommandProvider {
 
     private static final CommandProvider instance = new CommandProvider();
     private final Map<CommandName, Command> commands = new HashMap<>();
 
+    private CommandProvider() {
+        addUserCommands();
+        addTestCommands();
+        addSubjectCommands();
+        addQuestionCommands();
+    }
 
     public static CommandProvider getInstance() {
         return instance;
     }
 
-    public Command getCommand(String commandName) {
+    public Command getCommand(String commandName) throws CommandException {
         return commands.get(CommandName.fromValue(commandName));
-    }
-
-    private CommandProvider() {
-
-        addUserCommands();
-        addTestCommands();
-        addSubjectCommands();
-        addQuestionCommands();
-
-        commands.put(CommandName.MISSING, new CommandMissing());
     }
 
     private void addUserCommands() {
@@ -54,6 +56,7 @@ public final class CommandProvider {
         commands.put(CommandName.SIGN_UP, new CommandSignUp());
         commands.put(CommandName.SIGN_OUT, new CommandSignOut());
         commands.put(CommandName.EDIT_USER, new CommandEditUser());
+        commands.put(CommandName.UPDATE_PASSWORD, new CommandUpdateUserPassword());
     }
 
     private void addTestCommands() {
@@ -71,7 +74,6 @@ public final class CommandProvider {
 
     private void addSubjectCommands() {
         commands.put(CommandName.VIEW_SUBJECT_TABLE, new CommandViewSubjectTable());
-        commands.put(CommandName.VIEW_SUBJECT_ADD_PAGE, new CommandViewSubjectAdd());
         commands.put(CommandName.ADD_SUBJECT, new CommandAddSubject());
         commands.put(CommandName.DELETE_SUBJECT, new CommandDeleteSubject());
     }

@@ -83,8 +83,8 @@ public class User extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                " name='" + name + '\'' +
+        return getClass().getSimpleName() + "@" +
+                "{name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +

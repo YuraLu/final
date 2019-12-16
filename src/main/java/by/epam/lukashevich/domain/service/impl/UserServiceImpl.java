@@ -80,6 +80,10 @@ public class UserServiceImpl implements UserService {
                              final String name, final String email, final Role role)
             throws UserServiceException {
 
+        if (validator.isDataEmpty(login, password, confirmedPassword, name, email)) {
+            throw new EmptyUserInformationException("One or more fields is empty!");
+        }
+
         if (!validator.validate(login, password, confirmedPassword, name, email)) {
             throw new InvalidUserInformationException("Entered information is not valid!");
         }
@@ -100,7 +104,7 @@ public class UserServiceImpl implements UserService {
         } catch (UsedLoginException e) {
             throw new InvalidLoginException("Login is used, try another one!", e);
         } catch (UsedEmailException e) {
-            throw new InvalidEmailException("Email is used, try another one!",e);
+            throw new InvalidEmailException("Email is used, try another one!", e);
         } catch (UserDAOException e) {
             throw new UserServiceException("Can't register user", e);
         }
@@ -109,8 +113,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(int id, String currentPassword,
                                String newPassword, String confirmedPassword) throws UserServiceException {
-        if (!validator.validatePassword(currentPassword, newPassword, confirmedPassword)) {
-            throw new InvalidUserInformationException("Info not valid!");
+        if (!validator.validateNewPassword(currentPassword, newPassword, confirmedPassword)) {
+            throw new InvalidUserInformationException("Passwords do not match or not valid!");
         }
         try {
             final User user = findById(id);
@@ -132,19 +136,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(final int id, final String name, final String email) throws UserServiceException {
-        if (!validator.validateNameEmail(name, email)) {
-            throw new InvalidUserInformationException("Can`t edit user! Info is not valid!");
+        if (!validator.validateName(name)) {
+            throw new InvalidLoginException("Can`t edit user! Name is not valid!");
         }
+
+        if (!validator.validateEmail(email)) {
+            throw new InvalidEmailException("Can`t edit user! Email is not valid!");
+        }
+
         try {
             final User user = new UserBuilderImpl(id)
                     .withName(name)
                     .withEmail(email)
                     .build();
             userDAO.update(user);
-        } catch (UsedLoginException e) {
-            throw new InvalidLoginException(e);
-        } catch (UsedEmailException e) {
-            throw new InvalidEmailException(e);
         } catch (UserDAOException e) {
             throw new UserServiceException("Can't update user", e);
         }

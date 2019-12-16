@@ -1,13 +1,13 @@
 package by.epam.lukashevich.domain.service.impl;
 
-import by.epam.lukashevich.dao.TestDAO;
-import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.QuestionDAO;
+import by.epam.lukashevich.dao.TestDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void addQuestionToTest(Question question, int testId) throws ServiceException {
-            try {
+        try {
             int questionId = questionDAO.addAndReturnId(question);
             List<Integer> answerIdsList = ServiceProvider.getInstance().getAnswerService().addAnswerList(question.getAnswers());
             questionDAO.addAnswersList(questionId, answerIdsList);

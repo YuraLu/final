@@ -9,9 +9,10 @@
 <fmt:setBundle basename="text"/>
 <!DOCTYPE html>
 <head>
-    <title></title>
 </head>
 <body>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,18 +35,14 @@
                     <fmt:message key="nav.test_table"/>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/subjectsTable') ? 'active' : ''}"
-                   href="controller?command=viewSubjectTable">
-                    <fmt:message key="nav.subject_table"/>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link ${pageContext.request.requestURI.endsWith('/questionsTable') ? 'active' : ''}"
-                   href="controller?command=viewQuestionTable">
-                    <fmt:message key="nav.question_table"/>
-                </a>
-            </li>
+            <c:if test="${roleId == 1 || roleId == 3}">
+                <li class="nav-item">
+                    <a class="nav-link ${pageContext.request.requestURI.endsWith('/subjectsTable') ? 'active' : ''}"
+                       href="controller?command=viewSubjectTable">
+                        <fmt:message key="nav.subject_table"/>
+                    </a>
+                </li>
+            </c:if>
         </ul>
         <div id="localeDiv" class="nav-item">
             <c:import url="/WEB-INF/jsp/common/localeDiv.jsp">
@@ -62,7 +59,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="controller?command=signOut"><fmt:message key="nav.button_signOut"/></a>
             </li>
-
         </ul>
     </div>
 </nav>

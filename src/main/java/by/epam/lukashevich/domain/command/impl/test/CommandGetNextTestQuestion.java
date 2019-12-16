@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +26,8 @@ import java.util.List;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.FINISH_TEST_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_PASS_TEST_QUESTION_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_QUESTION_PAGE;
-import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_RESULT_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_QUESTION_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_RESULT_PAGE;
 
 /**
  * Prepares next and saves current page of passing test

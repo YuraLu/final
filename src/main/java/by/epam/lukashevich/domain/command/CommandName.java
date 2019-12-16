@@ -1,5 +1,7 @@
 package by.epam.lukashevich.domain.command;
 
+import by.epam.lukashevich.domain.command.exception.CommandException;
+
 public enum CommandName {
 
     VIEW_INDEX("viewIndex"),
@@ -13,6 +15,7 @@ public enum CommandName {
     SIGN_UP("signUp"),
     SIGN_OUT("signOut"),
     EDIT_USER("editUser"),
+    UPDATE_PASSWORD("updatePassword"),
 
     VIEW_TEST_TABLE("viewTestTable"),
     VIEW_TEST_WORK_PAGE("viewTestWorkPage"),
@@ -26,16 +29,13 @@ public enum CommandName {
     GET_NEXT_TEST_QUESTION("getNextTestQuestion"),
 
     VIEW_SUBJECT_TABLE("viewSubjectTable"),
-    VIEW_SUBJECT_ADD_PAGE("viewSubjectAddPage"),
     ADD_SUBJECT("addSubject"),
     DELETE_SUBJECT("deleteSubject"),
 
     VIEW_QUESTION_TABLE("viewQuestionTable"),
     ADD_QUESTION("addQuestion"),
     DELETE_QUESTION("deleteQuestion"),
-    VIEW_QUESTION_WORK_PAGE("viewQuestionWorkPage"),
-
-    MISSING("missing");
+    VIEW_QUESTION_WORK_PAGE("viewQuestionWorkPage");
 
     private final String name;
 
@@ -43,16 +43,16 @@ public enum CommandName {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public static CommandName fromValue(String receivedCommandName) {
+    public static CommandName fromValue(String receivedCommandName) throws CommandException {
         for (CommandName commandName : CommandName.values()) {
             if (commandName.name.equals(receivedCommandName)) {
                 return commandName;
             }
         }
-        return MISSING;
+        throw new CommandException("There is no such command");
+    }
+
+    public String getName() {
+        return name;
     }
 }

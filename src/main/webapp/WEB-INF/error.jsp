@@ -1,21 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <fmt:setBundle basename="text"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>404 - mistake </title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.error_page"/>
+</c:import>
 <body>
 
 <!-- Begin page content -->
@@ -39,7 +29,6 @@
     </div>
 </div>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
-
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

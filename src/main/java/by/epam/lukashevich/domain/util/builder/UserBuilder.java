@@ -1,7 +1,7 @@
 package by.epam.lukashevich.domain.util.builder;
 
-import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.entity.user.Role;
+import by.epam.lukashevich.domain.entity.user.User;
 
 public interface UserBuilder {
 

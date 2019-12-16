@@ -6,7 +6,10 @@ import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.service.*;
+import by.epam.lukashevich.domain.service.AssignmentService;
+import by.epam.lukashevich.domain.service.QuestionService;
+import by.epam.lukashevich.domain.service.TestService;
+import by.epam.lukashevich.domain.service.UserService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.util.builder.impl.AssignmentBuilderImpl;
@@ -19,7 +22,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_PAGE;
 
 /**
  * Shows pass test page
@@ -31,7 +34,7 @@ public class CommandViewPassTestPage implements Command {
     private final TestService testService = ServiceProvider.getInstance().getTestService();
     private final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
     private final AssignmentService assignmentService = ServiceProvider.getInstance().getAssignmentService();
-    private final UserService userService =ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

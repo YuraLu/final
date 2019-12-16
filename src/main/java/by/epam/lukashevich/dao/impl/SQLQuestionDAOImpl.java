@@ -18,6 +18,14 @@ import java.util.Map;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Question Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Question
+ * @since JDK1.0
+ */
 public class SQLQuestionDAOImpl implements QuestionDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
@@ -127,12 +135,11 @@ public class SQLQuestionDAOImpl implements QuestionDAO {
              PreparedStatement st = con.prepareStatement(ADD_ANSWERS_LIST_FOR_QUESTION_ID,
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            for (Integer answerId : answerIdsList) {
-                st.setInt(1, answerIdsList.get(answerId));
+            for (int i = 0; i < answerIdsList.size(); i++) {
+                st.setInt(1, answerIdsList.get(i));
                 st.setInt(2, questionId);
                 st.addBatch();
             }
-
             st.executeBatch();
             transactional.commit();
 

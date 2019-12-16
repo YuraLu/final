@@ -9,32 +9,12 @@
 <fmt:setBundle basename="text"/>
 
 <c:import url="/WEB-INF/form/add_new_test.jsp"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-        <fmt:message key="table.test_title"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.test_title"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewTestTable"/>
 </c:import>
 
@@ -45,9 +25,11 @@
             <h2><fmt:message key="title.test_list"/></h2>
             <p><fmt:message key="title.testTable_intro"/></p>
             <div class="mb-3">
-                <a href="" class="overlayLink btn btn-primary mb-3" role="button">
-                    <fmt:message key="button.add"/>
-                </a>
+                <c:if test="${roleId == 1 || roleId == 3}">
+                    <a href="" class="overlayLink btn btn-primary mb-3" role="button">
+                        <fmt:message key="button.add"/>
+                    </a>
+                </c:if>
             </div>
         </div>
         <form action="controller" method="post">
@@ -93,7 +75,6 @@
 </c:if>
 <c:remove var="errorMessage"/>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
-
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

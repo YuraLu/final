@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_SUBJECT_TABLE_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.TEST_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.TEST_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_TEST_ERROR;
 
 /**
  * Deletes test
@@ -36,9 +36,8 @@ public class CommandDeleteTest implements Command {
 
         try {
             testService.delete(id);
-
         } catch (ServiceException e) {
-            session.setAttribute(MESSAGE_TO_JSP, "message.delete_test_error");
+            session.setAttribute(MESSAGE_TO_JSP, MESSAGE_DELETE_TEST_ERROR);
         }
 
         session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_TABLE_COMMAND);

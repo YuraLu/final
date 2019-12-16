@@ -8,13 +8,6 @@ public class ServiceProvider {
 
     private static final ServiceProvider instance = new ServiceProvider();
 
-    public static ServiceProvider getInstance() {
-        return instance;
-    }
-
-    private ServiceProvider() {
-    }
-
     private final AnswerService answerService = new AnswerServiceImpl();
     private final AssignmentService assignmentService = new AssignmentServiceImpl();
     private final QuestionService questionService = new QuestionServiceImpl();
@@ -22,6 +15,13 @@ public class ServiceProvider {
     private final SubjectService subjectService = new SubjectServiceImpl();
     private final TestService testService = new TestServiceImpl();
     private final UserService userService = new UserServiceImpl();
+
+    private ServiceProvider() {
+    }
+
+    public static ServiceProvider getInstance() {
+        return instance;
+    }
 
     public AnswerService getAnswerService() {
         return answerService;

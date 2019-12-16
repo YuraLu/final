@@ -1,24 +1,23 @@
 package by.epam.lukashevich.domain.command;
 
 import by.epam.lukashevich.domain.command.exception.CommandException;
-import by.epam.lukashevich.domain.command.impl.CommandMissing;
 import by.epam.lukashevich.domain.command.impl.test.CommandPassTestAbort;
 import by.epam.lukashevich.domain.command.impl.user.CommandSignIn;
 import by.epam.lukashevich.domain.command.provider.CommandProvider;
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 
 import static by.epam.lukashevich.domain.config.JSPActionCommand.*;
-import static org.testng.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 
 public class CommandProviderTest {
 
     private final CommandProvider provider = CommandProvider.getInstance();
 
-    @Test
+    @Test(expected= CommandException.class)
     public void testCreateCommand_invalidCommand_CommandException() throws CommandException {
         Command command = provider.getCommand("noCommand");
-
-        assertTrue(command instanceof CommandMissing);
     }
 
     @Test
@@ -29,7 +28,7 @@ public class CommandProviderTest {
     }
 
     @Test
-    public void createCommand_viewUserCabinet_correct() throws CommandException {
+    public void createCommand_abortTestCommand_correct() throws CommandException {
         Command command = provider.getCommand(ABORT_TEST_COMMAND);
 
         assertTrue(command instanceof CommandPassTestAbort);

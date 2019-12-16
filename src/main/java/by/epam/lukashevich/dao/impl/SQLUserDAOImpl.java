@@ -1,12 +1,13 @@
 package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.UserDAO;
-import by.epam.lukashevich.dao.exception.user.InvalidLoginOrPasswordException;
-import by.epam.lukashevich.dao.exception.user.UsedLoginException;
-import by.epam.lukashevich.dao.exception.user.UserDAOException;
 import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
 import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.exception.user.InvalidLoginOrPasswordException;
+import by.epam.lukashevich.dao.exception.user.UsedEmailException;
+import by.epam.lukashevich.dao.exception.user.UsedLoginException;
+import by.epam.lukashevich.dao.exception.user.UserDAOException;
 import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
@@ -19,6 +20,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with User Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see User
+ * @since JDK1.0
+ */
 public class SQLUserDAOImpl implements UserDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
@@ -57,8 +66,7 @@ public class SQLUserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             throw new UserDAOException("SQL Exception can't find user in findById()", e);
         }
-//        throw new UserDAOException("No user with ID=" + id + ".");
-        return null;
+        throw new UserDAOException("No user with ID=" + id + ".");
     }
 
     @Override
@@ -71,6 +79,10 @@ public class SQLUserDAOImpl implements UserDAO {
                 throw new UsedLoginException("Login is already is use!");
             }
 
+            if (isEmailUsed(user.getEmail())) {
+                throw new UsedEmailException("Email is already is use!");
+            }
+
             st.setString(1, user.getName());
             st.setString(2, user.getEmail());
             st.setString(3, user.getLogin());
@@ -78,7 +90,9 @@ public class SQLUserDAOImpl implements UserDAO {
             st.setInt(5, user.getRole().getId());
             st.setBoolean(6, user.getBanned());
             st.executeUpdate();
+
             return true;
+
         } catch (SQLException e) {
             throw new UserDAOException("SQL Exception during user add()", e);
         }
@@ -116,7 +130,7 @@ public class SQLUserDAOImpl implements UserDAO {
     @Override
     public void updateBanStatus(Integer id) throws UserDAOException {
 
-        final boolean banStatus = getBanStatus(id);
+        final boolean banStatus = getChangedBanStatus(id);
 
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
@@ -130,17 +144,10 @@ public class SQLUserDAOImpl implements UserDAO {
         }
     }
 
-    private boolean getBanStatus(Integer id) throws UserDAOException {
-        final User user = findById(id);
-        return !user.getBanned();
-    }
-
-
     @Override
     public void updateStatus(Integer id) throws UserDAOException {
 
-        final User user = findById(id);
-        int roleId = getStatus(id);
+        final int roleId = getChangedStatus(id);
 
         try (ProxyConnection proxyConnection = pool.getConnection();
              ConnectionWrapper con = proxyConnection.getConnectionWrapper();
@@ -149,14 +156,10 @@ public class SQLUserDAOImpl implements UserDAO {
             st.setInt(1, roleId);
             st.setInt(2, id);
             st.executeUpdate();
+
         } catch (SQLException e) {
             throw new UserDAOException("SQL Exception during update status()", e);
         }
-    }
-
-    private int getStatus(Integer id) throws UserDAOException {
-        final User user = findById(id);
-        return user.getRole().getId() == Role.STUDENT.getId() ? Role.TUTOR.getId() : Role.STUDENT.getId();
     }
 
     @Override
@@ -207,8 +210,36 @@ public class SQLUserDAOImpl implements UserDAO {
                 return true;
             }
         } catch (SQLException e) {
-            throw new UserDAOException("No User with a such login", e);
+            throw new UserDAOException("Error during searching user with a such login", e);
         }
         return false;
+    }
+
+    @Override
+    public boolean isEmailUsed(String email) throws UserDAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(GET_USER_BY_EMAIL)) {
+
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new UserDAOException("Error during searching user with a such email", e);
+        }
+        return false;
+    }
+
+    private boolean getChangedBanStatus(Integer id) throws UserDAOException {
+        final User user = findById(id);
+        return !user.getBanned();
+    }
+
+    private int getChangedStatus(Integer id) throws UserDAOException {
+        final User user = findById(id);
+        return user.getRole().getId() == Role.STUDENT.getId() ? Role.TUTOR.getId() : Role.STUDENT.getId();
     }
 }

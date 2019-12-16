@@ -10,6 +10,10 @@ import java.util.concurrent.Executor;
  * Has only one new method {@code realClose}
  * that doing close logic.
  * Base method close is clear now.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
  */
 public class ConnectionWrapper implements Connection {
 
@@ -27,7 +31,6 @@ public class ConnectionWrapper implements Connection {
     public void realClose() throws SQLException {
         connection.close();
     }
-
 
     @Override
     public Statement createStatement() throws SQLException {

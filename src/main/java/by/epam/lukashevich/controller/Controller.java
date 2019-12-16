@@ -1,8 +1,8 @@
 package by.epam.lukashevich.controller;
 
 import by.epam.lukashevich.domain.command.Command;
-import by.epam.lukashevich.domain.command.provider.CommandProvider;
 import by.epam.lukashevich.domain.command.exception.CommandException;
+import by.epam.lukashevich.domain.command.provider.CommandProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.ALLOWED;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.REDIRECT_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.PARAMETER_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.ERROR_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.ERROR_PAGE;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.TEST_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.TEST_TABLE_PAGE;
 
 /**
  * Aborts passing test by Student

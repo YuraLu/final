@@ -1,8 +1,8 @@
 package by.epam.lukashevich.domain.service.impl;
 
-import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.SubjectDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.domain.entity.Subject;
 import by.epam.lukashevich.domain.service.SubjectService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;

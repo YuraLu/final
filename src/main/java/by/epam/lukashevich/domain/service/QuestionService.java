@@ -19,7 +19,7 @@ public interface QuestionService {
 
     List<Integer> addQuestionList(List<Question> questions) throws ServiceException;
 
-    List<Question> findAllQuestionsForTestId(int testId)throws ServiceException;
+    List<Question> findAllQuestionsForTestId(int testId) throws ServiceException;
 
     void addQuestionToTest(Question question, int testId) throws ServiceException;
 }

@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>
-        <fmt:message key="title.main"/>
+        <fmt:message key="title.signIn_page"/>
     </title>
 
     <!-- Bootstrap CSS -->
@@ -31,7 +31,7 @@
         <div class="col-md-8 col-lg-6">
 
             <div id="localeDiv" class="input-group mb-3 justify-content-end">
-                <c:import url="/WEB-INF/jsp/common/localeDiv.jsp" >
+                <c:import url="/WEB-INF/jsp/common/localeDiv.jsp">
                     <c:param name="paramRedirect" value="viewSignIn"/>
                 </c:import>
             </div>
@@ -41,20 +41,29 @@
                     <div class="row">
                         <div class="col-md-9 col-lg-8 mx-auto">
                             <h3 class="login-heading mb-4"><fmt:message key="signIn_page.welcome"/></h3>
-                            <form action="controller" method="post">
+                            <form action="controller" method="post" >
                                 <div class="form-label-group">
                                     <input type="text" id="inputLogin" name="login" class="form-control"
-                                           placeholder="Login" required autofocus>
+                                           placeholder="Login" required autofocus  aria-describedby="loginHelpBlock">
                                     <label for="inputLogin">
                                         <fmt:message key="registration.enter_login_message"/>
                                     </label>
+
+                                    <div class="invalid-feedback">
+                                        <fmt:message key="login.login_pattern"/>
+                                    </div>
+
                                 </div>
                                 <div class="form-label-group">
                                     <input type="password" id="inputPassword" name="password" class="form-control"
-                                           placeholder="Password" required>
+                                           placeholder="Password" required aria-describedby="passwordHelpBlock">
                                     <label for="inputPassword">
                                         <fmt:message key="registration.enter_password_message"/>
                                     </label>
+                                    <div class="invalid-feedback">
+                                        <fmt:message key="login.pass_pattern"/>
+                                    </div>
+
                                 </div>
                                 <button class="btn btn-lg btn-primary btn-block btn-login
                                                     text-uppercase font-weight-bold mb-2"
@@ -82,7 +91,7 @@
 
     <c:if test="${errorMessage == 'message.successful_login'}">
         <c:remove var="errorMessage"/>
-        <c:redirect url = "controller?command=viewUserCabinet"/>
+        <c:redirect url="controller?command=viewUserCabinet"/>
     </c:if>
 </c:if>
 <c:remove var="errorMessage"/>

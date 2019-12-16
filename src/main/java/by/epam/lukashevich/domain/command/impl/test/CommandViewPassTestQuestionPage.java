@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_QUESTION_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_QUESTION_PAGE;
 
 /**
  * Shows pass test question page

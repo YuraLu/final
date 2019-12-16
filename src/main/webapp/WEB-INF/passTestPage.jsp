@@ -8,31 +8,12 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-        <fmt:message key="test.edit_title"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.test.result_page"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewPassTestPage"/>
 </c:import>
 
@@ -59,6 +40,8 @@
                     <label for="inputTestAuthor"><fmt:message key="test_author"/></label>
                     <input type="text" class="form-control" name="testAuthor" id="inputTestAuthor"
                            value=" ${assignment.test.author.name}" disabled>
+                </div>
+                <div class="form-group">
                     <label for="inputTestSubject"><fmt:message key="test_subject"/></label>
                     <input type="text" class="form-control" name="testSubject" id="inputTestSubject"
                            value="${assignment.test.subject.name}" disabled>
@@ -85,6 +68,6 @@
     </div>
 </div>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

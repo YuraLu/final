@@ -5,6 +5,13 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class forces browser to load pages every time from server.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 @WebFilter(urlPatterns = "/*")
 public class NoCacheFilter implements Filter {
 

@@ -1,4 +1,4 @@
-package by.epam.lukashevich.presentationjsp.tag;
+package by.epam.lukashevich.presentation.tag;
 
 
 import javax.servlet.jsp.JspException;
@@ -9,6 +9,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Date info tag. Represents current date on page.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 public class DateInfoTag extends TagSupport {
 
     private static final String DATE_FORMAT = "dd.MM.yyyy";

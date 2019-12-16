@@ -8,7 +8,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class ConnectionPoolListener implements ServletContextListener {
+public class ApplicationListener implements ServletContextListener {
 
     private static final String DRIVER = "db.driver";
     private static final String URL = "db.url";

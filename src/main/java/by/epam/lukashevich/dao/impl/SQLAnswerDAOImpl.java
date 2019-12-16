@@ -15,6 +15,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Answer Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Answer
+ * @since JDK1.0
+ */
 public class SQLAnswerDAOImpl implements AnswerDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();

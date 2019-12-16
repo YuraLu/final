@@ -1,11 +1,11 @@
 package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.ReplyDAO;
-import by.epam.lukashevich.dao.core.transaction.Transactional;
-import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
 import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.core.transaction.Transactional;
+import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Reply;
@@ -19,6 +19,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Reply Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Reply
+ * @since JDK1.0
+ */
 public class SQLReplyDAOImpl implements ReplyDAO {
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
 

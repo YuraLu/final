@@ -2,7 +2,7 @@ package by.epam.lukashevich.domain.entity;
 
 import java.util.List;
 
-public class Question  extends AbstractEntity {
+public class Question extends AbstractEntity {
     private String questionText;
     private List<Answer> answers;
 

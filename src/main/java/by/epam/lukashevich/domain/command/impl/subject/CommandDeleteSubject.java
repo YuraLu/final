@@ -2,9 +2,9 @@ package by.epam.lukashevich.domain.command.impl.subject;
 
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.SubjectService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,8 @@ import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_SUBJECT_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.SUBJECT_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.SUBJECT_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_SUBJECT_ERROR;
 
 public class CommandDeleteSubject implements Command {
 
@@ -30,7 +31,7 @@ public class CommandDeleteSubject implements Command {
         try {
             subjectService.delete(id);
         } catch (ServiceException e) {
-            session.setAttribute(MESSAGE_TO_JSP, "message.delete_subject_error");
+            session.setAttribute(MESSAGE_TO_JSP, MESSAGE_DELETE_SUBJECT_ERROR);
         }
         session.setAttribute(REDIRECT_COMMAND, VIEW_SUBJECT_TABLE_COMMAND);
         return SUBJECT_TABLE_PAGE;

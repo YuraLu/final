@@ -7,32 +7,12 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-        <fmt:message key="title.personal_cabinet"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.personal_cabinet"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewUserTable"/>
 </c:import>
 
@@ -78,7 +58,7 @@
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="userForAction" value="${user.id}"/>
+                                <input type="radio" name="userForAction" value="${user.id}" required/>
                             </label>
                         </td>
                     </tr>
@@ -87,11 +67,11 @@
             </table>
             <div class="col">
                 <button type="submit" name="command" value="changeUserStatus"
-                        class="mt-2">
+                        class="mt-2 btn btn-primary mb-3">
                     <strong><fmt:message key="table.button.change_status"/></strong>
                 </button>
                 <button type="submit" name="command" value="changeUserBanStatus"
-                        class="mt-2">
+                        class="mt-2 btn btn-primary mb-3">
                     <strong><fmt:message key="table.button.change_ban_status"/></strong>
                 </button>
             </div>
@@ -107,7 +87,6 @@
 </c:if>
 <c:remove var="errorMessage"/>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
-
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

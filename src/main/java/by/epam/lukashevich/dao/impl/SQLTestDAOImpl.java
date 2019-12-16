@@ -15,6 +15,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Test Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Test
+ * @since JDK1.0
+ */
 public class SQLTestDAOImpl implements TestDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
@@ -147,9 +155,9 @@ public class SQLTestDAOImpl implements TestDAO {
              PreparedStatement st = con.prepareStatement(ADD_QUESTIONS_LIST_FOR_TEST_ID,
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            for (Integer questionId : questionIdsList) {
+            for (int i = 0; i < questionIdsList.size(); i++) {
                 st.setInt(1, testId);
-                st.setInt(2, questionIdsList.get(questionId));
+                st.setInt(2, questionIdsList.get(i));
                 st.addBatch();
             }
             st.executeBatch();

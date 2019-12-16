@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <h5><fmt:message key="test_subject"/></h5>
                             <label>
-                                <select name="testSubjectId">
+                                <select name="testSubjectId" class="custom-select">
                                     <option></option>
                                     <c:forEach items="${subjectList}" var="subject">
                                         <option value="${subject.id}">${subject.name}</option>

@@ -2,11 +2,11 @@ package by.epam.lukashevich.domain.util.validator.user.impl;
 
 import by.epam.lukashevich.domain.util.manager.UtilManager;
 import by.epam.lukashevich.domain.util.validation.UserValidator;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 public class UserValidatorImplTest {
 
@@ -66,7 +66,7 @@ public class UserValidatorImplTest {
     @Test
     public void validate_changePassword_false() {
 
-        boolean result = validator.validatePassword("pass", "pass", "pass");
+        boolean result = validator.validateNewPassword("pass", "pass", "pass");
 
         assertFalse(result);
     }
@@ -74,7 +74,7 @@ public class UserValidatorImplTest {
     @Test
     public void validate_changePassword_true() {
 
-        boolean result = validator.validatePassword("pass123", "pass1234", "pass1234");
+        boolean result = validator.validateNewPassword("pass123", "pass1234", "pass1234");
 
         assertTrue(result);
     }
@@ -103,6 +103,4 @@ public class UserValidatorImplTest {
 
         assertTrue(result);
     }
-
-
 }

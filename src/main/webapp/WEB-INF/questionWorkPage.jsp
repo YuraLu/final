@@ -7,31 +7,12 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-      <fmt:message key="title.question.edit_page"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.question.edit_page"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewQuestionWorkPage"/>
     <c:param name="questionId" value="${question.id}"/>
 </c:import>
@@ -70,6 +51,7 @@
             </div>
             <input type="hidden" name="questionId" value="${question.id}">
             <input type="hidden" name="testId" value="${testId}">
+
             <div class="col">
                 <a href="controller?command=viewTestWorkPage&testId=${testId}" class="mt-2">
                     <strong><fmt:message key="button.back"/> </strong>
@@ -82,6 +64,7 @@
         </form>
     </div>
 </div>
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
+
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

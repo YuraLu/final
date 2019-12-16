@@ -14,11 +14,13 @@ public interface UserService {
 
     User signIn(String login, String password) throws UserServiceException;
 
-    void registration(String login, String password, String confirmedPassword, String name, String email, Role role) throws UserServiceException;
+    void registration(String login, String password, String confirmedPassword, String name, String email, Role role)
+            throws UserServiceException;
 
     void update(int id, String name, String email) throws UserServiceException;
 
-    void updatePassword(int id, String currentPassword, String newPassword, String confirmedPassword) throws UserServiceException;
+    void updatePassword(int id, String currentPassword, String newPassword, String confirmedPassword)
+            throws UserServiceException;
 
     void updateBanStatus(int id) throws UserServiceException;
 

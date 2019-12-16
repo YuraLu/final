@@ -3,8 +3,8 @@ package by.epam.lukashevich.domain.command.impl.question;
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_ID;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.REDIRECT_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_QUESTION_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.QUESTION_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.QUESTION_TABLE_PAGE;
 
 public class CommandDeleteQuestion implements Command {
     @Override

@@ -9,32 +9,12 @@
 <fmt:setBundle basename="text"/>
 
 <c:import url="/WEB-INF/form/add_new_question.jsp"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-        <fmt:message key="test.edit_title"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="test.edit_title"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewTestWorkPage"/>
 </c:import>
 
@@ -82,7 +62,7 @@
                     <ul>
                         <c:forEach items="${test.questions}" var="question">
                             <li>
-                                <a href="controller?command=viewQuestionWorkPage&questionId=${question.id}"
+                                <a href="controller?command=viewQuestionWorkPage&questionId=${question.id}&testId=${test.id}"
                                    class="mt-2">
                                         ${question.questionText}
                                 </a>
@@ -103,10 +83,6 @@
             <input type="hidden" name="testAuthorId" value="${test.author.id}">
             <input type="hidden" name="testSubjectId" value="${test.subject.id}">
 
-            <%--                <button type="submit" name="command" value="editTest" class="mt-2">--%>
-            <%--                    <strong><fmt:message key="button.edit"/></strong>--%>
-            <%--                </button>--%>
-
             <button type="submit" name="command" value="deleteTest" class="mt-2">
                 <strong><fmt:message key="button.delete"/></strong>
             </button>
@@ -120,7 +96,6 @@
 </c:if>
 <c:remove var="errorMessage"/>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
-
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

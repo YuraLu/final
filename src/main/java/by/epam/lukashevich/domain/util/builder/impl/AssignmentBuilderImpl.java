@@ -4,10 +4,8 @@ import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.util.builder.AnswerBuilder;
 import by.epam.lukashevich.domain.util.builder.AssignmentBuilder;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -12,13 +12,16 @@
     <title></title>
 </head>
 <body>
-    <form>
-        <input type="hidden" name="command" value="${param.paramRedirect}"/>
-        <label for="locale"></label>
-        <select class="custom-select" id="locale" name="locale" onchange="submit()">
-            <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
-            <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
-        </select>
-    </form>
+<form>
+    <input type="hidden" name="questionId" value="${question.id}">
+    <input type="hidden" name="testId" value="${testId}">
+
+    <input type="hidden" name="command" value="${param.paramRedirect}"/>
+    <label for="locale"></label>
+    <select class="custom-select" id="locale" name="locale" onchange="submit()">
+        <option value="en_EN" ${locale == 'en_EN' ? 'selected' : ''}>English</option>
+        <option value="ru_RU" ${locale == 'ru_RU' ? 'selected' : ''}>Русский</option>
+    </select>
+</form>
 </body>
 </html>

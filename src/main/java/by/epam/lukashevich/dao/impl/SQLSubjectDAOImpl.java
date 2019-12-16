@@ -1,10 +1,10 @@
 package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.SubjectDAO;
-import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
 import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Subject;
 
@@ -17,6 +17,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Subject Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Subject
+ * @since JDK1.0
+ */
 public class SQLSubjectDAOImpl implements SubjectDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();

@@ -1,13 +1,16 @@
 package by.epam.lukashevich.controller.filter;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"},
-        initParams = {
-                @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param")})
+/**
+ * This class sets encoding for pages in UTF-8.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
+
 public class EncodingFilter implements Filter {
 
     private String encoding;

@@ -18,17 +18,23 @@ public class DatabaseConnectionPool implements ConnectionPool {
     private static final Logger logger = LogManager.getLogger(DatabaseConnectionPool.class);
 
     private static final DatabaseConnectionPool instance = new DatabaseConnectionPool();
+    private static final int DEFAULT_POOL_SIZE = 10;
+    private BlockingQueue<ProxyConnection> availableConnections;
+    private BlockingQueue<ProxyConnection> usedConnections;
+
+    private DatabaseConnectionPool() {
+    }
 
     public static DatabaseConnectionPool getInstance() {
         return instance;
     }
 
-    private DatabaseConnectionPool() {
+    private static Connection createConnection(final String url,
+                                               final String user,
+                                               final String password)
+                                                                throws SQLException {
+        return DriverManager.getConnection(url, user, password);
     }
-
-    private BlockingQueue<ProxyConnection> availableConnections;
-    private BlockingQueue<ProxyConnection> usedConnections;
-    private static final int DEFAULT_POOL_SIZE = 16;
 
     public void init(final String driver, final String url, final String user,
                      final String password, String poolSize) {
@@ -86,15 +92,8 @@ public class DatabaseConnectionPool implements ConnectionPool {
         try {
             return Integer.parseInt(poolSize);
         } catch (NumberFormatException e) {
-            logger.error("Can't convert pool size to int, will use default value", e);
+            logger.error("Can't convert pool size to int, will be used default value", e);
             return DEFAULT_POOL_SIZE;
         }
-    }
-
-    private static Connection createConnection(final String url,
-                                               final String user,
-                                               final String password)
-            throws SQLException {
-        return DriverManager.getConnection(url, user, password);
     }
 }

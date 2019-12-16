@@ -10,9 +10,17 @@ import java.util.List;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.*;
-import static by.epam.lukashevich.domain.config.JSPPages.INDEX_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.INDEX_PAGE;
+import static by.epam.lukashevich.domain.config.Message.MESSAGE_NOT_ALLOWED;
 import static by.epam.lukashevich.domain.entity.user.Role.*;
 
+/**
+ * This class controls permissions for different users.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @since JDK1.0
+ */
 @WebFilter(urlPatterns = {"*"}, servletNames = {"controller"})
 public class ControllerSecurityFilter implements Filter {
 
@@ -53,17 +61,18 @@ public class ControllerSecurityFilter implements Filter {
             }
 
             if (userRoleId == GUEST.getId() && guestActions.contains(command)
-                    ||userRoleId == ADMIN.getId() && adminActions.contains(command)
+                    || userRoleId == ADMIN.getId() && adminActions.contains(command)
                     || userRoleId == TUTOR.getId() && tutorActions.contains(command)
                     || userRoleId == STUDENT.getId() && studentActions.contains(command)) {
                 request.setAttribute(ALLOWED, true);
             } else {
                 request.setAttribute(ALLOWED, false);
                 request.setAttribute(REDIRECT_COMMAND, INDEX_PAGE);
+                session.setAttribute(MESSAGE_TO_JSP, MESSAGE_NOT_ALLOWED);
             }
 
             if (!(boolean) request.getAttribute(ALLOWED)) {
-                session.setAttribute(SECURITY_MESSAGE, "message.not_allowed");
+                session.setAttribute(SECURITY_MESSAGE, MESSAGE_NOT_ALLOWED);
             }
         }
 
@@ -126,7 +135,6 @@ public class ControllerSecurityFilter implements Filter {
         tutorActions.add(DELETE_TEST_COMMAND);
         tutorActions.add(ABORT_TEST_COMMAND);
         tutorActions.add(VIEW_SUBJECT_TABLE_COMMAND);
-        tutorActions.add(VIEW_SUBJECT_ADD_PAGE_COMMAND);
         tutorActions.add(ADD_SUBJECT_COMMAND);
         tutorActions.add(DELETE_SUBJECT_COMMAND);
         tutorActions.add(VIEW_QUESTION_TABLE_COMMAND);
@@ -160,7 +168,6 @@ public class ControllerSecurityFilter implements Filter {
         adminActions.add(DELETE_TEST_COMMAND);
         adminActions.add(ABORT_TEST_COMMAND);
         adminActions.add(VIEW_SUBJECT_TABLE_COMMAND);
-        adminActions.add(VIEW_SUBJECT_ADD_PAGE_COMMAND);
         adminActions.add(ADD_SUBJECT_COMMAND);
         adminActions.add(DELETE_SUBJECT_COMMAND);
         adminActions.add(VIEW_QUESTION_TABLE_COMMAND);

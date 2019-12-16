@@ -5,8 +5,8 @@ import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.util.builder.impl.AnswerBuilderImpl;
 import by.epam.lukashevich.domain.util.builder.impl.QuestionBuilderImpl;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_TEST_WORK_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.TEST_WORK_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.TEST_WORK_PAGE;
 
 public class CommandAddQuestion implements Command {
 

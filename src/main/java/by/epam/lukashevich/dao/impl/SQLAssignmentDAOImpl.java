@@ -1,10 +1,10 @@
 package by.epam.lukashevich.dao.impl;
 
 import by.epam.lukashevich.dao.AssignmentDAO;
-import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.core.pool.connection.ConnectionWrapper;
 import by.epam.lukashevich.dao.core.pool.connection.ProxyConnection;
 import by.epam.lukashevich.dao.core.pool.impl.DatabaseConnectionPool;
+import by.epam.lukashevich.dao.exception.DAOException;
 import by.epam.lukashevich.dao.impl.util.SQLUtil;
 import by.epam.lukashevich.domain.entity.Assignment;
 
@@ -14,6 +14,14 @@ import java.util.List;
 
 import static by.epam.lukashevich.dao.impl.util.SQLQuery.*;
 
+/**
+ * Represents CRUD methods for operation with Assignment Entity in DAO.
+ *
+ * @author Yuri Lukashevich
+ * @version 1.0
+ * @see Assignment
+ * @since JDK1.0
+ */
 public class SQLAssignmentDAOImpl implements AssignmentDAO {
 
     private final DatabaseConnectionPool pool = DatabaseConnectionPool.getInstance();
@@ -117,8 +125,8 @@ public class SQLAssignmentDAOImpl implements AssignmentDAO {
 
             st.setInt(1, assignment.getTest().getId());
             st.setInt(2, assignment.getStudent().getId());
-            st.setInt(3,assignment.getScore());
-            st.setTimestamp(4, new  Timestamp(assignment.getDate().getTime()));
+            st.setInt(3, assignment.getScore());
+            st.setTimestamp(4, new Timestamp(assignment.getDate().getTime()));
             st.executeUpdate();
 
             ResultSet generatedKeys = st.getGeneratedKeys();

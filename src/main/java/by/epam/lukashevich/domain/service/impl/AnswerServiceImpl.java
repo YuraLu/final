@@ -1,8 +1,8 @@
 package by.epam.lukashevich.domain.service.impl;
 
-import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.dao.AnswerDAO;
 import by.epam.lukashevich.dao.exception.DAOException;
+import by.epam.lukashevich.dao.factory.DAOFactory;
 import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.service.AnswerService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
@@ -70,7 +70,7 @@ public class AnswerServiceImpl implements AnswerService {
 
 
     @Override
-    public List<Answer> findAllAnswersForQuestionId(int questionId)throws ServiceException {
+    public List<Answer> findAllAnswersForQuestionId(int questionId) throws ServiceException {
         try {
             return answerDAO.findAllAnswersForQuestionId(questionId);
         } catch (DAOException e) {

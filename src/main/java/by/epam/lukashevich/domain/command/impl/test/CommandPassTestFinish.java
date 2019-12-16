@@ -4,8 +4,8 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.service.AssignmentService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,8 @@ import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_PASS_TEST_RESULT_PAGE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.PASS_TEST_RESULT_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_RESULT_PAGE;
+
 /**
  * Finishes passing test
  *

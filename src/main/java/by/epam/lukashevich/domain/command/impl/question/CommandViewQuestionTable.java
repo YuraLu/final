@@ -4,8 +4,8 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_LIST;
-import static by.epam.lukashevich.domain.config.JSPPages.QUESTION_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.QUESTION_TABLE_PAGE;
 
 public class CommandViewQuestionTable implements Command {
     @Override

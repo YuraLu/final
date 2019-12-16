@@ -5,7 +5,6 @@ import by.epam.lukashevich.domain.entity.Reply;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 

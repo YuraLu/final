@@ -4,24 +4,25 @@ package by.epam.lukashevich.domain.util.builder.user.impl;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
 import by.epam.lukashevich.domain.util.builder.impl.UserBuilderImpl;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class UserBuilderImplTest {
 
     private final UserBuilderImpl builder = new UserBuilderImpl();
     private final UserBuilderImpl readyBuilder = new UserBuilderImpl(1);
 
-    @BeforeClass
+    @Before
     public void init() {
 
         readyBuilder
                 .withLogin("login")
                 .withName("name")
                 .withEmail("user@mail.ru")
+                .withPassword("password")
                 .isBanned(false)
                 .withRole(Role.ADMIN);
     }
@@ -35,7 +36,9 @@ public class UserBuilderImplTest {
 
     @Test
     public void testWithPassword() {
+        builder.withPassword("password");
 
+        assertEquals(builder.getPassword(), readyBuilder.getPassword());
     }
 
     @Test
@@ -75,6 +78,7 @@ public class UserBuilderImplTest {
         user.setLogin("login");
         user.setName("name");
         user.setEmail("user@mail.ru");
+        user.setPassword("password");
         user.setBanned(false);
         user.setRole(Role.ADMIN);
 

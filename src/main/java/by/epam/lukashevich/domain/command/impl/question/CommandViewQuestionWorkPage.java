@@ -4,17 +4,16 @@ import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.service.QuestionService;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_ID;
-import static by.epam.lukashevich.domain.config.BeanFieldJsp.QUESTION_OBJECT;
-import static by.epam.lukashevich.domain.config.JSPPages.QUESTION_WORK_PAGE;
+import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
+import static by.epam.lukashevich.domain.config.JSPPage.QUESTION_WORK_PAGE;
 
 public class CommandViewQuestionWorkPage implements Command {
     @Override
@@ -23,13 +22,12 @@ public class CommandViewQuestionWorkPage implements Command {
 
         final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
         final int questionId = Integer.parseInt(request.getParameter(QUESTION_ID));
-//        final int testId = Integer.parseInt(request.getParameter(TEST_ID));
-
+        final int testId = Integer.parseInt(request.getParameter(TEST_ID));
 
         try {
             Question question = questionService.findById(questionId);
             request.setAttribute(QUESTION_OBJECT, question);
-//            request.setAttribute(TEST_ID, testId);
+            request.setAttribute(TEST_ID, testId);
 
         } catch (ServiceException e) {
             throw new CommandException("Can't get list of questions in execute() CommandViewQuestionWorkPage", e);

@@ -6,7 +6,10 @@ import by.epam.lukashevich.domain.entity.Answer;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.entity.Subject;
 import by.epam.lukashevich.domain.entity.Test;
-import by.epam.lukashevich.domain.service.*;
+import by.epam.lukashevich.domain.service.AnswerService;
+import by.epam.lukashevich.domain.service.QuestionService;
+import by.epam.lukashevich.domain.service.SubjectService;
+import by.epam.lukashevich.domain.service.TestService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
 import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 
@@ -17,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
-import static by.epam.lukashevich.domain.config.JSPPages.TEST_WORK_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.TEST_WORK_PAGE;
 
 public class CommandViewTestWorkPage implements Command {
 

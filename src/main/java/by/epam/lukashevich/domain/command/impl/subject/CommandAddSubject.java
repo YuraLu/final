@@ -3,9 +3,9 @@ package by.epam.lukashevich.domain.command.impl.subject;
 import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.Subject;
-import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.service.SubjectService;
 import by.epam.lukashevich.domain.service.exception.ServiceException;
+import by.epam.lukashevich.domain.service.provider.ServiceProvider;
 import by.epam.lukashevich.domain.util.builder.impl.SubjectBuilderImpl;
 
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.REDIRECT_COMMAND;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.SUBJECT_NAME;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_SUBJECT_TABLE_COMMAND;
-import static by.epam.lukashevich.domain.config.JSPPages.SUBJECT_TABLE_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.SUBJECT_TABLE_PAGE;
 
 public class CommandAddSubject implements Command {
 

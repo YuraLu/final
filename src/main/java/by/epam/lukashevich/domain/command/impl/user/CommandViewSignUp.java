@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.MESSAGE_TO_SIGN_UP;
-import static by.epam.lukashevich.domain.config.JSPPages.SIGN_UP_PAGE;
+import static by.epam.lukashevich.domain.config.JSPPage.SIGN_UP_PAGE;
 
 public class CommandViewSignUp implements Command {
 

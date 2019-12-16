@@ -7,31 +7,12 @@
 <fmt:setLocale value="${locale}"/>
 
 <fmt:setBundle basename="text"/>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>
-       <fmt:message key="nav.question_table"/>
-    </title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
-    <script src="js/alert.js"></script>
-</head>
+<c:import url="WEB-INF/jsp/common/header.jsp">
+    <c:param name="page_title" value="title.question.edit_page"/>
+</c:import>
 <body>
-
-<c:import url="/WEB-INF/jsp/common/header_nav.jsp" >
+<c:import url="/WEB-INF/jsp/common/headerNav.jsp">
     <c:param name="paramRedirect" value="viewQuestionTable"/>
 </c:import>
 
@@ -65,7 +46,8 @@
                         </td>
                         <td> ${question.questionText} </td>
                         <c:forEach items="${question.answers}" var="answer">
-                            <td<c:if test="${answer.isCorrect == true}"> class="bg-info" </c:if>> ${answer.answerText} </td>
+                            <td<c:if
+                                    test="${answer.isCorrect == true}"> class="bg-info" </c:if>> ${answer.answerText} </td>
                         </c:forEach>
                     </tr>
                 </c:forEach>
@@ -75,6 +57,6 @@
     </div>
 </div>
 
-<c:import url="/WEB-INF/jsp/common/footer.jsp"/>
+<%@ include file="/WEB-INF/jsp/common/footer.jsp" %>
 </body>
 </html>

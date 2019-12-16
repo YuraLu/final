@@ -28,7 +28,9 @@ public interface UserDAO extends CommonDAO<User> {
 
     User getByLoginAndPass(String login, String encodedPass) throws UserDAOException;
 
-    void updatePassword(int id, String newEncodedPass)throws UserDAOException;
+    void updatePassword(int id, String newEncodedPass) throws UserDAOException;
 
     boolean isLoginUsed(String login) throws UserDAOException;
+
+    boolean isEmailUsed(String email) throws UserDAOException;
 }

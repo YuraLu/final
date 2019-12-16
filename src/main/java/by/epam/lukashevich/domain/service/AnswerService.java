@@ -19,5 +19,5 @@ public interface AnswerService {
 
     List<Integer> addAnswerList(List<Answer> answers) throws ServiceException;
 
-    List<Answer> findAllAnswersForQuestionId(int questionId)throws ServiceException;
+    List<Answer> findAllAnswersForQuestionId(int questionId) throws ServiceException;
 }
