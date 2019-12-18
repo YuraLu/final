@@ -19,7 +19,5 @@ public final class JSPPage {
     public static final String PASS_TEST_QUESTION_PAGE = "passTestQuestionPage";
     public static final String PASS_TEST_RESULT_PAGE = "passTestResultPage";
     public static final String SUBJECT_TABLE_PAGE = "subjectsTable";
-    public static final String SUBJECT_ADD_PAGE = "subjectAddPage";
-    public static final String QUESTION_TABLE_PAGE = "questionsTable";
     public static final String QUESTION_WORK_PAGE = "questionWorkPage";
 }

@@ -32,7 +32,6 @@ public enum CommandName {
     ADD_SUBJECT("addSubject"),
     DELETE_SUBJECT("deleteSubject"),
 
-    VIEW_QUESTION_TABLE("viewQuestionTable"),
     ADD_QUESTION("addQuestion"),
     DELETE_QUESTION("deleteQuestion"),
     VIEW_QUESTION_WORK_PAGE("viewQuestionWorkPage");

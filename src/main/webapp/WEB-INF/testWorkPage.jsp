@@ -8,7 +8,7 @@
 
 <fmt:setBundle basename="text"/>
 
-<c:import url="/WEB-INF/form/add_new_question.jsp"/>
+<c:import url="/WEB-INF/form/addNewQuestion.jsp"/>
 
 <c:import url="WEB-INF/jsp/common/header.jsp">
     <c:param name="page_title" value="test.edit_title"/>

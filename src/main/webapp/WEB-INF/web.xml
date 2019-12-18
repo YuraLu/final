@@ -156,24 +156,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>subjectAddPage</servlet-name>
-        <jsp-file>/WEB-INF/subjectAddPage.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>subjectAddPage</servlet-name>
-        <url-pattern>/subjectAddPage</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>questionsTable</servlet-name>
-        <jsp-file>/WEB-INF/questionsTable.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>questionsTable</servlet-name>
-        <url-pattern>/questionsTable</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>questionWorkPage</servlet-name>
         <jsp-file>/WEB-INF/questionWorkPage.jsp</jsp-file>
     </servlet>

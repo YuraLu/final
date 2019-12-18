@@ -39,4 +39,13 @@ public class ReplyServiceImpl implements ReplyService {
             throw new ServiceException("Can't add reply", e);
         }
     }
+
+    @Override
+    public boolean isQuestionReplied(int questionId) throws ServiceException {
+        try {
+           return replyDAO.findRepliedQuestion(questionId);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't find reply with such a question.", e);
+        }
+    }
 }

@@ -16,11 +16,17 @@ import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPPage.QUESTION_WORK_PAGE;
 
 public class CommandViewQuestionWorkPage implements Command {
+
+    private QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
+
+    public void setQuestionService(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
         final int questionId = Integer.parseInt(request.getParameter(QUESTION_ID));
         final int testId = Integer.parseInt(request.getParameter(TEST_ID));
 

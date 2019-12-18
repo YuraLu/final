@@ -118,4 +118,23 @@ public class SQLReplyDAOImpl implements ReplyDAO {
             throw new DAOException("SQL Exception can't delete reply with id=" + id, e);
         }
     }
+
+    @Override
+    public boolean findRepliedQuestion(int questionId) throws DAOException {
+        try (ProxyConnection proxyConnection = pool.getConnection();
+             ConnectionWrapper con = proxyConnection.getConnectionWrapper();
+             PreparedStatement st = con.prepareStatement(GET_REPLY_WITH_QUESTION_ID)) {
+
+            st.setInt(1, questionId);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("SQL Exception can't find reply in findById()", e);
+        }
+        return false;
+    }
 }

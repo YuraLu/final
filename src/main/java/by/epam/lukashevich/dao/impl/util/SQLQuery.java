@@ -1,6 +1,10 @@
 package by.epam.lukashevich.dao.impl.util;
 
 public final class SQLQuery {
+
+    private SQLQuery() {
+    }
+
     public static final String GET_TEST_BY_ID = "SELECT " +
             "t.id, t.title, t.description, " +
             "s.id, s.name," +
@@ -147,6 +151,9 @@ public final class SQLQuery {
             " INNER JOIN assignments as ON r.assignmentId = as.id " +
             " WHERE as.studentId=?";
 
-    private SQLQuery() {
-    }
+    public static final String GET_REPLY_WITH_QUESTION_ID = "SELECT " +
+            "r.id, r.assignmentId, r.answerId, r.questionId" +
+            " FROM replies r" +
+            " WHERE r.questionId=?";
+
 }

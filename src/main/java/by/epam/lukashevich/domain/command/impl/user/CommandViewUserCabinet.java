@@ -19,7 +19,11 @@ import static by.epam.lukashevich.domain.config.JSPPage.USER_CABINET_PAGE;
 
 public class CommandViewUserCabinet implements Command {
 
-    private final UserService service = ServiceProvider.getInstance().getUserService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +33,7 @@ public class CommandViewUserCabinet implements Command {
         int userId = (int) session.getAttribute(USER_ID);
 
         try {
-            final User user = service.findById(userId);
+            final User user = userService.findById(userId);
 
             request.setAttribute(USER_OBJECT, user);
 

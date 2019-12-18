@@ -37,7 +37,11 @@ import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_RESULT_PAGE;
 public class CommandGetNextTestQuestion implements Command {
 
     private static final Logger logger = LogManager.getLogger(CommandPassTestAbort.class);
-    private final AnswerService answerService = ServiceProvider.getInstance().getAnswerService();
+    private AnswerService answerService = ServiceProvider.getInstance().getAnswerService();
+
+    public void setAnswerService(AnswerService answerService) {
+        this.answerService = answerService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

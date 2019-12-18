@@ -67,6 +67,7 @@ public class ControllerSecurityFilter implements Filter {
                 request.setAttribute(ALLOWED, true);
             } else {
                 request.setAttribute(ALLOWED, false);
+
                 request.setAttribute(REDIRECT_COMMAND, INDEX_PAGE);
                 session.setAttribute(MESSAGE_TO_JSP, MESSAGE_NOT_ALLOWED);
             }
@@ -137,8 +138,6 @@ public class ControllerSecurityFilter implements Filter {
         tutorActions.add(VIEW_SUBJECT_TABLE_COMMAND);
         tutorActions.add(ADD_SUBJECT_COMMAND);
         tutorActions.add(DELETE_SUBJECT_COMMAND);
-        tutorActions.add(VIEW_QUESTION_TABLE_COMMAND);
-        tutorActions.add(VIEW_QUESTION_ADD_PAGE_COMMAND);
         tutorActions.add(ADD_QUESTION_COMMAND);
         tutorActions.add(DELETE_QUESTION_COMMAND);
         tutorActions.add(VIEW_QUESTION_WORK_PAGE_COMMAND);
@@ -170,8 +169,6 @@ public class ControllerSecurityFilter implements Filter {
         adminActions.add(VIEW_SUBJECT_TABLE_COMMAND);
         adminActions.add(ADD_SUBJECT_COMMAND);
         adminActions.add(DELETE_SUBJECT_COMMAND);
-        adminActions.add(VIEW_QUESTION_TABLE_COMMAND);
-        adminActions.add(VIEW_QUESTION_ADD_PAGE_COMMAND);
         adminActions.add(ADD_QUESTION_COMMAND);
         adminActions.add(DELETE_QUESTION_COMMAND);
         adminActions.add(VIEW_QUESTION_WORK_PAGE_COMMAND);

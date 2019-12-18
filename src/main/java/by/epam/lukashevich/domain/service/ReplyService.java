@@ -12,4 +12,6 @@ public interface ReplyService {
     Reply findById(int id) throws ServiceException;
 
     void add(Reply reply) throws ServiceException;
+
+    boolean isQuestionReplied(int questionId) throws ServiceException;
 }

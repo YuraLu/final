@@ -6,7 +6,6 @@ import by.epam.lukashevich.domain.entity.Assignment;
 import by.epam.lukashevich.domain.entity.Question;
 import by.epam.lukashevich.domain.entity.Test;
 import by.epam.lukashevich.domain.entity.user.User;
-import by.epam.lukashevich.domain.service.AssignmentService;
 import by.epam.lukashevich.domain.service.QuestionService;
 import by.epam.lukashevich.domain.service.TestService;
 import by.epam.lukashevich.domain.service.UserService;
@@ -31,10 +30,21 @@ import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_PAGE;
  */
 public class CommandViewPassTestPage implements Command {
 
-    private final TestService testService = ServiceProvider.getInstance().getTestService();
-    private final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
-    private final AssignmentService assignmentService = ServiceProvider.getInstance().getAssignmentService();
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
+    private TestService testService = ServiceProvider.getInstance().getTestService();
+    private QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    public void setTestService(TestService testService) {
+        this.testService = testService;
+    }
+
+    public void setQuestionService(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

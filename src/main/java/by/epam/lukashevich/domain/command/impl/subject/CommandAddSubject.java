@@ -21,12 +21,17 @@ import static by.epam.lukashevich.domain.config.JSPPage.SUBJECT_TABLE_PAGE;
 
 public class CommandAddSubject implements Command {
 
+    private SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
+
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
         final HttpSession session = request.getSession();
-        final SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
         final String name = request.getParameter(SUBJECT_NAME);
 
         try {

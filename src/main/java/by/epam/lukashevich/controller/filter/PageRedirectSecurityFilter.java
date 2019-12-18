@@ -29,8 +29,6 @@ import static by.epam.lukashevich.domain.config.JSPPage.*;
         SLASH + PASS_TEST_QUESTION_PAGE,
         SLASH + PASS_TEST_RESULT_PAGE,
         SLASH + SUBJECT_TABLE_PAGE,
-        SLASH + SUBJECT_ADD_PAGE,
-        SLASH + QUESTION_TABLE_PAGE,
         SLASH + QUESTION_WORK_PAGE})
 public class PageRedirectSecurityFilter implements Filter {
 

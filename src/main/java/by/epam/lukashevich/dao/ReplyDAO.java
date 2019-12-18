@@ -21,4 +21,6 @@ public interface ReplyDAO extends CommonDAO<Reply> {
 
     @Override
     boolean delete(Integer id) throws DAOException;
+
+    boolean findRepliedQuestion(int questionId) throws DAOException;
 }

@@ -22,7 +22,6 @@ import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_TEST_TABLE_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPPage.INDEX_PAGE;
 import static by.epam.lukashevich.domain.config.JSPPage.TEST_TABLE_PAGE;
-import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_SUBJECT_ERROR;
 
 /**
  * Adds test
@@ -30,15 +29,30 @@ import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_SUBJECT_E
  * @author Lukashevich_Y_A
  */
 public class CommandAddTest implements Command {
+
+
+    private SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private TestService testService = ServiceProvider.getInstance().getTestService();
+
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setTestService(TestService testService) {
+        this.testService = testService;
+    }
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, CommandException {
 
-        final SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
-        final UserService userService = ServiceProvider.getInstance().getUserService();
-
         final HttpSession session = request.getSession();
-        final TestService service = ServiceProvider.getInstance().getTestService();
+
 
         final String title = request.getParameter(TEST_TITLE);
         final String description = request.getParameter(TEST_DESCRIPTION);
@@ -58,8 +72,7 @@ public class CommandAddTest implements Command {
                     .withSubject(subject)
                     .withAuthor(author)
                     .build();
-            service.add(test);
-            session.setAttribute(MESSAGE_TO_JSP, MESSAGE_DELETE_SUBJECT_ERROR);
+            testService.add(test);
 
         } catch (ServiceException e) {
             response.sendRedirect(INDEX_PAGE);

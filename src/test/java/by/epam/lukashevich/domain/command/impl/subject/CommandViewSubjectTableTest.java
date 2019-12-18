@@ -1,6 +1,5 @@
 package by.epam.lukashevich.domain.command.impl.subject;
 
-import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.service.SubjectService;
 import org.junit.Test;
@@ -23,7 +22,8 @@ public class CommandViewSubjectTableTest {
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         SubjectService subjectService = mock(SubjectService.class);
-        Command command = new CommandViewSubjectTable(subjectService);
+        CommandViewSubjectTable command = new CommandViewSubjectTable();
+        command.setSubjectService(subjectService);
 
         String result = command.execute(mockRequest, mockResponse);
         verify(mockRequest, never()).getSession();
@@ -35,7 +35,8 @@ public class CommandViewSubjectTableTest {
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         SubjectService subjectService = mock(SubjectService.class);
-        Command command = new CommandViewSubjectTable(subjectService);
+        CommandViewSubjectTable command = new CommandViewSubjectTable();
+        command.setSubjectService(subjectService);
 
         String result = command.execute(mockRequest, mockResponse);
         verify(mockRequest, never()).getSession();

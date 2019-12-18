@@ -6,7 +6,6 @@ import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.command.impl.CommandViewIndex;
 import by.epam.lukashevich.domain.command.impl.question.CommandAddQuestion;
 import by.epam.lukashevich.domain.command.impl.question.CommandDeleteQuestion;
-import by.epam.lukashevich.domain.command.impl.question.CommandViewQuestionTable;
 import by.epam.lukashevich.domain.command.impl.question.CommandViewQuestionWorkPage;
 import by.epam.lukashevich.domain.command.impl.subject.CommandAddSubject;
 import by.epam.lukashevich.domain.command.impl.subject.CommandDeleteSubject;
@@ -79,7 +78,6 @@ public final class CommandProvider {
     }
 
     private void addQuestionCommands() {
-        commands.put(CommandName.VIEW_QUESTION_TABLE, new CommandViewQuestionTable());
         commands.put(CommandName.VIEW_QUESTION_WORK_PAGE, new CommandViewQuestionWorkPage());
         commands.put(CommandName.ADD_QUESTION, new CommandAddQuestion());
         commands.put(CommandName.DELETE_QUESTION, new CommandDeleteQuestion());

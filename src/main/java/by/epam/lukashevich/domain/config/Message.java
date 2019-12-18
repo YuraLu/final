@@ -17,6 +17,7 @@ public final class Message {
     public static final String MESSAGE_DATA_INVALID_INFO = "message.data.invalid_info";
     public static final String MESSAGE_DELETE_TEST_ERROR = "message.delete_test_error";
     public static final String MESSAGE_DELETE_SUBJECT_ERROR = "message.delete_subject_error";
+    public static final String MESSAGE_DELETE_QUESTION_ERROR = "message.delete_question_error";
     public static final String MESSAGE_NOT_ALLOWED = "message.not_allowed";
 
     public static final String MESSAGE_TEST_ADDED_SUCCESSFULLY = "message.test_added_successfully";

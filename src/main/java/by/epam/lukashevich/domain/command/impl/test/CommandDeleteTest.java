@@ -24,7 +24,11 @@ import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_TEST_ERRO
  */
 public class CommandDeleteTest implements Command {
 
-    private final TestService testService = ServiceProvider.getInstance().getTestService();
+    private TestService testService = ServiceProvider.getInstance().getTestService();
+
+    public void setTestService(TestService testService) {
+        this.testService = testService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +41,7 @@ public class CommandDeleteTest implements Command {
         try {
             testService.delete(id);
         } catch (ServiceException e) {
-            session.setAttribute(MESSAGE_TO_JSP, MESSAGE_DELETE_TEST_ERROR);
+            session.setAttribute(MESSAGE_ERRORS_TO_JSP, MESSAGE_DELETE_TEST_ERROR);
         }
 
         session.setAttribute(REDIRECT_COMMAND, VIEW_TEST_TABLE_COMMAND);

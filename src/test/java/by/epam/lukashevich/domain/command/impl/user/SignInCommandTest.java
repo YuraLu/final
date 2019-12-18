@@ -1,6 +1,5 @@
 package by.epam.lukashevich.domain.command.impl.user;
 
-import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
@@ -29,7 +28,8 @@ public class SignInCommandTest {
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignIn(userService);
+        CommandSignIn command = new CommandSignIn();
+        command.setUserService(userService);
 
         when(mockRequest.getParameter("login")).thenReturn("login");
         when(mockRequest.getParameter("password")).thenReturn("password");
@@ -45,7 +45,8 @@ public class SignInCommandTest {
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         HttpSession mockSession = mock(HttpSession.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignIn(userService);
+        CommandSignIn command = new CommandSignIn();
+        command.setUserService(userService);
 
         User user = mock(User.class);
         Role role = Role.ADMIN;
@@ -69,7 +70,8 @@ public class SignInCommandTest {
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         HttpSession mockSession = mock(HttpSession.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignIn(userService);
+        CommandSignIn command = new CommandSignIn();
+        command.setUserService(userService);
 
         User user = mock(User.class);
         Role role = Role.ADMIN;
@@ -94,7 +96,8 @@ public class SignInCommandTest {
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         HttpSession mockSession = mock(HttpSession.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignIn(userService);
+        CommandSignIn command = new CommandSignIn();
+        command.setUserService(userService);
 
         User user = mock(User.class);
         Role role = Role.ADMIN;

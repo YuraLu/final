@@ -21,13 +21,9 @@ import static by.epam.lukashevich.domain.config.Message.*;
 
 public class CommandSignIn implements Command {
 
-    private final UserService userService;
+    private UserService userService = ServiceProvider.getInstance().getUserService();
 
-    public CommandSignIn() {
-        this(ServiceProvider.getInstance().getUserService());
-    }
-
-    public CommandSignIn(UserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 

@@ -24,7 +24,11 @@ import static by.epam.lukashevich.domain.config.JSPPage.TEST_WORK_PAGE;
 
 public class CommandAddQuestion implements Command {
 
-    private final QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
+    private QuestionService questionService = ServiceProvider.getInstance().getQuestionService();
+
+    public void setQuestionService(QuestionService questionService) {
+        this.questionService = questionService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -35,7 +39,6 @@ public class CommandAddQuestion implements Command {
         final int testId = Integer.parseInt(request.getParameter(TEST_ID));
         final String[] questionAnswers = request.getParameterValues(QUESTION_ANSWERS);
         final String[] questionAnswerCorrect = request.getParameterValues(ANSWER_CORRECT);
-
 
         if (text.isEmpty()) {
             throw new CommandException("No data in text field during Question add in execute() CommandAddQuestion");

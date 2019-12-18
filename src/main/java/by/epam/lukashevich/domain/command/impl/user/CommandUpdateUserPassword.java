@@ -20,7 +20,11 @@ import static by.epam.lukashevich.domain.config.Message.MESSAGE_INVALID_INFO;
 
 public class CommandUpdateUserPassword implements Command {
 
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

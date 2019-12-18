@@ -19,7 +19,11 @@ import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_SUBJECT_E
 
 public class CommandDeleteSubject implements Command {
 
-    private final SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
+    private SubjectService subjectService = ServiceProvider.getInstance().getSubjectService();
+
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +35,7 @@ public class CommandDeleteSubject implements Command {
         try {
             subjectService.delete(id);
         } catch (ServiceException e) {
-            session.setAttribute(MESSAGE_TO_JSP, MESSAGE_DELETE_SUBJECT_ERROR);
+            session.setAttribute(MESSAGE_ERRORS_TO_JSP, MESSAGE_DELETE_SUBJECT_ERROR);
         }
         session.setAttribute(REDIRECT_COMMAND, VIEW_SUBJECT_TABLE_COMMAND);
         return SUBJECT_TABLE_PAGE;

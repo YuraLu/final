@@ -24,7 +24,11 @@ import static by.epam.lukashevich.domain.config.JSPPage.PASS_TEST_RESULT_PAGE;
  */
 public class CommandPassTestFinish implements Command {
 
-    private final AssignmentService assignmentService = ServiceProvider.getInstance().getAssignmentService();
+    private AssignmentService assignmentService = ServiceProvider.getInstance().getAssignmentService();
+
+    public void setAssignmentService(AssignmentService assignmentService) {
+        this.assignmentService = assignmentService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)

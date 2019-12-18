@@ -31,8 +31,6 @@ public final class JSPActionCommand {
     public static final String VIEW_SUBJECT_TABLE_COMMAND = "viewSubjectTable";
     public static final String ADD_SUBJECT_COMMAND = "addSubject";
     public static final String DELETE_SUBJECT_COMMAND = "deleteSubject";
-    public static final String VIEW_QUESTION_TABLE_COMMAND = "viewQuestionTable";
-    public static final String VIEW_QUESTION_ADD_PAGE_COMMAND = "viewQuestionAddPage";
     public static final String ADD_QUESTION_COMMAND = "addQuestion";
     public static final String DELETE_QUESTION_COMMAND = "deleteQuestion";
     public static final String VIEW_QUESTION_WORK_PAGE_COMMAND = "viewQuestionWorkPage";

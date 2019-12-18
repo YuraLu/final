@@ -15,12 +15,16 @@ import java.io.IOException;
 import static by.epam.lukashevich.domain.config.BeanFieldJsp.*;
 import static by.epam.lukashevich.domain.config.JSPActionCommand.VIEW_USER_TABLE_COMMAND;
 import static by.epam.lukashevich.domain.config.JSPPage.USER_TABLE_PAGE;
-import static by.epam.lukashevich.domain.config.Message.MESSAGE_DELETE_TEST_ERROR;
+import static by.epam.lukashevich.domain.config.Message.MESSAGE_DATA_CHANGED;
 import static by.epam.lukashevich.domain.config.Message.MESSAGE_INVALID_INFO;
 
 public class CommandChangeUserStatus implements Command {
 
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -29,8 +33,11 @@ public class CommandChangeUserStatus implements Command {
         final HttpSession session = request.getSession();
 
         try {
+
             int id = Integer.parseInt(request.getParameter(USER_FOR_ACTION));
             userService.updateStatus(id);
+            session.setAttribute(MESSAGE_TO_EDIT_USER, MESSAGE_DATA_CHANGED);
+
         } catch (ServiceException e) {
             session.setAttribute(MESSAGE_TO_EDIT_USER, MESSAGE_INVALID_INFO);
         }

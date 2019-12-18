@@ -1,6 +1,5 @@
 package by.epam.lukashevich.domain.command.impl.user;
 
-import by.epam.lukashevich.domain.command.Command;
 import by.epam.lukashevich.domain.command.exception.CommandException;
 import by.epam.lukashevich.domain.entity.user.Role;
 import by.epam.lukashevich.domain.entity.user.User;
@@ -32,7 +31,8 @@ public class SignUpCommandTest {
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         HttpSession mockSession = mock(HttpSession.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignUp(userService);
+        CommandSignUp command = new CommandSignUp();
+        command.setUserService(userService);
 
         User user = mock(User.class);
         Role role = Role.ADMIN;
@@ -50,9 +50,6 @@ public class SignUpCommandTest {
         mockSession.setAttribute(USER_ID, user.getId());
         mockSession.setAttribute(USER_ROLE_ID, role.getId());
 
-//        doThrow(UserServiceException.class).when(userService).registration(
-//                anyString(), anyString(), anyString(),
-//                anyString(), anyString(), anyObject());
         String result = command.execute(mockRequest, mockResponse);
 
         assertEquals(result, USER_CABINET_PAGE);
@@ -66,7 +63,8 @@ public class SignUpCommandTest {
         HttpServletResponse mockResponse = mock(HttpServletResponse.class);
         HttpSession mockSession = mock(HttpSession.class);
         UserService userService = mock(UserService.class);
-        Command command = new CommandSignUp(userService);
+        CommandSignUp command = new CommandSignUp();
+        command.setUserService(userService);
 
         when(mockRequest.getParameter("login")).thenReturn("1");
         when(mockRequest.getParameter("password")).thenReturn("password");

@@ -60,5 +60,6 @@ public final class BeanFieldJsp {
     public static final String MESSAGE_TO_JSP_PASSWORD = "errorMessagePassword";
     public static final String MESSAGE_TO_SIGN_UP = "errorMessageSingUp";
     public static final String MESSAGE_TO_EDIT_USER = "errorMessageEditUser";
+    public static final String MESSAGE_ERRORS_TO_JSP = "errors";
     public static final String REDIRECT_COMMAND = "redirectTo";
 }

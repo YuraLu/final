@@ -22,11 +22,15 @@ import static by.epam.lukashevich.domain.config.Message.*;
 
 public class CommandEditUser implements Command {
 
-    private final UserService userService = ServiceProvider.getInstance().getUserService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response)
-                                    throws ServletException, IOException, CommandException {
+            throws ServletException, IOException, CommandException {
 
         final HttpSession session = request.getSession();
 
