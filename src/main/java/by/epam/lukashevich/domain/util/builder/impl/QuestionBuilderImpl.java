@@ -39,16 +39,4 @@ public class QuestionBuilderImpl implements QuestionBuilder {
         this.answers = answers;
         return this;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getQuestionText() {
-        return questionText;
-    }
-
-    public List<Answer> getAnswers() {
-        return answers;
-    }
 }

@@ -49,16 +49,4 @@ public class ReplyBuilderImpl implements ReplyBuilder {
         this.answers = answers;
         return this;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public List<Answer> getAnswers() {
-        return answers;
-    }
 }

@@ -35,16 +35,4 @@ public class AnswerBuilderImpl implements AnswerBuilder {
         this.isCorrect = isCorrect;
         return this;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public boolean isCorrect() {
-        return isCorrect;
-    }
 }
