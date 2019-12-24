@@ -69,5 +69,34 @@ public class UserBuilderImpl implements UserBuilder {
         this.banned = banned;
         return this;
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public boolean isBanned() {
+        return banned;
+    }
 }
 

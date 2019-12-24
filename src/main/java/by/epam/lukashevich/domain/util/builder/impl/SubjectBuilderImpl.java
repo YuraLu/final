@@ -27,4 +27,12 @@ public class SubjectBuilderImpl implements SubjectBuilder {
         this.name = name;
         return this;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

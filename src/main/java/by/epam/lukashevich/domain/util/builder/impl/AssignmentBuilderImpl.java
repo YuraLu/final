@@ -68,4 +68,28 @@ public class AssignmentBuilderImpl implements AssignmentBuilder {
         this.date = date;
         return this;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+
+    public User getStudent() {
+        return student;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }

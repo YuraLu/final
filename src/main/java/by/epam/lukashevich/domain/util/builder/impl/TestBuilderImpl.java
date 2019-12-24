@@ -64,4 +64,28 @@ public class TestBuilderImpl implements TestBuilder {
         this.questions = questions;
         return this;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
 }
